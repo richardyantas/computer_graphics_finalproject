@@ -18,3 +18,12 @@ add_executable( testGL
 
 target_link_libraries( testGL
                        gengine )
+
+add_executable( testBulletGL
+                testBulletGL.cpp )
+
+target_link_libraries( testBulletGL
+                       gengine
+                       BulletCollision
+                       BulletDynamics
+                       LinearMath )

@@ -29,8 +29,8 @@ namespace engine
             for ( int d = 0; d < levelDivision; d++ )
             {
                 _r = sqrt( 1.0f - _y * _y );
-                _x = _r * cos( 2.0f * _PI * ( ( float ) d ) / levelDivision + _phaseAngle );
-                _z = _r * sin( 2.0f * _PI * ( ( float ) d ) / levelDivision + _phaseAngle );
+                _x = _r * cos( 2.0f * _PI * ( ( float ) d ) / levelDivision );
+                _z = _r * sin( 2.0f * _PI * ( ( float ) d ) / levelDivision );
 
                 _vertices.push_back( LVec3( radius * _x, radius * _y, radius * _z ) );
                 _normals.push_back( LVec3( _x, _y, _z ) );
