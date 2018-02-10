@@ -8,8 +8,11 @@ namespace engine
 
     LFixedCamera3d::LFixedCamera3d( const LVec3& pos,
                                     const LVec3& targetDir,
-                                    const LVec3& worldUp ) 
-        : LICamera( pos, targetDir, worldUp )
+                                    const LVec3& worldUp,
+                                    float fov,
+                                    float aspectRatio,
+                                    float zNear, float zFar ) 
+        : LICamera( pos, targetDir, worldUp, fov, aspectRatio, zNear, zFar )
     {
 
     }

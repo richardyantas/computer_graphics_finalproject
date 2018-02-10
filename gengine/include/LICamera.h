@@ -3,7 +3,7 @@
 #pragma once
 
 #include "LCommon.h"
-
+#include "../Config.h"
 
 namespace engine
 {
@@ -16,13 +16,21 @@ namespace engine
         LVec3 m_targetDir;
         LVec3 m_worldUp;
 
+        float m_fov;
+        float m_aspectRatio;
+        float m_zNear;
+        float m_zFar;
+
         virtual void _updateCamera();
 
         public :
 
         LICamera( const LVec3& pos,
                   const LVec3& targetDir,
-                  const LVec3& worldUp );
+                  const LVec3& worldUp,
+                  float fov = 45.0f,
+                  float aspectRatio = ( (float)APP_WIDTH ) / APP_HEIGHT,
+                  float zNear = 0.1f, float zFar = 100.0f );
 
         ~LICamera();
 
@@ -32,6 +40,7 @@ namespace engine
         void setPosition( const LVec3& pos );
 
         virtual glm::mat4 getViewMatrix() = 0;
+        glm::mat4 getProjectionMatrix();
 
         virtual void update( float dt ) 
         {

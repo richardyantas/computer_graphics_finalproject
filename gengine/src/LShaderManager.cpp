@@ -24,23 +24,24 @@ namespace engine
 // #ifdef USE_MODERN
         cout << "LShaderManager-> using glsl 330 core shaders" << endl;
 
-        _vShader = createShader( "res/shaders/basic3d_vs.glsl", GL_VERTEX_SHADER );
-        _fShader = createShader( "res/shaders/basic3d_fs.glsl", GL_FRAGMENT_SHADER );
+        _vShader = createShader( "basic3d_vs.glsl", GL_VERTEX_SHADER );
+        _fShader = createShader( "basic3d_fs.glsl", GL_FRAGMENT_SHADER );
         _program = createProgram( _vShader, _fShader );
 
         programs["basic3d"] = _program;
+        programObjs["basic3d"] = new LShaderBasic3d( _program );
 
-        _vShader = createShader( "res/shaders/basic3d_lighting_vs.glsl", GL_VERTEX_SHADER );
-        _fShader = createShader( "res/shaders/basic3d_lighting_fs.glsl", GL_FRAGMENT_SHADER );
-        _program = createProgram( _vShader, _fShader );
+        // _vShader = createShader( "res/shaders/basic3d_lighting_vs.glsl", GL_VERTEX_SHADER );
+        // _fShader = createShader( "res/shaders/basic3d_lighting_fs.glsl", GL_FRAGMENT_SHADER );
+        // _program = createProgram( _vShader, _fShader );
 
-        programs["basic3d_lighting"] = _program;
+        // programs["basic3d_lighting"] = _program;
 
-        _vShader = createShader( "res/shaders/debug_shader3d_vs.glsl", GL_VERTEX_SHADER );
-        _fShader = createShader( "res/shaders/debug_shader3d_fs.glsl", GL_FRAGMENT_SHADER );
-        _program = createProgram( _vShader, _fShader );
+        // _vShader = createShader( "res/shaders/debug_shader3d_vs.glsl", GL_VERTEX_SHADER );
+        // _fShader = createShader( "res/shaders/debug_shader3d_fs.glsl", GL_FRAGMENT_SHADER );
+        // _program = createProgram( _vShader, _fShader );
 
-        programs["debug3d"] = _program;
+        // programs["debug3d"] = _program;
 // #else
 //         cout << "LShaderManager-> using glsl 120 shaders" << endl;
 
@@ -134,11 +135,14 @@ namespace engine
         string _shaderStrCode;
         ifstream _shaderFile;
 
+        string _fullFilePath = ENGINE_SHADERS_PATH;
+        _fullFilePath += filename;
+
         _shaderFile.exceptions( ifstream::badbit );
 
         try 
         {
-            _shaderFile.open( filename );
+            _shaderFile.open( _fullFilePath.c_str() );
             stringstream _shaderStream;
             _shaderStream << _shaderFile.rdbuf();
 
@@ -168,7 +172,7 @@ namespace engine
         {
             glGetShaderInfoLog( _shaderId, 1024, 
                                 NULL, _infoLog );
-            cout << "Shader: " << filename << endl;
+            cout << "Shader: " << _fullFilePath << endl;
             cout << "Failed to compile shader" << endl;
             cout << "Error: " << _infoLog << endl;
 

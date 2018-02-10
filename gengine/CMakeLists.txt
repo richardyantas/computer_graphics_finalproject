@@ -5,7 +5,9 @@ include_directories( include/ )
 include_directories( ../ext/glm )
 include_directories( ../ext/stb )
 include_directories( ../ext/glfw/include )
-include_directories( ../ext/glew/include )
+# include_directories( ../ext/glew/include )
+
+link_directories( /usr/local/lib )
 
 add_library( gengine
              src/LCommon.cpp
@@ -35,10 +37,9 @@ add_library( gengine
              src/LWindow.cpp )
 
 target_link_libraries( gengine 
-                       glewd 
+                       GLEW::GLEW 
                        glfw
                        ${OPENGL_LIBRARIES} )
-
 
 
 message( "Configuring gl engine done" )

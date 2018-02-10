@@ -8,8 +8,11 @@ namespace engine
 {
 
     LFpsCamera::LFpsCamera( const LVec3& pos,
-                            const LVec3& worldUp ) 
-        : LICamera( pos, LVec3(), worldUp )
+                            const LVec3& worldUp,
+                            float fov,
+                            float aspectRatio,
+                            float zNear, float zFar ) 
+        : LICamera( pos, LVec3(), worldUp, fov, aspectRatio, zNear, zFar )
     {
         m_roll = 0.0f;
         m_pitch = CAM_DEFAULT_PITCH;

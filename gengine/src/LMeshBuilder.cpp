@@ -7,6 +7,59 @@ using namespace std;
 
 namespace engine
 {
+    LMesh* LMeshBuilder::createSphere( GLfloat radius, int levelDivision , int numLevels )
+    {
+        LMesh* _mesh = NULL;
+
+        vector<LVec3> _vertices;
+        vector<LVec3> _normals;
+        vector<LInd3> _indices;
+
+        // adapted from here :
+        // https://www.opengl.org/discussion_boards/showthread.php/159584-sphere-generation
+
+        // make vertices
+        GLfloat _x, _y, _z, _r;
+
+        for ( int l = -numLevels; l <= numLevels; l++ )
+        {
+            // _y = ( ( float )l ) / ( numLevels + 1 );
+            _y = sin( 0.5 * _PI * ( ( float )l ) / ( numLevels + 1 ) );
+
+            for ( int d = 0; d < levelDivision; d++ )
+            {
+                _r = sqrt( 1.0f - _y * _y );
+                _x = _r * cos( 2.0f * _PI * ( ( float ) d ) / levelDivision + _phaseAngle );
+                _z = _r * sin( 2.0f * _PI * ( ( float ) d ) / levelDivision + _phaseAngle );
+
+                _vertices.push_back( LVec3( radius * _x, radius * _y, radius * _z ) );
+                _normals.push_back( LVec3( _x, _y, _z ) );
+            }
+        }
+
+        for ( int l = 0; l < 2 * numLevels; l++ )
+        {
+            int _vl = l * levelDivision;
+            int _vlNext = ( l + 1 ) * levelDivision;
+
+            // Connect sides
+            for ( int s = 0; s < levelDivision; s++ )
+            {
+                int _p0 = _vl + s;
+                int _p1 = _vl + ( ( s + 1 ) % levelDivision );
+                int _p0n = _vlNext + s;
+                int _p1n = _vlNext + ( ( s + 1 ) % levelDivision );
+
+                _indices.push_back( LInd3( _p0, _p1n, _p0n ) );
+                _indices.push_back( LInd3( _p0, _p1, _p1n ) );
+            }
+        }
+
+        _mesh = new LMesh( _vertices, _normals, _indices );
+
+        return _mesh;
+    }
+
 
     LMesh* LMeshBuilder::createBox( GLfloat width, GLfloat height, GLfloat depth )
     {

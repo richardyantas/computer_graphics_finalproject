@@ -10,7 +10,8 @@ set( CMAKE_CXX_FLAGS_RELEASE "-O3 -Wno-unused-parameter" )
 
 find_package( Bullet REQUIRED )
 
-# message( "bullet libraries: ${BULLET_LIBRARIES}" )
+message( "bullet libraries: ${BULLET_LIBRARIES}" )
+message( "bullet includes: ${BULLET_INCLUDE_DIRS}" )
 
 if( WIN32 )
 
@@ -24,27 +25,29 @@ elseif( UNIX AND NOT APPLE )
   message( "CONFIGURING finalproject FOR LINUX" )
 
   find_package( OpenGL REQUIRED )
+  find_package( GLEW REQUIRED )
 
 elseif( APPLE )
 
   message( "CONFIGURING finalproject FOR APPLE" )
 
   find_package( OpenGL REQUIRED )
+  find_package( GLEW REQUIRED )
 
 endif()
 
-add_subdirectory( ext/glfw )
-add_subdirectory( ext/glm )
-add_subdirectory( ext/glew )
-add_subdirectory( gengine )
-
 include_directories( gengine/include 
-                     ext/glew/include 
+                     # ext/glew/include 
                      ext/glfw/include 
                      ext/glm/
                      ext/stb )
 
+add_subdirectory( ext/glfw )
+add_subdirectory( ext/glm )
+# add_subdirectory( ext/glew )
+add_subdirectory( gengine )
 
+add_subdirectory( tests )
 
 
 

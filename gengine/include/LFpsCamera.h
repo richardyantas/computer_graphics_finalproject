@@ -43,7 +43,10 @@ namespace engine
         public :
 
         LFpsCamera( const LVec3& pos,
-                    const LVec3& worldUp );
+                    const LVec3& worldUp,
+                    float fov = 45.0f,
+                    float aspectRatio = ( (float)APP_WIDTH ) / APP_HEIGHT,
+                    float zNear = 0.1f, float zFar = 100.0f );
 
         glm::mat4 getViewMatrix() override;
 
