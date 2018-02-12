@@ -1,7 +1,7 @@
 
 message( "Configuring tests" )
 
-include_directories( ${BULLET_INCLUDE_DIRS} ../gengine/include )
+include_directories( ${BULLET_INCLUDE_DIRS} ../gengine/include ../tysoc/include )
 link_directories( ../lib /usr/local/lib )
 
 add_executable( testBullet
@@ -27,3 +27,9 @@ target_link_libraries( testBulletGL
                        BulletCollision
                        BulletDynamics
                        LinearMath )
+
+add_executable( testTysoc
+                testTysoc.cpp )
+
+target_link_libraries( testTysoc
+                       tysoc )

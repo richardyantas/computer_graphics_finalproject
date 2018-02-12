@@ -89,7 +89,7 @@ int main()
 
         {
             _shader->setModelMatrix( _sphere->getModelMatrix() );
-            _shader->setPlainColor( engine::LVec3( 0, 0, 255 ) );
+            _shader->setColor( engine::LVec3( 0, 0, 255 ) );
             _sphere->render();
         }
 

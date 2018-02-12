@@ -3,18 +3,48 @@
 #pragma once
 
 #include "LCommon.h"
+#include "LMaterial.h"
+
+using namespace std;
 
 namespace engine
 {
 
     class LIRenderable
     {
+        protected :
+ 
+        int m_type;
+        LMaterial* m_material;
+        vector< LTexture* > m_textures;
 
         public :
 
-        virtual void render() = 0;
+        LVec3 pos;
+        glm::mat4 rotation;
+        LVec3 scale;
 
-        virtual bool isTextured() { return false; }
+        int getType() { return m_type; }
+
+        void setMaterial( LMaterial* pMaterial )
+        {
+            delete m_material;
+            m_material = pMaterial;
+        }
+
+        LMaterial* getMaterial() const 
+        { 
+            return m_material; 
+        }
+
+        void addTexture( LTexture* pTexture )
+        {
+            m_textures.push_back( pTexture );
+        }
+
+        int hasTextures() { return m_textures.size(); }
+
+        virtual void render() = 0;
     };
 
 }

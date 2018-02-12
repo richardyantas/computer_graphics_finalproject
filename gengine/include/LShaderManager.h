@@ -28,15 +28,13 @@ namespace engine
 
         map< string, GLuint > programs;
         map< string, LShader* > programObjs;
-        GLuint currentShader;
 
         static LShaderManager* INSTANCE;
 
         static void create();
-        ~LShaderManager();
-        void release();
+        static void release();
 
-        void setCurrentShader( string sId );
+        ~LShaderManager();
 
         GLuint createShader( const char* filename, int shaderType );
         GLuint createProgram( GLuint vShader, GLuint fShader );

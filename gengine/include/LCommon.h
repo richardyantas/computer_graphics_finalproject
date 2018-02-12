@@ -22,6 +22,10 @@ using namespace std;
 
 #define GL_TO_WORLD 1.0f
 
+#define RENDERABLE_TYPE_BASE 0
+#define RENDERABLE_TYPE_MESH 1
+#define RENDERABLE_MAX_TYPE 2
+
 namespace engine
 {
 

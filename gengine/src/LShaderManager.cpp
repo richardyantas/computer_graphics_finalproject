@@ -106,15 +106,19 @@ namespace engine
 
     LShaderManager::~LShaderManager()
     {
-        release();
-    }
-
-    void LShaderManager::release()
-    {
         map< string, GLuint >::iterator _it;
         for ( _it = programs.begin(); _it != programs.end(); ++_it )
         {
             glDeleteProgram( _it->second );
+        }
+    }
+
+    void LShaderManager::release()
+    {
+        if ( LShaderManager::INSTANCE != NULL )
+        {
+            delete LShaderManager::INSTANCE;
+            LShaderManager::INSTANCE = NULL;
         }
     }
 

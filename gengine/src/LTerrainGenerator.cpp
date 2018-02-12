@@ -37,8 +37,7 @@ namespace engine
         
         for ( int q = 0; q < 7; q++ )
         {
-            m_materials.push_back( new LMaterial( LVec3( 0.1f, 0.1f, 0.1f ),
-                                                  _vWhite, _vWhite, _vWhite,
+            m_materials.push_back( new LMaterial( _vWhite, _vWhite, _vWhite,
                                                   120.0f ) );
         }
 

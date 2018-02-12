@@ -114,8 +114,6 @@ namespace engine
 
         virtual void update( float dt );
 
-        void setShadingMode( bool useSmoothShading );
-
     };
 
 

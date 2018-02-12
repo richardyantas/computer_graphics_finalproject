@@ -46,7 +46,7 @@ namespace engine
             _setMat4( m_uProj, mat );
         }
 
-        void setPlainColor( const LVec3& color )
+        void setColor( const LVec3& color )
         {
             _setVec3( m_uColor, color );
         }

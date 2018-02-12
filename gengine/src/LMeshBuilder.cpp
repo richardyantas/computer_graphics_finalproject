@@ -245,7 +245,6 @@ namespace engine
         }
 
         _mesh = new LMesh( _vertices, _normals, _indices );
-        _mesh->type = "sphere";
         
         return _mesh;
     }
@@ -273,7 +272,6 @@ namespace engine
         _parseObj( _fileHandle, _objInfo );
 
         _mesh = new LMesh( _objInfo.vertices, _objInfo.normals, _objInfo.texCoords );
-        _mesh->type = "obj";
         
         return _mesh;
     }

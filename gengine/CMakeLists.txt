@@ -5,7 +5,6 @@ include_directories( include/ )
 include_directories( ../ext/glm )
 include_directories( ../ext/stb )
 include_directories( ../ext/glfw/include )
-# include_directories( ../ext/glew/include )
 
 link_directories( /usr/local/lib )
 
@@ -28,7 +27,6 @@ add_library( gengine
              src/LMesh.cpp
              src/LScene.cpp
              src/LTerrainGenerator.cpp
-             src/LSceneRenderer.cpp
              src/LShader.cpp
              src/LShaderManager.cpp
              src/LAssetsManager.cpp
@@ -42,4 +40,4 @@ target_link_libraries( gengine
                        ${OPENGL_LIBRARIES} )
 
 
-message( "Configuring gl engine done" )
+message( "Configuring gl engine - done" )

@@ -6,7 +6,6 @@
 #include "LVertexArray.h"
 #include "LIndexBuffer.h"
 #include "LIRenderable.h"
-#include "LMaterial.h"
 
 using namespace std;
 
@@ -23,7 +22,6 @@ namespace engine
 
         LVertexArray* m_vertexArray;
         LIndexBuffer* m_indexBuffer;
-        LMaterial* m_material;
 
         LVertexBuffer* m_vBuffer;
         LVertexBuffer* m_nBuffer;
@@ -37,14 +35,7 @@ namespace engine
 
         public :
 
-        string type;
-
         bool drawAsWireframe;
-        bool drawEnvMapped;
-
-        LVec3 pos;
-        glm::mat4 rotation;
-        LVec3 scale;
 
         LMesh( const vector<LVec3>& vertices, 
                const vector<LVec3>& normals,
@@ -56,20 +47,10 @@ namespace engine
 
         ~LMesh();
 
-        void recomputeNormals( bool useSmoothShading );
-
         glm::mat4 getModelMatrix();
-
-        void setMaterial( LMaterial* pMaterial );
-        LMaterial* getMaterial() const { return m_material; }
-
-        void setTexture( LTexture* pTexture, const vector<LVec2>& texCoord );
-        void setTexCoordinates( const vector<LVec2>& texCoord );
 
         LVertexArray* getVertexArray() const { return m_vertexArray; }
         LIndexBuffer* getIndexBuffer() const { return m_indexBuffer; }
-
-        bool isTextured() override;
 
         void render() override;
     };

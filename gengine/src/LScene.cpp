@@ -73,18 +73,6 @@ namespace engine
         }
     }
 
-    void LScene::setShadingMode( bool useSmoothShading )
-    {
-        for ( LEntity* _entity : m_entities )
-        {
-            auto _meshComponent = _entity->getComponent<LMeshComponent>();
-            if ( _meshComponent != NULL )
-            {
-                _meshComponent->getMesh()->recomputeNormals( useSmoothShading );
-            }
-        }
-    }
-
     void LScene::addFog( LFog* pFog )
     {
         if ( m_fog != NULL )
