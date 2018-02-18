@@ -10,5 +10,8 @@
 #define APP_WIDTH  1024
 #define APP_HEIGHT 768
 
-#define ENGINE_SHADERS_PATH "../res/shaders/"
-#define ENGINE_IMGS_PATH "../res/imgs/"
+#ifdef TYSOC_RESOURCES_PATH
+	#define ENGINE_RESOURCES_PATH TYSOC_RESOURCES_PATH
+#else
+	#define ENGINE_RESOURCES_PATH "../res/"
+#endif

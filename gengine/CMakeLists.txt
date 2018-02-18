@@ -1,12 +1,7 @@
 
 message( "Configuring gl engine ..." )
 
-include_directories( include/ )
-include_directories( ../ext/glm )
-include_directories( ../ext/stb )
-include_directories( ../ext/glfw/include )
-
-link_directories( /usr/local/lib )
+include_directories( ${TYSOC_INCLUDE_DIRECTORIES} )
 
 add_library( gengine
              src/LCommon.cpp
@@ -35,8 +30,7 @@ add_library( gengine
              src/LWindow.cpp )
 
 target_link_libraries( gengine 
-                       GLEW::GLEW 
-                       glfw
+                       glfw glad
                        ${OPENGL_LIBRARIES} )
 
 

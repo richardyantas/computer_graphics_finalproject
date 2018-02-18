@@ -1,7 +1,8 @@
 
 message( "Configuring tysoc engine ..." )
 
-include_directories( ../gengine/include include/ ${BULLET_INCLUDE_DIRS} )
+include_directories( ${TYSOC_INCLUDE_DIRECTORIES} )
+#link_directories( ${TYSOC_LIBRARY_DIRECTORIES} )
 
 add_library( tysoc
              src/TApp.cpp

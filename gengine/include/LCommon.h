@@ -1,8 +1,9 @@
 
 #pragma once
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <iostream>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <cmath>

@@ -5,9 +5,7 @@
 #include "../Config.h"
 #include "../Common.h"
 
-// #define GLEW_STATIC
-#include <GL/glew.h>
-
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #define CLEAR_COLOR 0.529f, 0.807f, 0.92f, 1.0f

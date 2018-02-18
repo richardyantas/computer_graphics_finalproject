@@ -43,8 +43,7 @@ namespace engine
 
         glfwMakeContextCurrent( m_window );
 
-        glewExperimental = GL_TRUE;
-        if ( glewInit() != GLEW_OK )
+        if ( !gladLoadGLLoader( ( GLADloadproc ) glfwGetProcAddress ) )
         {
             glfwTerminate();
             m_initialized = false;

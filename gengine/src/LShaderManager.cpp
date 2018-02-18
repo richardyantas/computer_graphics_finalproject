@@ -139,8 +139,11 @@ namespace engine
         string _shaderStrCode;
         ifstream _shaderFile;
 
-        string _fullFilePath = ENGINE_SHADERS_PATH;
+        string _fullFilePath = ENGINE_RESOURCES_PATH;
+		_fullFilePath += "shaders/";
         _fullFilePath += filename;
+
+        cout << "file: " << _fullFilePath << endl;
 
         _shaderFile.exceptions( ifstream::badbit );
 

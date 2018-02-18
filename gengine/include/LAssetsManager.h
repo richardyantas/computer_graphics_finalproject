@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LCommon.h"
+#include "../Config.h"
 
 #include <string>
 #include <map>

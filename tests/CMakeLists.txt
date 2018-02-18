@@ -1,8 +1,8 @@
 
 message( "Configuring tests" )
 
-include_directories( ${BULLET_INCLUDE_DIRS} ../gengine/include ../tysoc/include )
-link_directories( ../lib /usr/local/lib )
+include_directories( ${TYSOC_INCLUDE_DIRECTORIES} )
+#link_directories( ${TYSOC_LIBRARY_DIRECTORIES} )
 
 add_executable( testBullet
                 testBullet.cpp )

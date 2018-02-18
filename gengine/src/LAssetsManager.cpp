@@ -68,7 +68,7 @@ namespace engine
     {
         LTextureData* _textureData = new LTextureData();
 
-        string _strFilename = string( "res/imgs/" ) + string( filename ) + ftype;
+        string _strFilename = string( ENGINE_RESOURCES_PATH ) + string( "imgs/" ) + string( filename ) + ftype;
 
         _textureData->data = stbi_load( _strFilename.c_str(), 
                                     &_textureData->width, 
