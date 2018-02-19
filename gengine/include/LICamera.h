@@ -5,6 +5,8 @@
 #include "LCommon.h"
 #include "../Config.h"
 
+using namespace std;
+
 namespace engine
 {
 
@@ -20,6 +22,8 @@ namespace engine
         float m_aspectRatio;
         float m_zNear;
         float m_zFar;
+
+        string m_cameraId;
 
         virtual void _updateCamera();
 
@@ -45,6 +49,21 @@ namespace engine
         virtual void update( float dt ) 
         {
             // Override this
+        }
+
+        virtual void dumpInfo()
+        {
+            cout << "Camera base information for camera < " << m_cameraId << " > *******" << endl;
+
+            cout << "pos: " << m_pos.toString() << endl;
+            cout << "targetDir: " << m_targetDir.toString() << endl;
+            cout << "worldUp: " << m_worldUp.toString() << endl;
+            cout << "fov: " << m_fov << endl;
+            cout << "aspectRatio: " << m_aspectRatio << endl;
+            cout << "zNear: " << m_zNear << endl;
+            cout << "zFar: " << m_zFar << endl;
+
+            cout << "******************************************" << endl;
         }
 
     };

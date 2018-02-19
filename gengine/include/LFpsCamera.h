@@ -52,6 +52,7 @@ namespace engine
 
         void update( float dt ) override;
 
+        void dumpInfo() override;
     };
 
 

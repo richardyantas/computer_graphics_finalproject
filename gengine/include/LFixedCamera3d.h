@@ -11,6 +11,10 @@ namespace engine
 
     class LFixedCamera3d : public LICamera
     {
+        private :
+
+        float m_movSpeed;
+        LVec3 m_movDirection;
 
         protected :
 
@@ -27,6 +31,13 @@ namespace engine
 
         glm::mat4 getViewMatrix() override;
 
+        void update( float dt ) override;
+
+        void setMovVelocity( float speed, const LVec3& direction )
+        {
+            m_movSpeed = speed;
+            m_movDirection = direction;
+        }
     };
 
 

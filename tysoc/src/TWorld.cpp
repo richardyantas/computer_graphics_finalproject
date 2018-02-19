@@ -95,6 +95,11 @@ namespace tysoc
 
     void TWorld::update( float dt )
     {
+        if ( m_currentCamera != NULL )
+        {
+            m_currentCamera->update( dt );
+        }
+
         m_btWorld->stepSimulation( 1 / 60.f, 10 );
 
         for ( auto _entity : m_entities )
@@ -130,4 +135,11 @@ namespace tysoc
         }
     }
 
+    void TWorld::dumpInfo()
+    {
+        if ( m_currentCamera != NULL )
+        {
+            m_currentCamera->dumpInfo();
+        }
+    }
 }

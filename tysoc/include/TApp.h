@@ -30,12 +30,17 @@ namespace tysoc
 
         public :
 
+        static TApp* INSTANCE;
+
         TApp();
         ~TApp();
 
         virtual void init();
-
+        virtual void dumpInfo();
         void run();
+
+        static void onKeyCallback( int key, int action );
+
     };
 
 

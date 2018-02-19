@@ -68,6 +68,13 @@ namespace engine
 			return;
 		}
 
+        auto _userCallbacks = LInputHandler::INSTANCE->getUserCallbacks();
+
+        for ( auto _callback : _userCallbacks )
+        {
+            _callback( key, action );
+        }
+
 		LInputHandler::INSTANCE->m_keys[key] = action;
 	}
 

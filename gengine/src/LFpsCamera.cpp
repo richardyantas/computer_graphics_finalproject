@@ -4,6 +4,8 @@
 
 // TODO: Port the camera to a more intuitive implementation, e.g. speed.x should be speed.z
 
+using namespace std;
+
 namespace engine
 {
 
@@ -106,5 +108,20 @@ namespace engine
 
         m_up = LVec3::cross( m_right, m_front );
         m_up.normalize();
+    }
+
+    void LFpsCamera::dumpInfo()
+    {
+        cout << "Camera base information for camera < " << m_cameraId << " > *******" << endl;
+
+        cout << "pos: " << m_pos.toString() << endl;
+        cout << "targetDir: " << m_front.toString() << endl;
+        cout << "worldUp: " << m_worldUp.toString() << endl;
+        cout << "fov: " << m_fov << endl;
+        cout << "aspectRatio: " << m_aspectRatio << endl;
+        cout << "zNear: " << m_zNear << endl;
+        cout << "zFar: " << m_zFar << endl;
+
+        cout << "******************************************" << endl;
     }
 }

@@ -11,7 +11,7 @@ namespace tysoc
         m_terrainRenderer = new TTerrainRenderer();
         m_entitiesRenderer = new TEntitiesRenderer();
 
-        m_drawAsWireframe = false;
+        m_drawAsWireframe = true;
     }
 
     TMasterRenderer::~TMasterRenderer()
@@ -34,7 +34,7 @@ namespace tysoc
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         }
 
-        // m_terrainRenderer->render();
+        m_terrainRenderer->render();
         m_entitiesRenderer->render();
 
         if ( m_drawAsWireframe )

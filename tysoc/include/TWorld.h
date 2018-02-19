@@ -67,6 +67,8 @@ namespace tysoc
 
         TTerrain1D* getTerrain() { return m_terrain; }
 
+        virtual void dumpInfo();
+
     };
 
 }

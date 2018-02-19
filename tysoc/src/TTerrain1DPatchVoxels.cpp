@@ -59,9 +59,9 @@ namespace tysoc
         auto _box = engine::LMeshBuilder::createBox( boxVoxelInfo.size.x,
                                                      boxVoxelInfo.size.y,
                                                      boxVoxelInfo.size.z );
-        _box->rotation = glm::mat4( glm::vec4( _xAxis.x, _xAxis.y, _xAxis.z, 1.0f ), 
-                                    glm::vec4( _yAxis.x, _yAxis.y, _yAxis.z, 1.0f ), 
-                                    glm::vec4( _zAxis.x, _zAxis.y, _zAxis.z, 1.0f ), 
+        _box->rotation = glm::mat4( glm::vec4( _xAxis.x, _xAxis.y, _xAxis.z, 0.0f ), 
+                                    glm::vec4( _yAxis.x, _yAxis.y, _yAxis.z, 0.0f ), 
+                                    glm::vec4( _zAxis.x, _zAxis.y, _zAxis.z, 0.0f ), 
                                     glm::vec4( glm::vec3( 0.0f ), 1.0f ) );
         _box->pos = boxVoxelInfo.center;
 
@@ -87,6 +87,7 @@ namespace tysoc
         auto _rbMotionState = new btDefaultMotionState( _rbTransform );
         btRigidBody::btRigidBodyConstructionInfo _rbConstructionInfo( 0.0, _rbMotionState, _rbShape, btVector3( 0, 0, 0 ) );
         auto _rbBody = new btRigidBody( _rbConstructionInfo );
+        _rbBody->setRestitution( 1.0f );
 
         m_pVoxels.push_back( _rbBody );
     }

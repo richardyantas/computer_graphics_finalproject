@@ -30,8 +30,8 @@ namespace engine
         glfwWindowHint( GLFW_RESIZABLE, APP_RESIZABLE );
 
         m_window = glfwCreateWindow( APP_WIDTH,
-                                     APP_HEIGHT,
-                                     APP_NAME, NULL, NULL );
+            APP_HEIGHT,
+            APP_NAME, NULL, NULL );
 
         if ( m_window == NULL )
         {
@@ -57,9 +57,11 @@ namespace engine
         glfwGetFramebufferSize( m_window, &m_width, &m_height );
         glViewport( 0, 0, m_width, m_height );
 
+        glEnable( GL_DEPTH_TEST );
+
         glClearColor( CLEAR_COLOR );
-        
-        
+
+
         m_initialized = true;
     }
 
@@ -75,8 +77,8 @@ namespace engine
         glfwTerminate();
     }
 
-    void LWindow::onKeyCallback( GLFWwindow* pWindow, int key, 
-                                 int scancode, int action, int mode )
+    void LWindow::onKeyCallback( GLFWwindow* pWindow, int key,
+        int scancode, int action, int mode )
     {
         if ( LWindow::INSTANCE->m_keyCallback == NULL )
         {
@@ -86,14 +88,14 @@ namespace engine
         LWindow::INSTANCE->m_keyCallback( key, action );
     }
 
-    void LWindow::onMouseCallback( GLFWwindow* pWindow, int button, 
-                                   int action, int mode )
+    void LWindow::onMouseCallback( GLFWwindow* pWindow, int button,
+        int action, int mode )
     {
         if ( LWindow::INSTANCE->m_mouseCallback == NULL )
         {
             return;
         }
-        
+
         double _x, _y;
         glfwGetCursorPos( pWindow, &_x, &_y );
 
@@ -107,7 +109,7 @@ namespace engine
             return;
         }
 
-        LWindow::INSTANCE->m_mouseMoveCallback( (double)x, (double)y );
+        LWindow::INSTANCE->m_mouseMoveCallback( ( double ) x, ( double ) y );
     }
 
     void LWindow::registerKeyCallback( FnPtr_keyboard_callback callback )

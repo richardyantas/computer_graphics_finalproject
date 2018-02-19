@@ -14,7 +14,8 @@ namespace engine
                                     float zNear, float zFar ) 
         : LICamera( pos, targetDir, worldUp, fov, aspectRatio, zNear, zFar )
     {
-
+        m_movSpeed = 0.0f;
+        m_movDirection = LVec3( 0, 0, 0 );
     }
 
     glm::mat4 LFixedCamera3d::getViewMatrix()
@@ -31,5 +32,12 @@ namespace engine
     {
         m_targetDir = LVec3( -m_pos.x, -m_pos.y, -m_pos.z );
         m_targetDir.normalize();
+    }
+
+    void LFixedCamera3d::update( float dt )
+    {
+        m_pos.x += m_movDirection.x * m_movSpeed * dt;
+        m_pos.y += m_movDirection.y * m_movSpeed * dt;
+        m_pos.z += m_movDirection.z * m_movSpeed * dt;
     }
 }

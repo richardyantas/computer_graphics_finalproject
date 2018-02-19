@@ -28,6 +28,9 @@ namespace tysoc
 
         void setMovementSpeed( float movSpeed, engine::LVec3 direction );
         void jump( float force );
+
+        float movSpeed() { return m_movSpeed; }
+        engine::LVec3 movDirection() { return m_movDirection; }
     };
 
 

@@ -4,6 +4,9 @@
 
 #include "LWindow.h"
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 namespace engine
 {
@@ -21,6 +24,8 @@ namespace engine
 		float m_mouseX;
 		float m_mouseY;
 
+        vector< FnPtr_keyboard_callback > m_userCallbacks;
+
 		public :
 
 		~LInputHandler();
@@ -34,6 +39,8 @@ namespace engine
 		static void callback_mouse( int button, int action, double x, double y );
         static void callback_mouseMove( double x, double y );
 
+        void addUserCallback( FnPtr_keyboard_callback userCallback ) { m_userCallbacks.push_back( userCallback ); }
+        vector< FnPtr_keyboard_callback > getUserCallbacks() { return m_userCallbacks; }
 
 		bool isKeyPressed( int key );
 		bool isButtonPressed( int button );

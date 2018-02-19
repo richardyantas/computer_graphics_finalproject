@@ -26,15 +26,24 @@ void TestApp::init()
 {
     cout << "initializing testapp" << endl;
     m_world = new tysoc::TWorld();
-    m_world->addEntity( new tysoc::TPlayerEntity( engine::LVec3( 0, 5, 0 ) ) );
+
+    auto _player = new tysoc::TPlayerEntity( engine::LVec3( 5, 15, 0 ) );
+    m_world->addEntity( _player );
+
     m_world->setTerrain( new tysoc::TTerrain1DPatched( m_world ) );
-    m_world->addCamera( new engine::LFixedCamera3d( engine::LVec3( 10.0f, 0.0f, 10.0f ),
-                                                    engine::LVec3( -10.0f, 0.0f, -10.0f ),
-                                                    engine::LVec3( 0.0f, 1.0f, 0.0f ) ),
-                        "mainCamera" );
-    // m_world->addCamera( new engine::LFpsCamera( engine::LVec3( 0.0f, 0.0f, 0.0f ),
-    //                                             engine::LVec3( 0.0f, 1.0f, 0.0f ) ),
-    //                     "mainCamera" );
+
+    auto _camera = new engine::LFixedCamera3d( engine::LVec3( 22.8f, 17.8f, 22.1f ),
+                                               engine::LVec3( -0.44f, -0.33f, -0.83f ),
+                                               engine::LVec3( 0.0f, 1.0f, 0.0f ) );
+
+    //auto _camera = new engine::LFpsCamera( engine::LVec3( 10.0f, 0.0f, 10.0f ),
+    //                                       engine::LVec3( 0.0f, 1.0f, 0.0f ) );
+
+    m_world->addCamera( _camera, "mainCamera" );
+
+
+    _camera->setMovVelocity( 0.1 * _player->movSpeed(), _player->movDirection() );
+
 
     cout << "done initializing testapp" << endl;
 }

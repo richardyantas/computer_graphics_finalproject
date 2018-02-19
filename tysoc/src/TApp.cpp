@@ -4,13 +4,17 @@
 
 namespace tysoc
 {
-
+    TApp* TApp::INSTANCE = NULL;
 
     TApp::TApp()
     {
+        TApp::INSTANCE = this;
+
         m_window = new engine::LWindow();
         engine::LInputHandler::create( m_window );
         engine::LShaderManager::create();
+
+        engine::LInputHandler::INSTANCE->addUserCallback( TApp::onKeyCallback );
 
         m_masterRenderer = new TMasterRenderer();
 
@@ -74,5 +78,21 @@ namespace tysoc
             m_window->swapBuffers();
         }
 
+    }
+
+    void TApp::onKeyCallback( int key, int action )
+    {
+        if ( key == GLFW_KEY_I )
+        {
+            TApp::INSTANCE->dumpInfo();
+        }
+    }
+
+    void TApp::dumpInfo()
+    {
+        if ( m_world != NULL )
+        {
+            m_world->dumpInfo();
+        }
     }
 }

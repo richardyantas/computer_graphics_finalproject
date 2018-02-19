@@ -40,7 +40,7 @@ namespace tysoc
                                                                       _rbInertia );
 
         m_rBody = new btRigidBody( _rbConstructionInfo );
-        m_rBody->setRestitution( 0.95f );
+        m_rBody->setRestitution( 1.0f );
     }
 
     TBasicPhysicsComponent::TBasicPhysicsComponent( TEntity* pParent, btRigidBody* pRigidBody )
