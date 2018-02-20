@@ -23,7 +23,7 @@ namespace tysoc
         TPhysicsComponent( TEntity* pParent );
         ~TPhysicsComponent();
 
-        static string getStaticType() { return string( "physics" ); }
+        static string getStaticType() { return string( "basePhysicsComponent" ); }
 
         virtual void update( float dt ) = 0;
 

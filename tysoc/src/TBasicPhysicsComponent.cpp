@@ -15,16 +15,20 @@ namespace tysoc
 
         btTransform _rbTransform;
         _rbTransform.setIdentity();
+
         _rbTransform.setOrigin( btVector3( pParent->pos.x,
                                            pParent->pos.y,
                                            pParent->pos.z ) );
+
         glm::quat _qOrientation = glm::quat_cast( pParent->rotation );
-        _rbTransform.setRotation( btQuaternion( _qOrientation.x, 
+        _rbTransform.setRotation( btQuaternion( _qOrientation.w, 
+                                                _qOrientation.x,
                                                 _qOrientation.y,
-                                                _qOrientation.z,
-                                                _qOrientation.w ) );
-        auto _rbShape = new btSphereShape( 0.5 );
+                                                _qOrientation.z ) );
+
         auto _rbMotionState = new btDefaultMotionState( _rbTransform );
+
+        auto _rbShape = new btSphereShape( 0.5 );
         // auto _rbMotionState = new btDefaultMotionState( btTransform( btQuaternion( 0, 0, 0, 1 ), 
         //                                                              btVector3( pParent->pos.x,
         //                                                                         pParent->pos.y,

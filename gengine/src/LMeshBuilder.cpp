@@ -134,7 +134,230 @@ namespace engine
 
         return _mesh;
     }
-    
+
+    LMesh* LMeshBuilder::createCylinder( GLfloat radius, GLfloat height, int sectionDivision )
+    {
+        LMesh* _mesh = NULL;
+
+        vector< LVec3 > _vertices;
+        vector< LVec3 > _normals;
+        vector< LInd3 > _indices;
+
+        // Start cylinder tessellation
+
+        // calculate section geometry
+        vector< LVec3 > _sectionXZ;
+
+        float _stepSectionAngle = 2 * _PI / sectionDivision;
+
+        for ( int q = 0; q < sectionDivision; q++ )
+        {
+            float _x = radius * cos( q * _stepSectionAngle );
+            float _z = radius * sin( q * _stepSectionAngle );
+
+            _sectionXZ.push_back( LVec3( _x, 0, _z ) );
+        }
+
+        // calculate cylinder geometry
+        int _baseIndx = 0;
+        // up base
+        for ( int q = 0; q < _sectionXZ.size(); q++ )
+        {
+            _vertices.push_back( _sectionXZ[q] + LVec3( 0, 0.5 * height, 0 ) );
+            _normals.push_back( LVec3( 0, 1, 0 ) );
+        }
+        for ( int q = 1; q <= _sectionXZ.size() - 2; q++ )
+        {
+            _indices.push_back( LInd3( _baseIndx, _baseIndx + q, _baseIndx + q + 1 ) );
+        }
+        _baseIndx += _vertices.size();
+        // body surface
+        for ( int q = 0; q < _sectionXZ.size(); q++ )
+        {
+            // quad vertices
+            auto _p0 = _sectionXZ[q] + LVec3( 0, 0.5 * height, 0 );
+            auto _p1 = _sectionXZ[( q + 1 ) % _sectionXZ.size()] + LVec3( 0, 0.5 * height, 0 );
+            auto _p2 = _sectionXZ[( q + 1 ) % _sectionXZ.size()] + LVec3( 0, -0.5 * height, 0 );
+            auto _p3 = _sectionXZ[q] + LVec3( 0, -0.5 * height, 0 );
+
+            _vertices.push_back( _p0 );
+            _vertices.push_back( _p1 );
+            _vertices.push_back( _p2 );
+            _vertices.push_back( _p3 );
+
+            float _nx = cos( ( q + 0.5 ) * _stepSectionAngle );
+            float _nz = sin( ( q + 0.5 ) * _stepSectionAngle );
+
+            auto _nQuad = LVec3( _nx, 0, _nz );
+
+            _normals.push_back( _nQuad );
+            _normals.push_back( _nQuad );
+            _normals.push_back( _nQuad );
+            _normals.push_back( _nQuad );
+
+            _indices.push_back( LInd3( _baseIndx, _baseIndx + 2, _baseIndx + 1 ) );
+            _indices.push_back( LInd3( _baseIndx, _baseIndx + 3, _baseIndx + 2 ) );
+
+            _baseIndx += 4;
+        }
+        // down base
+        for ( int q = 0; q < _sectionXZ.size(); q++ )
+        {
+            _vertices.push_back( _sectionXZ[q] + LVec3( 0, -0.5 * height, 0 ) );
+            _normals.push_back( LVec3( 0, -1, 0 ) );
+        }
+        _baseIndx += _sectionXZ.size();
+        for ( int q = 1; q <= _sectionXZ.size() - 2; q++ )
+        {
+            _indices.push_back( LInd3( _baseIndx, _baseIndx + q + 1, _baseIndx + q ) );
+        }
+
+        _mesh = new LMesh( _vertices, _normals, _indices );
+
+        return _mesh;
+    }
+
+    LMesh* LMeshBuilder::createCapsule( GLfloat radius, GLfloat height, int sectionDivision, int capLevels )
+    {
+        LMesh* _mesh = NULL;
+
+        vector<LVec3> _vertices;
+        vector<LVec3> _normals;
+        vector<LInd3> _indices;
+
+        // Tessellate using cap-surface-cap approach
+
+        // Build up cap *********************************
+        // make vertices
+        GLfloat _x, _y, _z, _r;
+        int _baseIndx = 0;
+        for ( int l = 0; l <= capLevels; l++ )
+        {
+            // _y = ( ( float )l ) / ( numLevels + 1 );
+            _y = sin( 0.5 * _PI * ( ( float ) l ) / ( capLevels + 1 ) );
+
+            for ( int d = 0; d < sectionDivision; d++ )
+            {
+                _r = sqrt( 1.0f - _y * _y );
+                _x = _r * cos( 2.0f * _PI * ( ( float ) d ) / sectionDivision );
+                _z = _r * sin( 2.0f * _PI * ( ( float ) d ) / sectionDivision );
+
+                auto _upOffset = LVec3( 0, 0.5 * height, 0 );
+
+                _vertices.push_back( LVec3( radius * _x, radius * _y, radius * _z ) + _upOffset );
+                _normals.push_back( LVec3( _x, _y, _z ) );
+            }
+        }
+
+        for ( int l = 0; l < capLevels; l++ )
+        {
+            int _vl = l * sectionDivision;
+            int _vlNext = ( l + 1 ) * sectionDivision;
+
+            // Connect sides
+            for ( int s = 0; s < sectionDivision; s++ )
+            {
+                int _p0 = _baseIndx + _vl + s;
+                int _p1 = _baseIndx + _vl + ( ( s + 1 ) % sectionDivision );
+                int _p0n = _baseIndx + _vlNext + s;
+                int _p1n = _baseIndx + _vlNext + ( ( s + 1 ) % sectionDivision );
+
+                _indices.push_back( LInd3( _p0, _p1n, _p0n ) );
+                _indices.push_back( LInd3( _p0, _p1, _p1n ) );
+            }
+        }
+        _baseIndx += _vertices.size();
+        // Build surface *******************************
+
+        // calculate section geometry
+        vector< LVec3 > _sectionXZ;
+
+        float _stepSectionAngle = 2 * _PI / sectionDivision;
+
+        for ( int q = 0; q < sectionDivision; q++ )
+        {
+            float _x = radius * cos( q * _stepSectionAngle );
+            float _z = radius * sin( q * _stepSectionAngle );
+
+            _sectionXZ.push_back( LVec3( _x, 0, _z ) );
+        }
+
+        // body surface
+        
+        for ( int q = 0; q < _sectionXZ.size(); q++ )
+        {
+            // quad vertices
+            auto _p0 = _sectionXZ[q] + LVec3( 0, 0.5 * height, 0 );
+            auto _p1 = _sectionXZ[( q + 1 ) % _sectionXZ.size()] + LVec3( 0, 0.5 * height, 0 );
+            auto _p2 = _sectionXZ[( q + 1 ) % _sectionXZ.size()] + LVec3( 0, -0.5 * height, 0 );
+            auto _p3 = _sectionXZ[q] + LVec3( 0, -0.5 * height, 0 );
+
+            _vertices.push_back( _p0 );
+            _vertices.push_back( _p1 );
+            _vertices.push_back( _p2 );
+            _vertices.push_back( _p3 );
+
+            float _nx = cos( ( q + 0.5 ) * _stepSectionAngle );
+            float _nz = sin( ( q + 0.5 ) * _stepSectionAngle );
+
+            auto _nQuad = LVec3( _nx, 0, _nz );
+
+            _normals.push_back( _nQuad );
+            _normals.push_back( _nQuad );
+            _normals.push_back( _nQuad );
+            _normals.push_back( _nQuad );
+
+            _indices.push_back( LInd3( _baseIndx, _baseIndx + 2, _baseIndx + 1 ) );
+            _indices.push_back( LInd3( _baseIndx, _baseIndx + 3, _baseIndx + 2 ) );
+
+            _baseIndx += 4;
+        }
+
+
+        // Build down cap ******************************
+        // make vertices
+
+        for ( int l = -capLevels; l <= 0; l++ )
+        {
+            // _y = ( ( float )l ) / ( numLevels + 1 );
+            _y = sin( 0.5 * _PI * ( ( float ) l ) / ( capLevels + 1 ) );
+
+            for ( int d = 0; d < sectionDivision; d++ )
+            {
+                _r = sqrt( 1.0f - _y * _y );
+                _x = _r * cos( 2.0f * _PI * ( ( float ) d ) / sectionDivision );
+                _z = _r * sin( 2.0f * _PI * ( ( float ) d ) / sectionDivision );
+
+                auto _downOffset = LVec3( 0, -0.5 * height, 0 );
+
+                _vertices.push_back( LVec3( radius * _x, radius * _y, radius * _z ) + _downOffset );
+                _normals.push_back( LVec3( _x, _y, _z ) );
+            }
+        }
+
+        for ( int l = 0; l < capLevels; l++ )
+        {
+            int _vl = l * sectionDivision;
+            int _vlNext = ( l + 1 ) * sectionDivision;
+
+            // Connect sides
+            for ( int s = 0; s < sectionDivision; s++ )
+            {
+                int _p0 = _baseIndx + _vl + s;
+                int _p1 = _baseIndx + _vl + ( ( s + 1 ) % sectionDivision );
+                int _p0n = _baseIndx + _vlNext + s;
+                int _p1n = _baseIndx + _vlNext + ( ( s + 1 ) % sectionDivision );
+
+                _indices.push_back( LInd3( _p0, _p1n, _p0n ) );
+                _indices.push_back( LInd3( _p0, _p1, _p1n ) );
+            }
+        }
+
+        _mesh = new LMesh( _vertices, _normals, _indices );
+
+        return _mesh;
+    }
+
     LMesh* LMeshBuilder::createPlane( GLfloat width, GLfloat depth )
     {
         LMesh* _mesh = NULL;

@@ -14,6 +14,8 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include <iostream>
+#include <string>
+#include <cstring>
 #include <vector>
 #include <cmath>
 #include <cassert>
@@ -23,11 +25,29 @@
 #define _RAND_FLOAT_RANGE( a, b ) ( a + ( b - a ) * ( rand() / ( float )RAND_MAX ) )
 #define _RAND_INT_RANGE( a, b ) ( a + rand() % ( b - a + 1 ) )
 
+#include <LCommon.h>
+
 namespace tysoc
 {
 
+    typedef engine::LVec3 TVec3;
 
 
+    enum _primitiveCollisionType
+    {
+        COLLISION_SPHERE,
+        COLLISION_BOX,
+        COLLISION_CYLINDER,
+        COLLISION_CAPSULE
+    };
 
+    enum _primitiveGraphicsType
+    {
+        GRAPHICS_SPHERE,
+        GRAPHICS_BOX,
+        GRAPHICS_CYLINDER,
+        GRAPHICS_CAPSULE
+    };
+            
 
 }

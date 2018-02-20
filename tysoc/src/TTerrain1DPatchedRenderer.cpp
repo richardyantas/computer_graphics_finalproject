@@ -23,6 +23,11 @@ namespace tysoc
     {
         m_cameraRef = pWorld->getCurrentCamera();
 
+        if ( pWorld->getTerrain() == NULL )
+        {
+            return;
+        }
+
         if ( pWorld->getTerrain()->type == TTerrain1DPatched::getStaticType() )
         {
             auto _terrain1DPatched = reinterpret_cast< TTerrain1DPatched* >( pWorld->getTerrain() );

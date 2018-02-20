@@ -28,6 +28,8 @@ namespace tysoc
         engine::LWindow* m_window;
         TMasterRenderer* m_masterRenderer;
 
+        virtual void _customUpdate( float dt );
+
         public :
 
         static TApp* INSTANCE;
@@ -38,6 +40,8 @@ namespace tysoc
         virtual void init();
         virtual void dumpInfo();
         void run();
+
+        TWorld* getWorld() { return m_world; }
 
         static void onKeyCallback( int key, int action );
 

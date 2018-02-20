@@ -5,6 +5,8 @@
 #include <TPhysicsComponent.h>
 #include <TBasicPhysicsComponent.h>
 #include <TBasicGraphicsComponent.h>
+#include <TPrimitivePhysicsComponent.h>
+#include <TPrimitiveGraphicsComponent.h>
 
 
 using namespace std;
@@ -112,6 +114,8 @@ namespace tysoc
     {
         m_entities.push_back( pEntity );
 
+        // TODO: Modify this part by making the components self additive
+
         auto _physicsComponent = pEntity->getComponent< TPhysicsComponent >();
         if ( _physicsComponent != NULL )
         {
@@ -131,6 +135,17 @@ namespace tysoc
                 auto _basicPhysicsComponent = reinterpret_cast< TBasicPhysicsComponent* >( _physicsComponent );
 
                 m_btWorld->addRigidBody( _basicPhysicsComponent->getRigidBody() );
+            }            
+        }
+
+        _physicsComponent = pEntity->getComponent< TPrimitivePhysicsComponent >();
+        if ( _physicsComponent != NULL )
+        {
+            if ( _physicsComponent->type == TPrimitivePhysicsComponent::getStaticType() )
+            {
+                auto _primitivePhysicsComponent = reinterpret_cast< TPrimitivePhysicsComponent* >( _physicsComponent );
+
+                m_btWorld->addRigidBody( _primitivePhysicsComponent->getRigidBody() );
             }            
         }
     }

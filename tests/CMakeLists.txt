@@ -33,3 +33,9 @@ add_executable( testTysoc
 
 target_link_libraries( testTysoc
                        tysoc )
+
+add_executable( testPrimitives
+                testPrimitives.cpp )
+
+target_link_libraries( testPrimitives
+                       tysoc )

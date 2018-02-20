@@ -69,6 +69,9 @@ namespace engine
 
         static LMesh* createSphere( GLfloat radius, int levelDivision = 10, int numLevels = 10 );
         static LMesh* createBox( GLfloat width, GLfloat height, GLfloat depth );
+        static LMesh* createCylinder( GLfloat radius, GLfloat height, int sectionDivision = 10 );
+        static LMesh* createCapsule( GLfloat radius, GLfloat height, int sectionDivision = 10, int capLevels = 10 );
+
         static LMesh* createPlane( GLfloat width, GLfloat depth );
         static LMesh* createFromFile( const char* filename );
         static LMesh* createFromObj( const char* filename );

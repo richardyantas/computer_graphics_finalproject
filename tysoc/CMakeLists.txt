@@ -12,7 +12,10 @@ add_library( tysoc
              src/TPhysicsComponent.cpp
              src/TBasicGraphicsComponent.cpp
              src/TBasicPhysicsComponent.cpp
+             src/TPrimitiveGraphicsComponent.cpp
+             src/TPrimitivePhysicsComponent.cpp
              src/TPlayerEntity.cpp
+             src/TPrimitiveEntity.cpp
              src/TTerrain1D.cpp
              src/TTerrain1DPatched.cpp
              src/TTerrain1DPatchVoxels.cpp

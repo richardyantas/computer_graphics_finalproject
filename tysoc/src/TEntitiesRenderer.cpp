@@ -3,6 +3,7 @@
 
 #include <TGraphicsComponent.h>
 #include <TBasicGraphicsComponent.h>
+#include <TPrimitiveGraphicsComponent.h>
 
 #include <iostream>
 
@@ -30,6 +31,8 @@ namespace tysoc
     {
         m_cameraRef = pWorld->getCurrentCamera();
 
+        // TODO: Change this part to a more general-clean way
+
         auto _entities = pWorld->getEntities();
         for ( TEntity* _entity : _entities )
         {
@@ -43,6 +46,14 @@ namespace tysoc
             }
 
             _graphicsComponent = _entity->getComponent< TBasicGraphicsComponent >();
+            if ( _graphicsComponent != NULL )
+            {
+                auto _renderable = _graphicsComponent->getRenderable();
+
+                m_renderables[ _renderable->getType() ].push_back( _renderable );
+            }            
+
+            _graphicsComponent = _entity->getComponent< TPrimitiveGraphicsComponent >();
             if ( _graphicsComponent != NULL )
             {
                 auto _renderable = _graphicsComponent->getRenderable();

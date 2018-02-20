@@ -69,6 +69,8 @@ namespace tysoc
             m_tDelta = m_tNow - m_tBef;
             m_tDelta = ( m_tDelta > MAX_DELTA ) ? MAX_DELTA : m_tDelta;
 
+            _customUpdate( m_tDelta );
+
             m_world->update( m_tDelta );
 
             m_masterRenderer->prepare( m_world );
@@ -78,6 +80,11 @@ namespace tysoc
             m_window->swapBuffers();
         }
 
+    }
+
+    void TApp::_customUpdate( float dt )
+    {
+        // Override this
     }
 
     void TApp::onKeyCallback( int key, int action )
