@@ -4,6 +4,7 @@
 
 #include "LCommon.h"
 #include "LMaterial.h"
+#include "LTexture.h"
 
 using namespace std;
 
@@ -28,11 +29,15 @@ namespace engine
 
         void setMaterial( LMaterial* pMaterial )
         {
-            delete m_material;
+            if ( m_material != NULL )
+            {
+                delete m_material;
+            }
+            
             m_material = pMaterial;
         }
 
-        LMaterial* getMaterial() const 
+        LMaterial* getMaterial() 
         { 
             return m_material; 
         }

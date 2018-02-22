@@ -17,13 +17,14 @@ namespace engine
 
 		GLint m_fboFormat;
 		GLint m_fboDataType;
+		GLint m_fboAttachmentType;
 
 		int m_width;
 		int m_height;
 
 		public :
 
-		LFrameBuffer( GLint fboFormat, GLint fboDataType, int width, int height );
+		LFrameBuffer( GLint fboFormat, GLint fboDataType, GLint fboAttachmentType, int width, int height );
 		~LFrameBuffer();
 
 		void bind();
@@ -31,6 +32,9 @@ namespace engine
 
 		int width() { return m_width; }
 		int height() { return m_height; }
+
+		GLuint getFBO() { return m_frameBufferId; }
+		GLuint getTex() { return m_frameBufferTex; }
 
 	};
 

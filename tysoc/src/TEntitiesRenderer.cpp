@@ -14,6 +14,7 @@ namespace tysoc
 
     TEntitiesRenderer::TEntitiesRenderer()
     {
+        m_worldRef = NULL;
         m_cameraRef = NULL;
 
         for ( int q = 0; q < RENDERABLE_MAX_TYPE; q++ )
@@ -24,13 +25,15 @@ namespace tysoc
 
     TEntitiesRenderer::~TEntitiesRenderer()
     {
+        m_worldRef = NULL;
         m_cameraRef = NULL;
     }
 
     void TEntitiesRenderer::prepare( TWorld* pWorld )
     {
+        m_worldRef = pWorld;
         m_cameraRef = pWorld->getCurrentCamera();
-
+        
         // TODO: Change this part to a more general-clean way
 
         auto _entities = pWorld->getEntities();
@@ -65,17 +68,30 @@ namespace tysoc
 
     void TEntitiesRenderer::render()
     {
+        assert( m_worldRef != NULL );
+
+        auto _dirLights = m_worldRef->getLights< engine::LLightDirectional >();
+
+        assert( _dirLights.size() > 0 );
+
+        // For now just test a single directional light
+        auto _light = _dirLights[0];
+
         for ( int q = 0; q < RENDERABLE_MAX_TYPE; q++ )
         {
             switch ( q ) 
             {
                 case RENDERABLE_TYPE_MESH :
 
-                    auto _shader = ( engine::LShaderBasic3d* ) engine::LShaderManager::INSTANCE->programObjs["basic3d"];
+                    auto _shader = ( engine::LShaderEntitiesLighting* ) engine::LShaderManager::INSTANCE->programObjs["lighting_entities"];
 
                     _shader->bind();
                     _shader->setProjectionMatrix( m_cameraRef->getProjectionMatrix() );
                     _shader->setViewMatrix( m_cameraRef->getViewMatrix() );
+
+                    _shader->setGlobalAmbientLight( m_worldRef->getGlobalAmbientLight() );
+                    _shader->setLightDirectional( _light );
+                    _shader->setViewPosition( m_cameraRef->getPosition() );
 
                     for ( int i = 0; i < m_renderables[q].size(); i++ )
                     {
@@ -83,7 +99,7 @@ namespace tysoc
                         auto _mesh = reinterpret_cast< engine::LMesh* >( m_renderables[q][i] );
 
                         _shader->setModelMatrix( _mesh->getModelMatrix() );
-                        _shader->setColor( _mesh->getMaterial()->getColor() );
+                        _shader->setMaterial( _mesh->getMaterial() );
                         
                         _mesh->render();
                     }
@@ -101,6 +117,9 @@ namespace tysoc
         {
             m_renderables[q].clear();
         }
+
+        m_worldRef = NULL;
+        m_cameraRef = NULL;
     }
 
 }

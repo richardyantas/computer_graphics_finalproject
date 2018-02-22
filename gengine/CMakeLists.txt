@@ -15,6 +15,8 @@ add_library( gengine
              src/LTexture.cpp
              src/LCubeTexture.cpp
              src/LSkybox.cpp
+             src/LFrameBuffer.cpp
+             src/LShadowMap.cpp
              src/LMeshBuilder.cpp
              src/LMeshComponent.cpp
              src/LHeightmapGenerator.cpp

@@ -21,6 +21,8 @@ namespace tysoc
         m_currentCamera = NULL;
         m_terrain = NULL;
 
+        m_globalAmbientLight = WORLD_DEFAULT_AMBIENT_LIGHT;
+
         m_btBroadphase = new btDbvtBroadphase();
         m_btCollisionConfiguration = new btDefaultCollisionConfiguration();
         m_btCollisionDispatcher = new btCollisionDispatcher( m_btCollisionConfiguration );
@@ -44,7 +46,9 @@ namespace tysoc
 
             auto _planeMesh = engine::LMeshBuilder::createPlane( 30, 30 );
 
-            _planeMesh->getMaterial()->ambient = engine::LVec3( 0, 0, 1 );
+            _planeMesh->getMaterial()->ambient  = engine::LVec3( 0, 0, 1 );
+            _planeMesh->getMaterial()->diffuse  = engine::LVec3( 0, 0, 1 );
+            _planeMesh->getMaterial()->specular = engine::LVec3( 0, 0, 1 );
 
             auto _planeEntity = new TEntity();
             auto _planeGComponent = new TBasicGraphicsComponent( _planeEntity, _planeMesh );
@@ -63,8 +67,13 @@ namespace tysoc
         {
             delete _it->second;
         }
-
         m_cameras.clear();
+
+        for ( auto _light : m_lights )
+        {
+            delete _light;
+        }
+        m_lights.clear();
     }
 
     void TWorld::addCamera( engine::LICamera* pCamera, string cameraStrId )

@@ -11,7 +11,7 @@ namespace tysoc
         m_terrainRenderer = new TTerrainRenderer();
         m_entitiesRenderer = new TEntitiesRenderer();
 
-        m_drawAsWireframe = true;
+        m_drawAsWireframe = false;
     }
 
     TMasterRenderer::~TMasterRenderer()

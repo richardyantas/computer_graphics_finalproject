@@ -12,6 +12,7 @@ message( "CONFIGURING EXTERNAL DEPENDENCIES" )
 add_subdirectory( ext/glfw )
 add_subdirectory( ext/glad )
 add_subdirectory( ext/glm )
+add_subdirectory( ext/ui_dearImgui )
 
 set( TYSOC_INCLUDE_DIRECTORIES
      "${CMAKE_SOURCE_DIR}/gengine/include"
@@ -19,7 +20,10 @@ set( TYSOC_INCLUDE_DIRECTORIES
      "${CMAKE_SOURCE_DIR}/ext/glfw/include"
      "${CMAKE_BINARY_DIR}/ext/glad/include" # glad generates .h files in build dir :o
      "${CMAKE_SOURCE_DIR}/ext/glm/"
-     "${CMAKE_SOURCE_DIR}/ext/stb/" )
+     "${CMAKE_SOURCE_DIR}/ext/stb/"
+     "${CMAKE_SOURCE_DIR}/ext/ui_dearImgui/imgui"
+     "${CMAKE_SOURCE_DIR}/ext/ui_dearImgui/imgui/examples/opengl3_example"
+     "${CMAKE_SOURCE_DIR}/ext/ui_dearImgui/cat1UI" )
 
 #set( TYSOC_LIBRARY_DIRECTORIES "" )
 

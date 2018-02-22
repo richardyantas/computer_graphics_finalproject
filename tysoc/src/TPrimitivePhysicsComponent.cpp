@@ -63,9 +63,9 @@ namespace tysoc
 
             case COLLISION_CYLINDER :
 
-                _rbShape = new btCylinderShape( btVector3( kinParams.cylinder_baseRadius / 2,
+                _rbShape = new btCylinderShape( btVector3( kinParams.cylinder_baseRadius,
                                                            kinParams.cylinder_length / 2,
-                                                           kinParams.cylinder_baseRadius / 2 ) );
+                                                           kinParams.cylinder_baseRadius ) );
 
             break;
 

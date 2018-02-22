@@ -2,6 +2,8 @@
 #pragma once
 
 #include <LShaderBasic3d.h>
+#include <LShaderEntitiesLighting.h>
+#include <LShaderShadowMap.h>
 #include <LShaderManager.h>
 #include <LMesh.h>
 
@@ -24,6 +26,7 @@ namespace tysoc
 
         vector< engine::LIRenderable* > m_renderables[ RENDERABLE_MAX_TYPE ];
         engine::LICamera* m_cameraRef;
+        TWorld* m_worldRef;
 
         public :
 

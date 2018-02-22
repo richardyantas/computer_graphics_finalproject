@@ -10,3 +10,6 @@
 [submodule "ext/bullet3"]
 	path = ext/bullet3
 	url = https://github.com/bulletphysics/bullet3
+[submodule "ext/ui_dearImgui/imgui"]
+	path = ext/ui_dearImgui/imgui
+	url = https://github.com/wpumacay/imgui.git

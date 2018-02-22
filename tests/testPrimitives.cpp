@@ -4,6 +4,7 @@
 
 #include <LFixedCamera3d.h>
 #include <LFpsCamera.h>
+#include <LLightDirectional.h>
 
 #include <cstdlib>
 
@@ -46,7 +47,11 @@ void TestApp::init()
     auto _camera = new engine::LFpsCamera( engine::LVec3( 10.0f, 0.0f, 10.0f ),
                                            engine::LVec3( 0.0f, 1.0f, 0.0f ) );
 
+    auto _light = new engine::LLightDirectional( engine::LVec3( 0.1, 0.1, 0.1 ), engine::LVec3( 0.8, 0.8, 0.8 ),
+                                                 engine::LVec3( 0.05, 0.05, 0.05 ), 0, engine::LVec3( -1, -1, -1 ) );
+    
     m_world->addCamera( _camera, "mainCamera" );
+    m_world->addLight( _light );
 
     engine::LInputHandler::INSTANCE->addUserCallback( TestApp::testKeyCallback );
 

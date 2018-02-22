@@ -251,4 +251,23 @@ namespace engine
         int channels;
     };
 
+
+
+    struct LLDirUniforms
+    {
+        GLuint direction;
+        GLuint ambient;
+        GLuint diffuse;
+        GLuint specular;
+        GLuint isActive;
+    };
+
+    struct LMaterialUniforms
+    {
+        GLuint ambient;
+        GLuint diffuse;
+        GLuint specular;
+        GLuint shininess;
+    };
+
 }

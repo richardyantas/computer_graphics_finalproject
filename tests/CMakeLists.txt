@@ -19,6 +19,12 @@ add_executable( testGL
 target_link_libraries( testGL
                        gengine )
 
+add_executable( testShadowMapping
+                testShadowMapping.cpp )
+
+target_link_libraries( testShadowMapping
+                       gengine cat1UI )
+
 add_executable( testBulletGL
                 testBulletGL.cpp )
 

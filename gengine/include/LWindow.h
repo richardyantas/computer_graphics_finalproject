@@ -49,7 +49,11 @@ namespace engine
         void registerMouseCallback( FnPtr_mouse_callback callback );
         void registerMouseMoveCallback( FnPtr_mousemove_callback callback );
 
-        void clear() { glClear( GL_COLOR_BUFFER_BIT |  GL_DEPTH_BUFFER_BIT ); }
+        void clear() 
+        {
+            glClearColor( CLEAR_COLOR ); 
+            glClear( GL_COLOR_BUFFER_BIT |  GL_DEPTH_BUFFER_BIT ); 
+        }
 
         void pollEvents() { glfwPollEvents(); }
         void swapBuffers() { glfwSwapBuffers( m_window ); }
@@ -59,6 +63,8 @@ namespace engine
 
         int width() { return m_width; }
         int height() { return m_height; }
+
+        GLFWwindow* getGLFWwindow() { return m_window; }
 
     };
 
