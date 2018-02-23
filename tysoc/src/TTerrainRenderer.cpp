@@ -13,25 +13,39 @@ namespace tysoc
     TTerrainRenderer::TTerrainRenderer()
     {
         m_terrain1DPatchedRenderer = new TTerrain1DPatchedRenderer();
+        m_useShadowMapping = false;
+        m_shadowMapRef = NULL;
     }
 
     TTerrainRenderer::~TTerrainRenderer()
     {
+        m_shadowMapRef = NULL;
         delete m_terrain1DPatchedRenderer;
     }
 
-    void TTerrainRenderer::prepare( TWorld* pWorld )
+    void TTerrainRenderer::prepare( TWorld* pWorld, bool useShadowMapping, engine::LShadowMap* pShadowMapRef )
     {
-        m_terrain1DPatchedRenderer->prepare( pWorld );
+        m_useShadowMapping = useShadowMapping;
+        m_shadowMapRef = pShadowMapRef;
+        m_terrain1DPatchedRenderer->prepare( pWorld, useShadowMapping, pShadowMapRef );
     }
 
-    void TTerrainRenderer::render()
+    void TTerrainRenderer::render( bool drawToShadowMap )
     {
-        m_terrain1DPatchedRenderer->render();
+        if ( m_useShadowMapping )
+        {
+            m_terrain1DPatchedRenderer->render( drawToShadowMap );
+        }
+        else
+        {
+            m_terrain1DPatchedRenderer->render( false );
+        }
     }
 
     void TTerrainRenderer::clean()
     {
+        m_useShadowMapping = false;
+        m_shadowMapRef = NULL;
         m_terrain1DPatchedRenderer->clean();
     }
 

@@ -2,16 +2,16 @@
 
 #pragma once
 
-#include "LShaderBasic3d.h"
-#include "LLightDirectional.h"
-#include "LMaterial.h"
+#include <shaders/LShaderBasic3d.h>
+#include <LLightDirectional.h>
+#include <LMaterial.h>
 
 using namespace std;
 
 namespace engine
 {
 
-    class LShaderEntitiesLightingShadows : public LShaderBasic3d
+    class LShaderTerrain1DVoxelsLighting : public LShaderBasic3d
     {
 
         protected :
@@ -21,13 +21,9 @@ namespace engine
         GLuint m_uGlobalAmbient;
         GLuint m_uViewPos;
 
-        GLuint m_uLightSpaceViewMatrix;
-        GLuint m_uLightSpaceProjMatrix;
-        GLuint m_uLightPos;
-
         public :
 
-        LShaderEntitiesLightingShadows( GLuint id ) : LShaderBasic3d( id )
+        LShaderTerrain1DVoxelsLighting( GLuint id ) : LShaderBasic3d( id )
         {
             bind();
 
@@ -43,10 +39,7 @@ namespace engine
             m_ulDir.diffuse     = glGetUniformLocation( m_id, "u_directionalLight.diffuse" );
             m_ulDir.specular    = glGetUniformLocation( m_id, "u_directionalLight.specular" );
             m_ulDir.direction   = glGetUniformLocation( m_id, "u_directionalLight.direction" );
-
-            m_uLightSpaceViewMatrix = glGetUniformLocation( m_id, "u_tLightSpaceViewMatrix" );
-            m_uLightSpaceProjMatrix = glGetUniformLocation( m_id, "u_tLightSpaceProjMatrix" );
-            m_uLightPos = glGetUniformLocation( m_id, "u_lightPos" );
+            m_ulDir.isActive    = glGetUniformLocation( m_id, "u_directionalLight.isActive" );
 
             unbind();
         }
@@ -76,21 +69,6 @@ namespace engine
             _setVec3( m_uMaterial.diffuse, pMaterial->diffuse );
             _setVec3( m_uMaterial.specular, pMaterial->specular );
             _setFloat( m_uMaterial.shininess, pMaterial->shininess );
-        }
-
-        void setLightSpaceViewMatrix( const glm::mat4& mat )
-        {
-            _setMat4( m_uLightSpaceViewMatrix, mat );
-        }
-
-        void setLightSpaceProjectionMatrix( const glm::mat4& mat )
-        {
-            _setMat4( m_uLightSpaceProjMatrix, mat );
-        }
-
-        void setLightPosition( const LVec3& vec )
-        {
-            _setVec3( m_uLightPos, vec );
         }
     };
 

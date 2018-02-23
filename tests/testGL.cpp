@@ -1,11 +1,11 @@
 
 #include <LWindow.h>
 #include <LInputHandler.h>
-#include <LShaderManager.h>
+#include <shaders/LShaderManager.h>
+#include <shaders/LShaderBasic3d.h>
+#include <shaders/LShaderFramebufferScreenRender.h>
 #include <LFpsCamera.h>
 #include <LMeshBuilder.h>
-#include <LShaderBasic3d.h>
-#include <LShaderFramebufferScreenRender.h>
 #include <LFrameBuffer.h>
 
 #include <iostream>

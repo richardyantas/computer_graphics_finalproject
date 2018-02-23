@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "LCommon.h"
+#include <LCommon.h>
 
 
 using namespace std;

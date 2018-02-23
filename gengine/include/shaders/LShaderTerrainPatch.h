@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include "LShader.h"
-#include <cassert>
+#include <shaders/LShader.h>
 
 using namespace std;
 

@@ -20,6 +20,8 @@ add_library( tysoc
              src/TTerrain1DPatched.cpp
              src/TTerrain1DPatchVoxels.cpp
              src/TWorld.cpp
+             src/scenarios/TBaseScenario.cpp
+             src/TDebugUI.cpp
              src/TMasterRenderer.cpp
              src/TEntitiesRenderer.cpp
              src/TTerrainRenderer.cpp
@@ -29,6 +31,7 @@ target_link_libraries( tysoc
                        gengine
                        BulletCollision
                        BulletDynamics
-                       LinearMath )
+                       LinearMath
+					   cat1UI )
 
 message( "Configuring tysoc engine - done" )

@@ -23,7 +23,7 @@ namespace tysoc
         m_tDelta = 0.0f;
 
         m_world = NULL;
-
+        m_ui = NULL;
         init();
     }
 
@@ -47,13 +47,19 @@ namespace tysoc
             m_world = NULL;
         }
 
+        if ( m_ui != NULL )
+        {
+            delete m_ui;
+            m_ui = NULL;
+        }
+
         engine::LInputHandler::release();
         engine::LShaderManager::release();
     }
     
     void TApp::init()
     {
-        
+        // Override this
     }
 
     void TApp::run()
@@ -76,6 +82,11 @@ namespace tysoc
             m_masterRenderer->prepare( m_world );
             m_masterRenderer->render();
             m_masterRenderer->clean();
+
+            if ( m_ui != NULL )
+            {
+                m_ui->render();
+            }
 
             m_window->swapBuffers();
         }

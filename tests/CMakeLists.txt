@@ -45,3 +45,9 @@ add_executable( testPrimitives
 
 target_link_libraries( testPrimitives
                        tysoc )
+
+add_executable( testScenario
+                testScenario.cpp )
+
+target_link_libraries( testScenario
+                       tysoc )

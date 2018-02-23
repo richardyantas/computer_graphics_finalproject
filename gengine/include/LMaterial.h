@@ -6,7 +6,7 @@
 #define MAT_DEFAULT_AMBIENT   LVec3( 0.0f, 1.0f, 0.0f )
 #define MAT_DEFAULT_DIFFUSE   LVec3( 0.0f, 1.0f, 0.0f )
 #define MAT_DEFAULT_SPECULAR  LVec3( 0.0f, 1.0f, 0.0f )
-#define MAT_DEFAULT_SHININESS 100.0f
+#define MAT_DEFAULT_SHININESS 20.0f
 
 using namespace std;
 

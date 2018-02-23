@@ -12,7 +12,7 @@ namespace tysoc
         addComponent( new TBasicGraphicsComponent( this ) );
         addComponent( new TBasicPhysicsComponent( this ) );
 
-        m_movSpeed = 0.5f;
+        m_movSpeed = 0.0f;
         m_movDirection = engine::LVec3( 1, 0, 0 );
         m_isJumping = false;
 

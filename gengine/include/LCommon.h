@@ -2,6 +2,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <cassert>
 #include <iostream>
 #include <algorithm>
 #include <string>

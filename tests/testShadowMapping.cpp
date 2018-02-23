@@ -1,15 +1,15 @@
 
 #include <LWindow.h>
 #include <LInputHandler.h>
-#include <LShaderManager.h>
+#include <LMeshBuilder.h>
+#include <shaders/LShaderManager.h>
+#include <shaders/LShaderBasic3d.h>
+#include <shaders/LShaderEntitiesLightingShadows.h>
+#include <shaders/LShaderShadowMap.h>
+#include <shaders/LShaderFramebufferScreenRender.h>
 #include <LShadowMap.h>
 #include <LLightDirectional.h>
 #include <LFpsCamera.h>
-#include <LMeshBuilder.h>
-#include <LShaderBasic3d.h>
-#include <LShaderEntitiesLightingShadows.h>
-#include <LShaderShadowMap.h>
-#include <LShaderFramebufferScreenRender.h>
 #include <LFrameBuffer.h>
 
 #include <LUIHandler.h>

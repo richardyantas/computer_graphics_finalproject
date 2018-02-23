@@ -3,11 +3,12 @@
 
 #include <LWindow.h>
 #include <LInputHandler.h>
-#include <LShaderManager.h>
+#include <shaders/LShaderManager.h>
 // #include <LAssetsManager.h>
 
 #include "TWorld.h"
 #include "TMasterRenderer.h"
+#include "TDebugUI.h"
 
 namespace tysoc
 {
@@ -22,8 +23,10 @@ namespace tysoc
         float m_tNow;
         float m_tDelta;
 
+
         protected :
 
+        TDebugUI * m_ui;
         TWorld* m_world;
         engine::LWindow* m_window;
         TMasterRenderer* m_masterRenderer;

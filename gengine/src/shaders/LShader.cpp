@@ -1,6 +1,6 @@
 
 
-#include "LShader.h"
+#include <shaders/LShader.h>
 
 
 namespace engine

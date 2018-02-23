@@ -18,7 +18,7 @@
 
 using namespace std;
 
-#define WORLD_DEFAULT_AMBIENT_LIGHT engine::LVec3( 0.2, 0.2, 0.2 )
+#define WORLD_DEFAULT_AMBIENT_LIGHT engine::LVec3( 0.1, 0.1, 0.1 )
 
 namespace tysoc
 {
@@ -54,15 +54,17 @@ namespace tysoc
         ~TWorld();
 
 
-        void update( float dt );
+        virtual void update( float dt );
 
         void addEntity( TEntity* pEntity );
         vector< TEntity* > getEntities() { return m_entities; }
 
-        void setGlobalAmbientLight( const TVec3& globalAmbientLight );
+        void setGlobalAmbientLight( const TVec3& globalAmbientLight ) { m_globalAmbientLight = globalAmbientLight; }
         TVec3 getGlobalAmbientLight() { return m_globalAmbientLight; }
 
         void addLight( engine::LILight* pLight ) { m_lights.push_back( pLight ); }
+
+        unordered_map< string, engine::LICamera* > getCameras() { return m_cameras; }
 
         template< class T >
         vector<T*> getLights()

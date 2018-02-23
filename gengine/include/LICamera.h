@@ -38,10 +38,11 @@ namespace engine
 
         ~LICamera();
 
-        LVec3 getPosition() const { return m_pos; }
+        void setTargetDir( const LVec3& target ) { m_targetDir = target; }
         LVec3 getTargetDir() const { return m_targetDir; }
 
         void setPosition( const LVec3& pos );
+        LVec3 getPosition() const { return m_pos; }
 
         virtual glm::mat4 getViewMatrix() = 0;
         glm::mat4 getProjectionMatrix();

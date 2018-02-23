@@ -32,9 +32,9 @@ namespace tysoc
         for ( int q = 0; q < m_numBumps; q++ )
         {
             TBoxVoxelInfo _bInfo;
-            _bInfo.center = engine::LVec3( m_start.x + m_bumpsPos[q] * m_direction.x + m_bumpsHeight[q] * m_up.x,
-                                           m_start.y + m_bumpsPos[q] * m_direction.y + m_bumpsHeight[q] * m_up.y,
-                                           m_start.z + m_bumpsPos[q] * m_direction.z + m_bumpsHeight[q] * m_up.z );
+            _bInfo.center = engine::LVec3( m_start.x + m_bumpsPos[q] * m_direction.x + 0.5 * m_bumpsHeight[q] * m_up.x,
+                                           m_start.y + m_bumpsPos[q] * m_direction.y + 0.5 * m_bumpsHeight[q] * m_up.y,
+                                           m_start.z + m_bumpsPos[q] * m_direction.z + 0.5 * m_bumpsHeight[q] * m_up.z );
             _bInfo.size = engine::LVec3( _dlength, m_bumpsHeight[q], pDepth );
             _bInfo.direction = m_direction;
             _bInfo.up = m_up;

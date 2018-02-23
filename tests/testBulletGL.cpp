@@ -1,11 +1,11 @@
 
 #include <LWindow.h>
 #include <LInputHandler.h>
-#include <LShaderManager.h>
+#include <shaders/LShaderManager.h>
+#include <shaders/LShaderBasic3d.h>
 #include <LFpsCamera.h>
 #include <LFixedCamera3d.h>
 #include <LMeshBuilder.h>
-#include <LShaderBasic3d.h>
 
 #include <iostream>
 #define BT_USE_DOUBLE_PRECISION

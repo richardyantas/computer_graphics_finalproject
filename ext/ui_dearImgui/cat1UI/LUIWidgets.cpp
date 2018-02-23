@@ -94,6 +94,41 @@ namespace cat1UI
                             m_sliderMaxValue );    
     }
 
+    LUIComboBox::LUIComboBox( string id, int order, string comboBoxName, const vector< string >& options )
+        : LUIWidget( id, order )
+    {
+        m_comboBoxName = comboBoxName;
+        m_comboBoxOptions = options;
+        m_currentOptionIndx = 0;
+        m_currentOptionStr = m_comboBoxOptions[0];
+        m_hasChangedValue = false;
+
+        m_type = widgetType::COMBOBOX;
+    }
+
+    LUIComboBox::~LUIComboBox()
+    {
+
+    }
+
+    void LUIComboBox::render()
+    {
+        if ( ImGui::BeginCombo( m_comboBoxName.c_str(), m_currentOptionStr.c_str() ) )
+        {
+            m_hasChangedValue = false;
+            for ( int q = 0; q < m_comboBoxOptions.size(); q++ )
+            {
+                if ( ImGui::Selectable( m_comboBoxOptions[q].c_str(), q == m_currentOptionIndx ) )
+                {
+                    m_currentOptionIndx = q;
+                    m_currentOptionStr = m_comboBoxOptions[q];
+                    m_hasChangedValue = true;
+                }
+            }
+            ImGui::EndCombo();
+        }
+    }
+
     bool comparatorWidgetsOrder( LUIWidget* w1, LUIWidget* w2 )
     {
         return w1->getOrder() < w2->getOrder();

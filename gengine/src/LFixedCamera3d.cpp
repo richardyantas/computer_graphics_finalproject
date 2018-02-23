@@ -28,12 +28,6 @@ namespace engine
         return glm::lookAt( _cameraPos, _cameraTarget, _worldUp );
     }
 
-    void LFixedCamera3d::_updateCamera()
-    {
-        m_targetDir = LVec3( -m_pos.x, -m_pos.y, -m_pos.z );
-        m_targetDir.normalize();
-    }
-
     void LFixedCamera3d::update( float dt )
     {
         m_pos.x += m_movDirection.x * m_movSpeed * dt;

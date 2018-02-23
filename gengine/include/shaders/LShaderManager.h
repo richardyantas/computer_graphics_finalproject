@@ -3,7 +3,7 @@
 #pragma once
 
 #include "../Common.h"
-#include "LShader.h"
+#include <shaders/LShader.h>
 
 #include <glad/glad.h>
 #include <iostream>

@@ -15,7 +15,8 @@ namespace cat1UI
             TEXT,
             BUTTON,
             CHECKBOX,
-            SLIDER
+            SLIDER,
+            COMBOBOX
         };
     }
 
@@ -120,6 +121,31 @@ namespace cat1UI
         float getSliderValue() { return m_sliderCurrentValue; }
         string getSliderName() { return m_sliderName; }
 
+    };
+
+    class LUIComboBox : public LUIWidget
+    {
+        private:
+
+        vector< string > m_comboBoxOptions;
+        string m_comboBoxName;
+        int m_currentOptionIndx;
+        string m_currentOptionStr;
+
+        bool m_hasChangedValue;
+
+        public:
+
+        LUIComboBox( string id, int order, string comboBoxName, const vector< string >& options );
+        ~LUIComboBox();
+
+        void render() override;
+
+        int getCurrentOptionIndx() { return m_currentOptionIndx; }
+        string getCurrentOptionStr() { return m_currentOptionStr; }
+        string getComboBoxName() { return m_comboBoxName; }
+
+        bool hasChangedValue() { return m_hasChangedValue; }
     };
 
     bool comparatorWidgetsOrder( LUIWidget* w1, LUIWidget* w2 );

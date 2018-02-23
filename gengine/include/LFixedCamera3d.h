@@ -16,10 +16,6 @@ namespace engine
         float m_movSpeed;
         LVec3 m_movDirection;
 
-        protected :
-
-        void _updateCamera() override;
-
         public :
 
         LFixedCamera3d( const LVec3& pos,

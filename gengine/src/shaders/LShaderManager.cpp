@@ -1,13 +1,18 @@
 
 
-#include "LShaderManager.h"
+#include <shaders/LShaderManager.h>
 #include "../Config.h"
 
-#include "LShaderBasic3d.h"
-#include "LShaderEntitiesLighting.h"
-#include "LShaderEntitiesLightingShadows.h"
-#include "LShaderFramebufferScreenRender.h"
-#include "LShaderShadowMap.h"
+// General purpose shaders
+#include <shaders/LShaderBasic3d.h>
+#include <shaders/LShaderFramebufferScreenRender.h>
+#include <shaders/LShaderShadowMap.h>
+
+// Special purpose shaders
+#include <shaders/LShaderEntitiesLighting.h>
+#include <shaders/LShaderEntitiesLightingShadows.h>
+#include <shaders/LShaderTerrain1DVoxelsLighting.h>
+#include <shaders/LShaderTerrain1DVoxelsLightingShadows.h>
 
 using namespace std;
 
@@ -21,8 +26,10 @@ namespace engine
         // Load all shaders available
 
         GLuint _vShader, _fShader, _program;
-// #ifdef USE_MODERN
+
         cout << "LShaderManager-> using glsl 330 core shaders" << endl;
+
+        // Common shaders **************************************************
 
         _vShader = createShader( "basic3d_vs.glsl", GL_VERTEX_SHADER );
         _fShader = createShader( "basic3d_fs.glsl", GL_FRAGMENT_SHADER );
@@ -30,13 +37,6 @@ namespace engine
 
         programs["basic3d"] = _program;
         programObjs["basic3d"] = new LShaderBasic3d( _program );
-
-        _vShader = createShader( "lighting_entities_vs.glsl", GL_VERTEX_SHADER );
-        _fShader = createShader( "lighting_entities_fs.glsl", GL_FRAGMENT_SHADER );
-        _program = createProgram( _vShader, _fShader );
-
-        programs["lighting_entities"] = _program;
-        programObjs["lighting_entities"] = new LShaderEntitiesLighting( _program );
 
         _vShader = createShader( "postprocessing/framebuffer_screenrender_vs.glsl", GL_VERTEX_SHADER );
         _fShader = createShader( "postprocessing/framebuffer_screenrender_fs.glsl", GL_FRAGMENT_SHADER );
@@ -59,73 +59,41 @@ namespace engine
         programs["shadow_mapping"] = _program;
         programObjs["shadow_mapping"] = new LShaderShadowMap( _program );
 
-        _vShader = createShader( "shadows/lighting_entities_shadows_vs.glsl", GL_VERTEX_SHADER );
-        _fShader = createShader( "shadows/lighting_entities_shadows_fs.glsl", GL_FRAGMENT_SHADER );
+        // *****************************************************************
+        // Specific rendering shaders **************************************
+
+        // We have separate entities - terrain shaders in case there is the need ...
+        // to do something different in for each case
+
+        _vShader = createShader( "entities/lighting_entities_vs.glsl", GL_VERTEX_SHADER );
+        _fShader = createShader( "entities/lighting_entities_fs.glsl", GL_FRAGMENT_SHADER );
+        _program = createProgram( _vShader, _fShader );
+
+        programs["lighting_entities"] = _program;
+        programObjs["lighting_entities"] = new LShaderEntitiesLighting( _program );
+
+        _vShader = createShader( "entities/lighting_entities_shadows_vs.glsl", GL_VERTEX_SHADER );
+        _fShader = createShader( "entities/lighting_entities_shadows_fs.glsl", GL_FRAGMENT_SHADER );
         _program = createProgram( _vShader, _fShader );
 
         programs["lighting_entities_shadows"] = _program;
         programObjs["lighting_entities_shadows"] = new LShaderEntitiesLightingShadows( _program );
 
-// #else
-//         cout << "LShaderManager-> using glsl 120 shaders" << endl;
+        _vShader = createShader( "terrain/terrain1DVoxels_lighting_vs.glsl", GL_VERTEX_SHADER );
+        _fShader = createShader( "terrain/terrain1DVoxels_lighting_fs.glsl", GL_FRAGMENT_SHADER );
+        _program = createProgram( _vShader, _fShader );
 
-//         _vShader = createShader( "res/shaders/basic3d_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/basic3d_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
+        programs["terrain1DVoxels_lighting"] = _program;
+        programObjs["terrain1DVoxels_lighting"] = new LShaderTerrain1DVoxelsLighting( _program );
 
-//         programs["basic3d"] = _program;
-//         programObjs["basic3d"] = new LShaderBasic3d( _program );
+        _vShader = createShader( "terrain/terrain1DVoxels_lighting_shadows_vs.glsl", GL_VERTEX_SHADER );
+        _fShader = createShader( "terrain/terrain1DVoxels_lighting_shadows_fs.glsl", GL_FRAGMENT_SHADER );
+        _program = createProgram( _vShader, _fShader );
 
-//         _vShader = createShader( "res/shaders/basic3d_lighting_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/basic3d_lighting_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
+        programs["terrain1DVoxels_lighting_shadows"] = _program;
+        programObjs["terrain1DVoxels_lighting_shadows"] = new LShaderTerrain1DVoxelsLightingShadows( _program );
 
-//         programs["basic3d_lighting"] = _program;
-//         programObjs["basic3d_lighting"] = new LShaderLighting( _program );
-
-//         _vShader = createShader( "res/shaders/basic3d_textured_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/basic3d_textured_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
-
-//         programs["basic3d_textured"] = _program;
-//         programObjs["basic3d_textured"] = new LShaderBasic3d( _program );
-
-//         _vShader = createShader( "res/shaders/basic3d_lighting_textured_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/basic3d_lighting_textured_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
-
-//         programs["basic3d_lighting_textured"] = _program;
-//         programObjs["basic3d_lighting_textured"] = new LShaderLighting( _program );
-
-//         _vShader = createShader( "res/shaders/debug_shader3d_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/debug_shader3d_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
-
-//         programs["debug3d"] = _program;
-//         programObjs["debug3d"] = new LShader( _program );
-
-//         _vShader = createShader( "res/shaders/terrain_patch_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/terrain_patch_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
-
-//         programs["terrain_patch"] = _program;
-//         programObjs["terrain_patch"] = new LShaderTerrainPatch( _program );
-
-//         _vShader = createShader( "res/shaders/basic3d_skybox_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/basic3d_skybox_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
-
-//         programs["basic3d_skybox"] = _program;
-//         programObjs["basic3d_skybox"] = new LShaderSkybox( _program );
-
-//         _vShader = createShader( "res/shaders/envMapping_vs_120.glsl", GL_VERTEX_SHADER );
-//         _fShader = createShader( "res/shaders/envMapping_fs_120.glsl", GL_FRAGMENT_SHADER );
-//         _program = createProgram( _vShader, _fShader );
-
-//         programs["envMapping"] = _program;
-//         programObjs["envMapping"] = new LShaderEnvMapping( _program );
-
-// #endif
+        // *****************************************************************
     }
 
     LShaderManager::~LShaderManager()

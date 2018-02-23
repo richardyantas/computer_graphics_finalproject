@@ -7,9 +7,7 @@
 #include "LICamera.h"
 #include "LILight.h"
 #include "LScene.h"
-#include "LShader.h"
-#include "LShaderBasic3d.h"
-#include "LShaderLighting.h"
+#include <shaders/Shader.h>
 
 using namespace std;
 

@@ -2,12 +2,12 @@
 
 #pragma once
 
-#include "LShaderBasic3d.h"
-#include "LFog.h"
-#include "LLightDirectional.h"
-#include "LLightPoint.h"
-#include "LLightSpot.h"
-#include "LMaterial.h"
+#include <shaders/LShaderBasic3d.h>
+#include <LFog.h>
+#include <LLightDirectional.h>
+#include <LLightPoint.h>
+#include <LLightSpot.h>
+#include <LMaterial.h>
 
 #define MAX_DIRECTIONAL_LIGHTS 2
 #define MAX_POSITIONAL_LIGHTS 5

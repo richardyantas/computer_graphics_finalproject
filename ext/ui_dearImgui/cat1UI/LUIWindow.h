@@ -17,6 +17,7 @@ namespace cat1UI
         unordered_map< string, cat1UI::LUIButton* > m_buttonWidgets;
         unordered_map< string, cat1UI::LUISlider* > m_sliderWidgets;
         unordered_map< string, cat1UI::LUICheckbox* > m_checkboxWidgets;
+        unordered_map< string, cat1UI::LUIComboBox* > m_comboboxWidgets;
 
         bool m_isActive;
         string m_name;
@@ -32,11 +33,13 @@ namespace cat1UI
         LUIButton* addButtonWidget( int order, string id, string buttonName );
         LUISlider* addSliderWidget( int order, string id, float minVal, float maxVal, float initialValue, string sliderName );
         LUICheckbox* addCheckboxWidget( int order, string id, bool initialState, string checkboxName );
+        LUIComboBox* addComboBoxWidget( int order, string id, string comboBoxName, const vector< string >& options );
 
         LUIText* getTextWidget( string id );
         LUIButton* getButtonWidget( string id );
         LUISlider* getSliderWidget( string id );
         LUICheckbox* getCheckboxWidget( string id );
+        LUIComboBox* getComboBoxWidget( string id );
 
         void render();
 

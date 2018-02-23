@@ -39,6 +39,12 @@ namespace cat1UI
         }
         m_checkboxWidgets.clear();
 
+        for ( auto _it : m_comboboxWidgets )
+        {
+            delete _it.second;
+        }
+        m_comboboxWidgets.clear();
+
         m_widgetsRenderQueue.clear();
     }
 
@@ -103,7 +109,20 @@ namespace cat1UI
         return _checkboxWidget;
     }
 
+    LUIComboBox* LUIWindow::addComboBoxWidget( int order, string id, string comboBoxName, const vector< string >& options )
+    {
+        if ( m_comboboxWidgets.find( id ) != m_comboboxWidgets.end() )
+        {
+            cout << "checkboxWidget with id: " << id << " already exists. Not adding new widget" << endl;
+            return NULL;
+        }
 
+        auto _comboBoxWidget = new LUIComboBox( id, order, comboBoxName, options );
+
+        m_comboboxWidgets[id] = _comboBoxWidget;
+
+        return _comboBoxWidget;
+    }
 
     LUIText* LUIWindow::getTextWidget( string id )
     {
@@ -149,6 +168,16 @@ namespace cat1UI
         return m_checkboxWidgets[ id ];
     }
 
+    LUIComboBox* LUIWindow::getComboBoxWidget( string id )
+    {
+        if ( m_comboboxWidgets.find( id ) == m_comboboxWidgets.end() )
+        {
+            cout << "comboboxWidget with id: " << id << " not found" << endl;
+            return NULL;
+        }
+
+        return m_comboboxWidgets[id];
+    }
 
     void LUIWindow::render()
     {
@@ -159,6 +188,7 @@ namespace cat1UI
         for ( auto _it : m_buttonWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
         for ( auto _it : m_sliderWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
         for ( auto _it : m_checkboxWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
+        for ( auto _it : m_comboboxWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
 
         std::sort( m_widgetsRenderQueue.begin(), m_widgetsRenderQueue.end(), comparatorWidgetsOrder );
 

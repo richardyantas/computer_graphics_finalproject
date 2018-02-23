@@ -24,8 +24,8 @@ add_library( gengine
              src/LMesh.cpp
              src/LScene.cpp
              src/LTerrainGenerator.cpp
-             src/LShader.cpp
-             src/LShaderManager.cpp
+             src/shaders/LShader.cpp
+             src/shaders/LShaderManager.cpp
              src/LAssetsManager.cpp
              src/LVertexArray.cpp
              src/LVertexBuffer.cpp

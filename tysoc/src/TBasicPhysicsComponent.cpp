@@ -28,7 +28,7 @@ namespace tysoc
 
         auto _rbMotionState = new btDefaultMotionState( _rbTransform );
 
-        auto _rbShape = new btSphereShape( 0.5 );
+        auto _rbShape = new btSphereShape( 0.2 );
         // auto _rbMotionState = new btDefaultMotionState( btTransform( btQuaternion( 0, 0, 0, 1 ), 
         //                                                              btVector3( pParent->pos.x,
         //                                                                         pParent->pos.y,

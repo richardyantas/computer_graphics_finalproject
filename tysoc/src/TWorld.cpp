@@ -38,7 +38,7 @@ namespace tysoc
             // TODO: Fix this ugly leaky initialization
 
             auto _planeShape = new btStaticPlaneShape( btVector3( 0, 1, 0 ), 0 );
-            auto _planeMotionState = new btDefaultMotionState( btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, -1, 0 ) ) );
+            auto _planeMotionState = new btDefaultMotionState( btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 0, 0 ) ) );
             btRigidBody::btRigidBodyConstructionInfo _planeRigidBodyCI( 0, _planeMotionState, _planeShape, btVector3( 0, 0, 0 ) );
 
             auto _planeBody = new btRigidBody( _planeRigidBodyCI );
