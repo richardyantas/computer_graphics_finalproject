@@ -5,6 +5,7 @@
 
 // General purpose shaders
 #include <shaders/LShaderBasic3d.h>
+#include <shaders/LShaderDebug3d.h>
 #include <shaders/LShaderFramebufferScreenRender.h>
 #include <shaders/LShaderShadowMap.h>
 
@@ -37,6 +38,13 @@ namespace engine
 
         programs["basic3d"] = _program;
         programObjs["basic3d"] = new LShaderBasic3d( _program );
+
+        _vShader = createShader( "debug/debug_3d_vs.glsl", GL_VERTEX_SHADER );
+        _fShader = createShader( "debug/debug_3d_fs.glsl", GL_FRAGMENT_SHADER );
+        _program = createProgram( _vShader, _fShader );
+
+        programs["debug3d"] = _program;
+        programObjs["debug3d"] = new LShaderDebug3d( _program );
 
         _vShader = createShader( "postprocessing/framebuffer_screenrender_vs.glsl", GL_VERTEX_SHADER );
         _fShader = createShader( "postprocessing/framebuffer_screenrender_fs.glsl", GL_FRAGMENT_SHADER );

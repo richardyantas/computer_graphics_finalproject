@@ -74,6 +74,11 @@ namespace cat1UI
 
         for ( auto _it : m_windows )
         {
+            if ( !_it.second->isActive() )
+            {
+                continue;
+            }
+            
             _it.second->render();
         }
 

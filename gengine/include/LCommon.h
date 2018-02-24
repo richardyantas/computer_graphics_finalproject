@@ -124,6 +124,22 @@ namespace engine
             return _res;
         }
 
+        static float dot( const LVec3& v1,
+                          const LVec3& v2 )
+        {
+            return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+        }
+
+        static LVec3 plus( const LVec3& v1, const LVec3& v2 )
+        {
+            return LVec3( v1.x + v2.x, v1.y + v2.y, v1.z + v2.z );
+        }
+
+        static LVec3 minus( const LVec3& v1, const LVec3& v2 )
+        {
+            return LVec3( v1.x - v2.x, v1.y - v2.y, v1.z - v2.z );
+        }
+
         static bool equal( LVec3 v1, LVec3 v2 )
         {
             LVec3 _delta = v1 - v2;

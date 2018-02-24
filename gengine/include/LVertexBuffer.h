@@ -30,6 +30,7 @@ namespace engine
         ~LVertexBuffer();
 
         void setData( GLuint size, GLuint componentCount, GLfloat* pData );
+        void updateData( GLuint size, GLfloat* pData );
         void bind();
         void unbind();
 

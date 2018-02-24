@@ -24,7 +24,7 @@ void TestApp::init()
     m_world = new tysoc::TBaseScenario();
 
     m_ui = new tysoc::TDebugUI( m_window->getGLFWwindow() );
-    m_ui->init( m_world );
+    m_ui->init( reinterpret_cast< tysoc::TBaseScenario* >( m_world ) );
 
     cout << "done initializing testapp" << endl;
 }

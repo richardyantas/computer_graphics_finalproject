@@ -18,6 +18,7 @@ namespace tysoc
         protected :
 
         unordered_map< string, TComponent* > m_components;
+        bool m_inFreeMovement;
 
         public :
 
@@ -43,8 +44,11 @@ namespace tysoc
         }
 
         void addComponent( TComponent* pComponent );
-
         virtual void update( float dt );
+        
+        void setFreeMovementMode( bool active ) { m_inFreeMovement = active; }
+        void toggleFreeMovement() { m_inFreeMovement != m_inFreeMovement; }
+        bool inFreeMovement() { return m_inFreeMovement; }
     };
 
 

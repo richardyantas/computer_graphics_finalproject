@@ -15,6 +15,7 @@ add_library( tysoc
              src/TPrimitiveGraphicsComponent.cpp
              src/TPrimitivePhysicsComponent.cpp
              src/TPlayerEntity.cpp
+             src/controllers/TKeyboardController.cpp
              src/TPrimitiveEntity.cpp
              src/TTerrain1D.cpp
              src/TTerrain1DPatched.cpp

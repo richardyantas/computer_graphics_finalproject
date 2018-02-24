@@ -42,7 +42,8 @@ namespace tysoc
             btRigidBody::btRigidBodyConstructionInfo _planeRigidBodyCI( 0, _planeMotionState, _planeShape, btVector3( 0, 0, 0 ) );
 
             auto _planeBody = new btRigidBody( _planeRigidBodyCI );
-            _planeBody->setRestitution( 0.95f );
+            _planeBody->setRestitution( 0.95 );
+            _planeBody->setFriction( 1.0 );
 
             auto _planeMesh = engine::LMeshBuilder::createPlane( 30, 30 );
 
@@ -111,12 +112,12 @@ namespace tysoc
             m_currentCamera->update( dt );
         }
 
-        m_btWorld->stepSimulation( 1 / 60.f, 10 );
-
         for ( auto _entity : m_entities )
         {
             _entity->update( dt );
         }
+
+        m_btWorld->stepSimulation( 1 / 60.f, 1 );
     }
  
     void TWorld::addEntity( TEntity* pEntity )

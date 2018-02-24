@@ -33,6 +33,12 @@ namespace engine
         glBufferData( GL_ARRAY_BUFFER, size, pData, m_usage );
     }
 
+    void LVertexBuffer::updateData( GLuint size, GLfloat* pData )
+    {
+        glBindBuffer( GL_ARRAY_BUFFER, m_bufferId );
+        glBufferSubData( GL_ARRAY_BUFFER, 0, size, pData );
+    }
+
     void LVertexBuffer::bind()
     {
         glBindBuffer( GL_ARRAY_BUFFER, m_bufferId );

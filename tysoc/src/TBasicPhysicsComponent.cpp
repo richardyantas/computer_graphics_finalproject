@@ -44,7 +44,8 @@ namespace tysoc
                                                                       _rbInertia );
 
         m_rBody = new btRigidBody( _rbConstructionInfo );
-        m_rBody->setRestitution( 1.0f );
+        m_rBody->setRestitution( 0.5 );
+        m_rBody->setFriction( 1.0 );
     }
 
     TBasicPhysicsComponent::TBasicPhysicsComponent( TEntity* pParent, btRigidBody* pRigidBody )
@@ -63,17 +64,42 @@ namespace tysoc
     {
         // cout << "update physics" << endl;
 
+        if ( m_parent->inFreeMovement() )
+        {
+            return;
+        }
+
         btTransform _trans;
         m_rBody->getMotionState()->getWorldTransform( _trans );
         auto _pos = _trans.getOrigin();
-
+        
         // cout << "x: " << _pos.x() << " - y: " << _pos.y() << " - z: " << _pos.z() << endl;
-
+        
         m_parent->pos = engine::LVec3( _pos.x(), _pos.y(), _pos.z() );
 
         // TODO: add rotation
         
     }
+
+    void TBasicPhysicsComponent::applyForce( const TVec3& force )
+    {
+        m_rBody->setActivationState( ACTIVE_TAG );
+        m_rBody->applyCentralForce( btVector3( force.x, force.y, force.z ) );
+    }
+
+    void TBasicPhysicsComponent::applyImpulse( const TVec3& impulse )
+    {
+        m_rBody->setActivationState( ACTIVE_TAG );
+        m_rBody->applyCentralImpulse( btVector3( impulse.x, impulse.y, impulse.z ) );
+    }
+
+    TVec3 TBasicPhysicsComponent::getVelocity()
+    {
+        btVector3 _velocity = m_rBody->getLinearVelocity();
+        return TVec3( _velocity.x(), _velocity.y(), _velocity.z() );
+    }
+
+
 
 
 }

@@ -44,6 +44,10 @@ namespace engine
         void setPosition( const LVec3& pos );
         LVec3 getPosition() const { return m_pos; }
 
+        float getFov() { return m_fov; }
+        float getZNear() { return m_zNear; }
+        float getZFar() { return m_zFar; }
+
         virtual glm::mat4 getViewMatrix() = 0;
         glm::mat4 getProjectionMatrix();
 

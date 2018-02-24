@@ -26,6 +26,8 @@ namespace engine
         m_lastY = 0.0f;
 
         m_sensitivity = CAM_DEFAULT_SENSITIVITY;
+
+        _updateCamera();
     }
 
     glm::mat4 LFpsCamera::getViewMatrix()

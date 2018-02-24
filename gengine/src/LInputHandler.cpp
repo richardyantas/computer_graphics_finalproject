@@ -109,7 +109,8 @@ namespace engine
 			return false;
 		}
 
-		return m_keys[key] == GLFW_PRESS;
+		return m_keys[key] == GLFW_PRESS ||
+			   m_keys[key] == GLFW_REPEAT;
 	}
 
 	bool LInputHandler::isButtonPressed( int button )

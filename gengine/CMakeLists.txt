@@ -24,6 +24,8 @@ add_library( gengine
              src/LMesh.cpp
              src/LScene.cpp
              src/LTerrainGenerator.cpp
+             src/debug/LDebugDrawer.cpp
+             src/debug/LDebugSystem.cpp
              src/shaders/LShader.cpp
              src/shaders/LShaderManager.cpp
              src/LAssetsManager.cpp

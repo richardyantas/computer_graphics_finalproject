@@ -45,6 +45,7 @@ namespace cat1UI
 
         void enable() { m_isActive = true; }
         void disable() { m_isActive = false; }
+        void setMode( bool active ) { m_isActive = active; }
         bool isActive() { return m_isActive; }
 
         string getName() { return m_name; }

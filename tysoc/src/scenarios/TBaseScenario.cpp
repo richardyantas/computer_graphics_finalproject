@@ -22,7 +22,7 @@ namespace tysoc
                                                    engine::LVec3( 0.0f, 0.0f, -1.0f ),
                                                    engine::LVec3( 0.0f, 1.0f, 0.0f ) );
 
-        m_player = new TPlayerEntity( TVec3( 0, 3, 0 ) );
+        m_player = new TPlayerEntity( TVec3( 1, 3, 0 ) );
 
         m_camMainDeltaFromPlayer = m_mainCamera->getPosition() - m_player->pos;
         m_camSideDeltaFromPlayer = m_sideCamera->getPosition() - m_player->pos;

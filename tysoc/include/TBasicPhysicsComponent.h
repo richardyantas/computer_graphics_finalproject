@@ -13,7 +13,6 @@ namespace tysoc
     class TBasicPhysicsComponent : public TPhysicsComponent
     {
 
-
         private :
 
         btRigidBody* m_rBody;
@@ -30,6 +29,12 @@ namespace tysoc
 
         btRigidBody* getRigidBody() { return m_rBody; }
 
+        void setForcedPosition( const TVec3& position );
+
+        void applyForce( const TVec3& force );
+        void applyImpulse( const TVec3& impulse );
+
+        TVec3 getVelocity();
     };
 
 
