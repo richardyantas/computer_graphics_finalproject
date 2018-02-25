@@ -89,14 +89,14 @@ namespace engine
             }
         }
 
-        int _remainingCount = m_linesPositions.size() % DEBUG_DRAWER_LINES_BUFFER_COUNT_SIZE;
+        int _remainingCountLines = m_linesPositions.size() % DEBUG_DRAWER_LINES_BUFFER_COUNT_SIZE;
 
-        if ( _remainingCount != 0 )
+        if ( _remainingCountLines != 0 )
         {
             // If not exactly the buffer size, then there is still something ...
             // to be drawn in the lines buffers
 
-            _renderLinesBatch( _remainingCount );
+            _renderLinesBatch( _remainingCountLines );
         }
 
         m_linesPositions.clear();
@@ -107,17 +107,17 @@ namespace engine
     {
         m_linesVAO->bind();
 
-        //m_linesPositionsVBO->updateData( count * sizeof( LDLinePositions ), ( GLfloat* ) m_linesRenderBufferPositions.data() );
-        //m_linesColorsVBO->updateData( count * sizeof( LDLineColors ), ( GLfloat* ) m_linesRenderBufferColors.data() );
+        m_linesPositionsVBO->updateData( count * sizeof( LDLinePositions ), ( GLfloat* ) m_linesRenderBufferPositions.data() );
+        m_linesColorsVBO->updateData( count * sizeof( LDLineColors ), ( GLfloat* ) m_linesRenderBufferColors.data() );
 
-        m_linesPositionsVBO->setData( count * sizeof( LDLinePositions ), 3, ( GLfloat* ) m_linesRenderBufferPositions.data() );
-        m_linesColorsVBO->setData( count * sizeof( LDLineColors ), 3, ( GLfloat* ) m_linesRenderBufferColors.data() );
+        //m_linesPositionsVBO->setData( count * sizeof( LDLinePositions ), 3, ( GLfloat* ) m_linesRenderBufferPositions.data() );
+        //m_linesColorsVBO->setData( count * sizeof( LDLineColors ), 3, ( GLfloat* ) m_linesRenderBufferColors.data() );
 
         m_shaderLinesRef->bind();
         m_shaderLinesRef->setViewMatrix( m_viewMat );
         m_shaderLinesRef->setProjectionMatrix( m_projMat );
 
-        glDrawArrays( GL_LINES, 0, count );
+        glDrawArrays( GL_LINES, 0, count * 2 );
 
         m_shaderLinesRef->unbind();
 

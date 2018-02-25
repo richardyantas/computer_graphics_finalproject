@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <algorithm>
 #include <vector>
 #include <cmath>
 #include <cassert>
@@ -27,11 +28,20 @@
 
 #include <LCommon.h>
 
+#define TERRAIN1D_MATERIAL_AMBIENT_COMPONENT    engine::LVec3( 0.701f, 0.706f, 0.658f )
+#define TERRAIN1D_MATERIAL_DIFFUSE_COMPONENT    engine::LVec3( 0.701f, 0.706f, 0.658f )
+#define TERRAIN1D_MATERIAL_SPECULAR_COMPONENT   engine::LVec3( 0.701f, 0.706f, 0.658f )
+#define TERRAIN1D_MATERIAL_SHININESS_COMPONENT  50.0f
+
 namespace tysoc
 {
 
     typedef engine::LVec3 TVec3;
 
+    struct TAABB
+    {
+        engine::LVec2 p[4];
+    };
 
     enum _primitiveCollisionType
     {

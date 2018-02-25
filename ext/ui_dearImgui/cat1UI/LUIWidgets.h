@@ -16,7 +16,8 @@ namespace cat1UI
             BUTTON,
             CHECKBOX,
             SLIDER,
-            COMBOBOX
+            COMBOBOX,
+            COLOR_PICKER
         };
     }
 
@@ -146,6 +147,25 @@ namespace cat1UI
         string getComboBoxName() { return m_comboBoxName; }
 
         bool hasChangedValue() { return m_hasChangedValue; }
+    };
+
+    class LUIColorPicker : public LUIWidget
+    {
+        private :
+
+        float m_color[3];
+        string m_colorPickerName;
+        int m_flags;
+
+        public :
+
+        LUIColorPicker( string id, int order, string pickerName, float* initialColor );
+        ~LUIColorPicker();
+
+        void render() override;
+
+        float* getColor() { return m_color; }
+
     };
 
     bool comparatorWidgetsOrder( LUIWidget* w1, LUIWidget* w2 );

@@ -9,10 +9,16 @@ namespace tysoc
         : TWorld()
     {
         m_mainLight = new engine::LLightDirectional( engine::LVec3( 0.2, 0.2, 0.2 ), engine::LVec3( 0.8, 0.8, 0.8 ),
-                                                     engine::LVec3( 0.05, 0.05, 0.05 ), 0, engine::LVec3( -1, -1, -1 ) );
+                                                     engine::LVec3( 0.05, 0.05, 0.05 ), 0, engine::LVec3( -1, -1, 0 ) );
 
-        m_mainCamera = new engine::LFixedCamera3d( engine::LVec3( -4.5f, 4.7f, -5.9f ),
-                                                   engine::LVec3( 0.65f, -0.38f, 0.65f ),
+        m_mainLight->setVirtualPosition( engine::LVec3( 5, 5, 0 ) );
+
+        //m_mainCamera = new engine::LFixedCamera3d( engine::LVec3( -4.5f, 4.7f, -5.9f ),
+        //                                           engine::LVec3( 0.65f, -0.38f, 0.65f ),
+        //                                           engine::LVec3( 0.0f, 1.0f, 0.0f ) );
+
+        m_mainCamera = new engine::LFixedCamera3d( engine::LVec3( 2.71f, 4.28f, 3.68f ),
+                                                   engine::LVec3( -0.20f, -0.45f, -0.87f ),
                                                    engine::LVec3( 0.0f, 1.0f, 0.0f ) );
 
         m_freeCamera = new engine::LFpsCamera( engine::LVec3( 1.0f, 2.0f, -1.0f ),

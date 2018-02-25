@@ -27,6 +27,8 @@ namespace engine
 
         m_sensitivity = CAM_DEFAULT_SENSITIVITY;
 
+        m_type = LFpsCamera::getStaticType();
+
         _updateCamera();
     }
 

@@ -3,6 +3,7 @@
 
 #include "TWorld.h"
 #include <string>
+#include <LFixedCamera3d.h>
 
 using namespace std;
 
@@ -29,8 +30,14 @@ namespace tysoc
         float m_current1DPos;
 
         engine::LVec3 m_start;
-        engine::LVec3 m_direction;
+        engine::LVec3 m_direction;// like front
         engine::LVec3 m_up;
+        engine::LVec3 m_side;
+
+        TAABB m_cameraRangeWorldAxes;
+        TAABB m_cameraRangeMovementAxes;
+
+        TAABB _computeRangeFromCamera( engine::LFixedCamera3d* pCamera );
 
         public :
 
@@ -45,8 +52,16 @@ namespace tysoc
 
         static string getStaticType() { return string( "base" ); }
 
-        virtual void update( float dt );
+        void computeBoxRangeFromCameras( const vector< engine::LFixedCamera3d* >& vCameras );
 
+        TAABB getCameraRangeWorldAxes() { return m_cameraRangeWorldAxes; }
+        TAABB getCameraRangeMovementAxes() { return m_cameraRangeMovementAxes; }
+
+        virtual void update( float dt );
+        virtual void setMaterial( const engine::LVec3& ambient,
+                                  const engine::LVec3& diffuse,
+                                  const engine::LVec3& specular,
+                                  float shininess );
     };
 
 

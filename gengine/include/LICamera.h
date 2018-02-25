@@ -18,6 +18,8 @@ namespace engine
         LVec3 m_targetDir;
         LVec3 m_worldUp;
 
+        string m_type;
+
         float m_fov;
         float m_aspectRatio;
         float m_zNear;
@@ -34,9 +36,12 @@ namespace engine
                   const LVec3& worldUp,
                   float fov = 45.0f,
                   float aspectRatio = ( (float)APP_WIDTH ) / APP_HEIGHT,
-                  float zNear = 0.1f, float zFar = 100.0f );
+                  float zNear = 10.0f, float zFar = 40.0f );
 
         ~LICamera();
+
+        static string getStaticType() { return string( "base" ); }
+        string type() { return m_type; }
 
         void setTargetDir( const LVec3& target ) { m_targetDir = target; }
         LVec3 getTargetDir() const { return m_targetDir; }

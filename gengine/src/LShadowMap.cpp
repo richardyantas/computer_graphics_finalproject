@@ -55,7 +55,8 @@ namespace engine
 
         m_projMat = glm::ortho<float>( -0.5f * _width, 0.5f * _width, -0.5 * _height, 0.5 * _height, _zNear, _zFar );
 
-        glm::vec3 _virtualPosition( 10, 10, 10 );
+        auto _vpos = pLight->getVirtualPosition();
+        glm::vec3 _virtualPosition = glm::vec3( _vpos.x, _vpos.y, _vpos.z );
         glm::vec3 _virtualTarget = _virtualPosition + glm::vec3( pLight->direction.x, pLight->direction.y, pLight->direction.z );
 
         m_viewMat = glm::lookAt( _virtualPosition, _virtualTarget, glm::vec3( 0.0f, 1.0f, 0.0f ) );

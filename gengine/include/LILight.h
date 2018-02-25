@@ -27,6 +27,8 @@ namespace engine
         int m_indx;
         light::_light m_type;
 
+        LVec3 m_virtualPosition;
+
         public :
 
         LVec3 ambient;
@@ -44,7 +46,7 @@ namespace engine
             this->diffuse = diffuse;
             this->specular = specular;
             this->isActive = 1;
-
+            
             m_indx = lIndx;
         }
 
@@ -60,6 +62,9 @@ namespace engine
 
         light::_light getType() { return m_type; }
         int getIndx() { return m_indx; }
+
+        void setVirtualPosition( const LVec3& virtualPos ) { m_virtualPosition = virtualPos; }
+        LVec3 getVirtualPosition() { return m_virtualPosition; }
 
     };
 

@@ -19,8 +19,8 @@ namespace tysoc
         // build params from random ranges
         m_numBumps = _RAND_INT_RANGE( minBumps, maxBumps );
 
-        float _length = _RAND_FLOAT_RANGE( pMinLength, pMaxLength );
-        float _dlength = _length / m_numBumps;
+        m_patchLength = _RAND_FLOAT_RANGE( pMinLength, pMaxLength );
+        float _dlength = m_patchLength / m_numBumps;
 
         for ( int q = 0; q < m_numBumps; q++ )
         {
@@ -65,6 +65,12 @@ namespace tysoc
                                     glm::vec4( glm::vec3( 0.0f ), 1.0f ) );
         _box->pos = boxVoxelInfo.center;
 
+        auto _boxMaterial = _box->getMaterial();
+        _boxMaterial->ambient   = TERRAIN1D_MATERIAL_AMBIENT_COMPONENT;
+        _boxMaterial->diffuse   = TERRAIN1D_MATERIAL_DIFFUSE_COMPONENT;
+        _boxMaterial->specular  = TERRAIN1D_MATERIAL_SPECULAR_COMPONENT;
+        _boxMaterial->shininess = TERRAIN1D_MATERIAL_SHININESS_COMPONENT;
+
         m_gVoxels.push_back( _box );
 
         // Build the rigid body
@@ -92,5 +98,19 @@ namespace tysoc
         m_pVoxels.push_back( _rbBody );
     }
 
+    void TTerrain1DPatchVoxels::setMaterial( const engine::LVec3& ambient,
+                                             const engine::LVec3& diffuse,
+                                             const engine::LVec3& specular,
+                                             float shininess )
+    {
+        for ( auto _voxelMesh : m_gVoxels )
+        {
+            auto _material = _voxelMesh->getMaterial();
+            _material->ambient   = ambient;
+            _material->diffuse   = diffuse;
+            _material->specular  = specular;
+            _material->shininess = shininess;
+        }
+    }
 
 }

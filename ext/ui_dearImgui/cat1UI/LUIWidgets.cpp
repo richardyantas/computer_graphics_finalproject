@@ -129,6 +129,30 @@ namespace cat1UI
         }
     }
 
+
+    LUIColorPicker::LUIColorPicker( string id, int order, string pickerName, float* initialColor )
+        : LUIWidget( id, order )
+    {
+        m_colorPickerName = pickerName;
+        m_type = widgetType::COLOR_PICKER;
+
+        m_flags = 0;
+
+        memcpy( m_color, initialColor, sizeof( float ) * 3 );
+    }
+
+    LUIColorPicker::~LUIColorPicker()
+    {
+
+    }
+
+    void LUIColorPicker::render()
+    {
+        ImGui::Text( m_colorPickerName.c_str() );
+        ImGui::ColorEdit3( m_colorPickerName.c_str(), ( float* ) m_color, m_flags );
+    }
+
+
     bool comparatorWidgetsOrder( LUIWidget* w1, LUIWidget* w2 )
     {
         return w1->getOrder() < w2->getOrder();

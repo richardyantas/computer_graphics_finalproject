@@ -18,6 +18,7 @@ namespace tysoc
         private :
 
         vector< TTerrain1DPatchVoxels* > m_patches;
+        vector< engine::LFixedCamera3d* > m_fcameras;
 
         void _addSection( engine::LVec3 posStart );
 
@@ -35,6 +36,10 @@ namespace tysoc
 
         vector< TTerrain1DPatchVoxels* > getPatches() { return m_patches; }
 
+        void setMaterial( const engine::LVec3& ambient,
+                          const engine::LVec3& diffuse,
+                          const engine::LVec3& specular,
+                          float shininess ) override;
     };
 
 

@@ -37,6 +37,7 @@ namespace engine
     {
         glBindBuffer( GL_ARRAY_BUFFER, m_bufferId );
         glBufferSubData( GL_ARRAY_BUFFER, 0, size, pData );
+        glBindBuffer( GL_ARRAY_BUFFER, 0 );
     }
 
     void LVertexBuffer::bind()

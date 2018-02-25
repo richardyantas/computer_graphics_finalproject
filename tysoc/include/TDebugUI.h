@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <TCommon.h>
 #include <LUIHandler.h>
 #include <scenarios/TBaseScenario.h>
 #include <TPlayerEntity.h>

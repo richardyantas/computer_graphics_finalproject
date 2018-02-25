@@ -47,7 +47,7 @@ namespace engine
         glm::mat4 m_viewMat;
         glm::mat4 m_projMat;
 
-        void _renderLinesBatch( int count );
+        void _renderLinesBatch( int countLines );
         void _renderLines();
 
         LDebugDrawer();

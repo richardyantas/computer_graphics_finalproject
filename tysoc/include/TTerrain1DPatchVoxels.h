@@ -83,6 +83,11 @@ namespace tysoc
 
         float patchLength() { return m_patchLength; }
 
+        void setMaterial( const engine::LVec3& ambient,
+                          const engine::LVec3& diffuse,
+                          const engine::LVec3& specular,
+                          float shininess );
+
     };
 
 

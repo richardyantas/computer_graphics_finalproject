@@ -15,8 +15,22 @@ namespace tysoc
     {
         this->type = TTerrain1DPatched::getStaticType();
 
+        m_fcameras = m_world->getCamerasByType< engine::LFixedCamera3d >();
+
+        // Do initial calculation of the view ranges
+        computeBoxRangeFromCameras( m_fcameras );
         // Add initial section
-        _addSection( m_start );
+        auto _frontLimit = m_cameraRangeMovementAxes.p[2].x;
+        
+        while( m_current1DPos < _frontLimit )
+        {
+            auto _posStart = m_start;
+            _posStart.x += m_current1DPos * m_direction.x;
+            _posStart.y += m_current1DPos * m_direction.y;
+            _posStart.z += m_current1DPos * m_direction.z;
+            
+            _addSection( _posStart );
+        }
     }
 
     TTerrain1DPatched::~TTerrain1DPatched()
@@ -31,9 +45,20 @@ namespace tysoc
 
     void TTerrain1DPatched::update( float dt )
     {
-        // WIP: update section logic here ...
-    }
+        computeBoxRangeFromCameras( m_fcameras );
 
+        auto _frontLimit = m_cameraRangeMovementAxes.p[2].x;
+
+        while( m_current1DPos < _frontLimit )
+        {
+            auto _posStart = m_start;
+            _posStart.x += m_current1DPos * m_direction.x;
+            _posStart.y += m_current1DPos * m_direction.y;
+            _posStart.z += m_current1DPos * m_direction.z;
+
+            _addSection( _posStart );
+        }
+    }
 
     void TTerrain1DPatched::_addSection( engine::LVec3 posStart )
     {
@@ -54,6 +79,17 @@ namespace tysoc
             _btWorld->addRigidBody( _rbody );
         }
             
+    }
+
+    void TTerrain1DPatched::setMaterial( const engine::LVec3& ambient,
+                                         const engine::LVec3& diffuse,
+                                         const engine::LVec3& specular,
+                                         float shininess )
+    {
+        for ( auto _patch : m_patches )
+        {
+            _patch->setMaterial( ambient, diffuse, specular, shininess );
+        }
     }
 
 }

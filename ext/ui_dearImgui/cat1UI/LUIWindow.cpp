@@ -45,6 +45,12 @@ namespace cat1UI
         }
         m_comboboxWidgets.clear();
 
+        for ( auto _it : m_colorPickerWidgets )
+        {
+            delete _it.second;
+        }
+        m_colorPickerWidgets.clear();
+
         m_widgetsRenderQueue.clear();
     }
 
@@ -113,7 +119,7 @@ namespace cat1UI
     {
         if ( m_comboboxWidgets.find( id ) != m_comboboxWidgets.end() )
         {
-            cout << "checkboxWidget with id: " << id << " already exists. Not adding new widget" << endl;
+            cout << "comboboxWidget with id: " << id << " already exists. Not adding new widget" << endl;
             return NULL;
         }
 
@@ -122,6 +128,21 @@ namespace cat1UI
         m_comboboxWidgets[id] = _comboBoxWidget;
 
         return _comboBoxWidget;
+    }
+
+    LUIColorPicker* LUIWindow::addColorPickerWidget( int order, string id, string colorPickerName, float* initialColor )
+    {
+        if ( m_colorPickerWidgets.find( id ) != m_colorPickerWidgets.end() )
+        {
+            cout << "checkboxWidget with id: " << id << " already exists. Not adding new widget" << endl;
+            return NULL;
+        }
+
+        auto _colorPickerWidget = new LUIColorPicker( id, order, colorPickerName, initialColor );
+
+        m_colorPickerWidgets[id] = _colorPickerWidget;
+
+        return _colorPickerWidget;
     }
 
     LUIText* LUIWindow::getTextWidget( string id )
@@ -179,6 +200,17 @@ namespace cat1UI
         return m_comboboxWidgets[id];
     }
 
+    LUIColorPicker* LUIWindow::getColorPickerWidget( string id )
+    {
+        if ( m_colorPickerWidgets.find( id ) == m_colorPickerWidgets.end() )
+        {
+            cout << "colorPickerWidget with id: " << id << " not found" << endl;
+            return NULL;
+        }
+
+        return m_colorPickerWidgets[id];
+    }
+
     void LUIWindow::render()
     {
         // sort the widgets in their corresponding buffers
@@ -189,6 +221,7 @@ namespace cat1UI
         for ( auto _it : m_sliderWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
         for ( auto _it : m_checkboxWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
         for ( auto _it : m_comboboxWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
+        for ( auto _it : m_colorPickerWidgets ) { m_widgetsRenderQueue.push_back( _it.second ); }
 
         std::sort( m_widgetsRenderQueue.begin(), m_widgetsRenderQueue.end(), comparatorWidgetsOrder );
 

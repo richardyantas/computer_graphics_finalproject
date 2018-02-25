@@ -11,6 +11,8 @@
 #define CAM_DEFAULT_SPEED 5.0f
 #define CAM_MAX_DELTA 20
 
+using namespace std;
+
 namespace engine
 {
 
@@ -47,6 +49,8 @@ namespace engine
                     float fov = 45.0f,
                     float aspectRatio = ( (float)APP_WIDTH ) / APP_HEIGHT,
                     float zNear = 0.1f, float zFar = 100.0f );
+
+        static string getStaticType() { return string( "fps" ); }
 
         glm::mat4 getViewMatrix() override;
 

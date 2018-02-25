@@ -46,6 +46,15 @@ namespace tysoc
         m_wLighting->addSliderWidget( 2, "sl_diffuse", 0.0f, 1.0f, 0.8f, "Light source diffuse component" );
         m_wLighting->addSliderWidget( 3, "sl_specular", 0.0f, 1.0f, 0.05f, "Light source specular component" );
 
+        auto _mAmbient  = TERRAIN1D_MATERIAL_AMBIENT_COMPONENT;
+        auto _mDiffuse  = TERRAIN1D_MATERIAL_DIFFUSE_COMPONENT;
+        auto _mSpecular = TERRAIN1D_MATERIAL_SPECULAR_COMPONENT;
+
+        m_wLighting->addColorPickerWidget( 4, "cp_terrain_ambient", "terrain's material ambient ", ( float* ) &_mAmbient );
+        m_wLighting->addColorPickerWidget( 5, "cp_terrain_diffuse", "terrain's material diffuse", ( float* ) &_mDiffuse );
+        m_wLighting->addColorPickerWidget( 6, "cp_terrain_specular", "terrain's material specular", ( float* ) &_mSpecular );
+        m_wLighting->addSliderWidget( 7, "sl_terrain_shininess", 20.0f, 100.0f, TERRAIN1D_MATERIAL_SHININESS_COMPONENT, "terrain's material shininess" );
+
         m_wTestPanel = new LUIWindow( "Test panel" );
 
         m_wPlayerInfo = new LUIWindow( "Player info" );
@@ -137,6 +146,18 @@ namespace tysoc
                 _mainLight->ambient  = engine::LVec3( _vAmbient, _vAmbient, _vAmbient );
                 _mainLight->diffuse  = engine::LVec3( _vDiffuse, _vDiffuse, _vDiffuse );
                 _mainLight->specular = engine::LVec3( _vSpecular, _vSpecular, _vSpecular );
+
+                float* _fambient  = m_wLighting->getColorPickerWidget( "cp_terrain_ambient" )->getColor();
+                float* _fdiffuse  = m_wLighting->getColorPickerWidget( "cp_terrain_diffuse" )->getColor();
+                float* _fspecular = m_wLighting->getColorPickerWidget( "cp_terrain_specular" )->getColor();
+                float _fshininess = m_wLighting->getSliderWidget( "sl_terrain_shininess" )->getSliderValue();
+
+                TVec3 _matAmbient( _fambient[0], _fambient[1], _fambient[2] );
+                TVec3 _matDiffuse( _fdiffuse[0], _fdiffuse[1], _fdiffuse[2] );
+                TVec3 _matSpecular( _fspecular[0], _fspecular[1], _fspecular[2] );
+
+                auto _terrain = m_scenario->getTerrain();
+                _terrain->setMaterial( _matAmbient, _matDiffuse, _matSpecular, _fshininess );
             }
         }
 
@@ -240,6 +261,21 @@ namespace tysoc
             auto _trail = m_playerRef->trail().getTrailPoints();
 
             engine::DebugSystem::drawTrailPoints( _trail, engine::LVec3( 0, 1, 1 ) );
+
+            auto _terrain = m_scenario->getTerrain();
+            TAABB _cameraRangesWorld    = _terrain->getCameraRangeWorldAxes();
+            TAABB _cameraRangesMovement = _terrain->getCameraRangeMovementAxes();
+
+            for ( int q = 0; q < 4; q++ )
+            {
+                float _x = _cameraRangesWorld.p[ q ].x;
+                float _z = _cameraRangesWorld.p[ q ].y;
+
+                float _xn = _cameraRangesWorld.p[ ( q + 1 ) % 4 ].x;
+                float _zn = _cameraRangesWorld.p[ ( q + 1 ) % 4 ].y;
+
+                engine::DebugSystem::drawLine( engine::LVec3( _x, 0, _z ), engine::LVec3( _xn, 0, _zn ), engine::LVec3( 1, 0, 0 ) );
+            }
 
             engine::DebugSystem::setupMatrices( _currentCamera->getViewMatrix(), _currentCamera->getProjectionMatrix() );
             engine::DebugSystem::render();

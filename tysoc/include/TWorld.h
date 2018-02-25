@@ -67,6 +67,26 @@ namespace tysoc
         unordered_map< string, engine::LICamera* > getCameras() { return m_cameras; }
 
         template< class T >
+        vector< T* > getCamerasByType()
+        {
+            auto _type = T::getStaticType();
+
+            vector< T* > _validCameras;
+
+            for ( auto _kvPair : m_cameras )
+            {
+                auto _camType = _kvPair.second->type();
+                if ( _camType == _type )
+                {
+                    _validCameras.push_back( ( T* ) _kvPair.second );
+                }
+            }
+
+
+            return _validCameras;
+        }
+
+        template< class T >
         vector<T*> getLights()
         {
             auto _type = T::getStaticType();

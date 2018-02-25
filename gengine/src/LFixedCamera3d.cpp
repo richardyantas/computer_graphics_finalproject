@@ -16,6 +16,8 @@ namespace engine
     {
         m_movSpeed = 0.0f;
         m_movDirection = LVec3( 0, 0, 0 );
+
+        m_type = LFixedCamera3d::getStaticType();
     }
 
     glm::mat4 LFixedCamera3d::getViewMatrix()

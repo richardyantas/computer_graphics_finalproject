@@ -57,7 +57,7 @@ namespace tysoc
             _planeEntity->addComponent( _planeGComponent );
             _planeEntity->addComponent( _planePComponent );
 
-            addEntity( _planeEntity );
+            //addEntity( _planeEntity );
             m_btWorld->addRigidBody( _planeBody );
         }
     }
@@ -115,6 +115,11 @@ namespace tysoc
         for ( auto _entity : m_entities )
         {
             _entity->update( dt );
+        }
+
+        if ( m_terrain != NULL )
+        {
+            m_terrain->update( dt );
         }
 
         m_btWorld->stepSimulation( 1 / 60.f, 1 );
