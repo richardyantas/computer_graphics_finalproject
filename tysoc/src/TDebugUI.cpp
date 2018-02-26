@@ -128,6 +128,12 @@ namespace tysoc
                 auto _newCameraID = _combCameras->getCurrentOptionStr();
                 m_scenario->changeToCamera( _newCameraID );
             }
+
+            auto _btnPrimitives = m_wTestPanel->getButtonWidget( "btn_primitive" );
+            if ( _btnPrimitives->getButtonState() == true )
+            {
+                m_scenario->createObstacle();
+            }
         }
 
         if ( m_wLighting->isActive() )

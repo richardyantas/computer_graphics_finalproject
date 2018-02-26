@@ -33,6 +33,7 @@ target_link_libraries( tysoc
                        BulletCollision
                        BulletDynamics
                        LinearMath
-					   cat1UI )
+					   cat1UI
+                       #[[jsoncpp]] )
 
 message( "Configuring tysoc engine - done" )

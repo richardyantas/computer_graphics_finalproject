@@ -16,10 +16,12 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <cstdlib>
 #include <algorithm>
 #include <vector>
 #include <cmath>
 #include <cassert>
+#include <unordered_map>
 
 #define MAX_DELTA 0.05
 
@@ -32,6 +34,8 @@
 #define TERRAIN1D_MATERIAL_DIFFUSE_COMPONENT    engine::LVec3( 0.701f, 0.706f, 0.658f )
 #define TERRAIN1D_MATERIAL_SPECULAR_COMPONENT   engine::LVec3( 0.701f, 0.706f, 0.658f )
 #define TERRAIN1D_MATERIAL_SHININESS_COMPONENT  50.0f
+
+using namespace std;
 
 namespace tysoc
 {
@@ -58,6 +62,33 @@ namespace tysoc
         GRAPHICS_CYLINDER,
         GRAPHICS_CAPSULE
     };
-            
+      
+    enum _jointType
+    {
+        HINGE,
+        PRISMATIC
+    };
+
+    static unordered_map< string, _primitiveCollisionType > g_CollisionShapeMap = 
+        {
+            { "box", COLLISION_BOX },
+            { "cylinder", COLLISION_CYLINDER },
+            { "sphere", COLLISION_SPHERE },
+            { "capsule", COLLISION_CAPSULE }
+        };
+
+    static unordered_map< string, _primitiveGraphicsType > g_GraphicsShapeMap = 
+        {
+            { "box", GRAPHICS_BOX },
+            { "cylinder", GRAPHICS_CYLINDER },
+            { "sphere", GRAPHICS_SPHERE },
+            { "capsule", GRAPHICS_CAPSULE }
+        };
+
+    static _jointType g_JointType[2] =
+        {
+            HINGE,
+            PRISMATIC
+        };
 
 }
