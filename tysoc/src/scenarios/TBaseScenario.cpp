@@ -30,6 +30,8 @@ namespace tysoc
 
         m_player = new TPlayerEntity( TVec3( 1, 3, 0 ) );
 
+        m_simCharacter = new TSimCharacterEntity( "raptor.txt", TVec3( 0, 3, 0 ) );
+
         m_camMainDeltaFromPlayer = m_mainCamera->getPosition() - m_player->pos;
         m_camSideDeltaFromPlayer = m_sideCamera->getPosition() - m_player->pos;
         m_mainLightDeltaFromPlayer = m_mainLight->getVirtualPosition() - m_player->pos;

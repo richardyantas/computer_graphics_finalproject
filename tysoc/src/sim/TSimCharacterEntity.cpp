@@ -15,8 +15,8 @@ namespace tysoc
 
         TCharacterParser::parseCharacter( *m_characterTree, structureFile );
 
-        addComponent( new TSimCharacterGraphicsComponent( this, m_characterTree ) );
-        addComponent( new TSimCharacterPhysicsComponent( this, m_characterTree ) );
+        // addComponent( new TSimCharacterGraphicsComponent( this, m_characterTree ) );
+        // addComponent( new TSimCharacterPhysicsComponent( this, m_characterTree ) );
     }
 
     TSimCharacterEntity::~TSimCharacterEntity()

@@ -2,11 +2,13 @@
 #pragma once
 
 #include <TCommon.h>
-#include <string.h>
-#include <ifstream.h>
-#include <json/json.h>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <nlohmann/json.hpp>
 
 using namespace std;
+using json = nlohmann::json;
 
 namespace tysoc
 {
@@ -91,17 +93,17 @@ namespace tysoc
     class TCharacterParser
     {
 
-        static bool _parseJoints( vector< TCharacterNodeData >& dataResources, const Json::Value& root );
-        static bool _parseShapes( vector< TCharacterNodeData >& dataResources, const Json::Value& root );
-        static bool _parseGraphics( vector< TCharacterNodeData >& dataResources, const Json::Value& root );
-        static bool _parsePDCdata( vector< TCharacterNodeData >& dataResources, const Json::Value& root );
+        static bool _parseJoints( vector< TCharacterNodeData >& dataResources, const json& root );
+        static bool _parseShapes( vector< TCharacterNodeData >& dataResources, const json& root );
+        static bool _parseGraphics( vector< TCharacterNodeData >& dataResources, const json& root );
+        static bool _parsePDCdata( vector< TCharacterNodeData >& dataResources, const json& root );
 
 
         static void _processNode( TCharacterNode* node, const vector< TCharacterNodeData >& dataResources );
         
-        static bool _parseResources( vector< TCharacterNodeData >& dataResources, const Json::Value& root );
+        static bool _parseResources( vector< TCharacterNodeData >& dataResources, const json& root );
         static bool _buildTree( TCharacterNode& tree, const vector< TCharacterNodeData >& dataResources );
-        static bool _loadSkeleton( TCharacterNode& tree, const Json::Value& root );
+        static bool _loadSkeleton( TCharacterNode& tree, const json& root );
 
         public :
 

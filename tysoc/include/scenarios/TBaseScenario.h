@@ -8,6 +8,7 @@
 #include <TPlayerEntity.h>
 #include <TTerrain1DPatched.h>
 #include <TPrimitiveEntity.h>
+#include <sim/TSimCharacterEntity.h>
 
 #define OBSTACLE_SPHERE 0
 #define OBSTACLE_BOX 1
@@ -32,6 +33,7 @@ namespace tysoc
         engine::LFpsCamera* m_freeCamera;
 
         TPlayerEntity* m_player;
+        TSimCharacterEntity* m_simCharacter;
 
         engine::LVec3 m_mainLightDeltaFromPlayer;
         engine::LVec3 m_camMainDeltaFromPlayer;

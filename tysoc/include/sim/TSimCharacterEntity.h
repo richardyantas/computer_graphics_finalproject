@@ -2,8 +2,8 @@
 #pragma once
 
 #include <TEntity.h>
-#include <TSimCharacterGraphicsComponent.h>
-#include <TSimCharacterPhysicsComponent.h>
+// #include <TSimCharacterGraphicsComponent.h>
+// #include <TSimCharacterPhysicsComponent.h>
 #include <utils/TCharacterParser.h>
 
 using namespace std;
@@ -11,8 +11,8 @@ using namespace std;
 namespace tysoc
 {
 
-    class TSimCharacterGraphicsComponent;
-    class TSimCharacterPhysicsComponent;
+    // class TSimCharacterGraphicsComponent;
+    // class TSimCharacterPhysicsComponent;
 
     class TSimCharacterEntity : public TEntity
     {

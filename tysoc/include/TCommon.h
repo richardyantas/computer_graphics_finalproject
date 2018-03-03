@@ -35,6 +35,14 @@
 #define TERRAIN1D_MATERIAL_SPECULAR_COMPONENT   engine::LVec3( 0.701f, 0.706f, 0.658f )
 #define TERRAIN1D_MATERIAL_SHININESS_COMPONENT  50.0f
 
+#define TYSOC_RESOURCES_CHARACTERS_SUB_PATH "deepTerrainData/characters/"
+#define TYSOC_RESOURCES_STATES_SUB_PATH "deepTerrainData/states/"
+#define TYSOC_RESOURCES_CONTROLLERS_SUB_PATH "deepTerrainData/controllers/"
+#define TYSOC_RESOURCES_TERRAINS_SUB_PATH "deepTerrainData/terrain/"
+#define TYSOC_RESOURCES_MOTIONS_SUB_PATH "deepTerrainData/motions/"
+#define TYSOC_RESOURCES_POLICIES_SUB_PATH "deepTerrainData/policies/"
+
+
 using namespace std;
 
 namespace tysoc
