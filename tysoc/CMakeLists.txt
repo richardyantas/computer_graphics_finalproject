@@ -22,6 +22,9 @@ add_library( tysoc
              src/TTerrain1DPatchVoxels.cpp
              src/TWorld.cpp
              src/scenarios/TBaseScenario.cpp
+             src/utils/TCharacterParser.cpp
+             src/sim/TSimCharacterEntity.cpp
+             src/sim/TSimCharacterGraphicsComponent.cpp
              src/TDebugUI.cpp
              src/TMasterRenderer.cpp
              src/TEntitiesRenderer.cpp
@@ -33,7 +36,6 @@ target_link_libraries( tysoc
                        BulletCollision
                        BulletDynamics
                        LinearMath
-					   cat1UI
-                       #[[jsoncpp]] )
+					   cat1UI )
 
 message( "Configuring tysoc engine - done" )

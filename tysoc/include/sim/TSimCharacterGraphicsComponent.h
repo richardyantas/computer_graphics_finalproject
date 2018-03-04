@@ -5,10 +5,9 @@
 #include <LMesh.h>
 #include <LMeshBuilder.h>
 #include <utils/TCharacterParser.h>
-
 #include <sim/TSimCharacterEntity.h>
 
-using namespace std
+using namespace std;
 
 namespace tysoc
 {
@@ -26,6 +25,10 @@ namespace tysoc
 
         void _buildNode( TCharacterNode* node, glm::mat4 cumTransform );
         void _buildFromTree();
+
+		void _setNodeTransform( TCharacterNode* node, 
+								glm::mat4 cumLocalTransform, 
+								const glm::mat4& baseWorldTransform );
 
         public :
 

@@ -9,7 +9,6 @@ set( CMAKE_CXX_STANDARD 11 )
 find_package( OpenGL REQUIRED )
 
 message( "CONFIGURING EXTERNAL DEPENDENCIES" )
-# add_subdirectory( ext/jsoncpp )
 add_subdirectory( ext/glfw )
 add_subdirectory( ext/glad )
 add_subdirectory( ext/glm )
@@ -18,7 +17,7 @@ add_subdirectory( ext/ui_dearImgui )
 set( TYSOC_INCLUDE_DIRECTORIES
      "${CMAKE_SOURCE_DIR}/gengine/include"
      "${CMAKE_SOURCE_DIR}/tysoc/include"
-     # "${CMAKE_SOURCE_DIR}/ext/jsoncpp/include"
+     "${CMAKE_SOURCE_DIR}/ext/json"
      "${CMAKE_SOURCE_DIR}/ext/glfw/include"
      "${CMAKE_BINARY_DIR}/ext/glad/include" # glad generates .h files in build dir :o
      "${CMAKE_SOURCE_DIR}/ext/glm/"

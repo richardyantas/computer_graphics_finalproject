@@ -10,12 +10,13 @@ namespace tysoc
 
     TSimCharacterEntity::TSimCharacterEntity( const string& structureFile,
                                               const TVec3& initialPosition )
+		: TEntity( initialPosition )
     {
         m_characterTree = new TCharacterNode();
 
         TCharacterParser::parseCharacter( *m_characterTree, structureFile );
 
-        // addComponent( new TSimCharacterGraphicsComponent( this, m_characterTree ) );
+        addComponent( new TSimCharacterGraphicsComponent( this, m_characterTree ) );
         // addComponent( new TSimCharacterPhysicsComponent( this, m_characterTree ) );
     }
 

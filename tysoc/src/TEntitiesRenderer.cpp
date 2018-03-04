@@ -4,7 +4,7 @@
 #include <TGraphicsComponent.h>
 #include <TBasicGraphicsComponent.h>
 #include <TPrimitiveGraphicsComponent.h>
-//#include <TSimCharacterGraphicsComponent.h>
+#include <sim/TSimCharacterGraphicsComponent.h>
 
 #include <iostream>
 
@@ -79,17 +79,17 @@ namespace tysoc
                 m_renderables[ _renderable->getType() ].push_back( _renderable );
             }            
 
-            // _graphicsComponent = _entity->getComponent< TSimCharacterGraphicsComponent >();
-            // if ( _graphicsComponent != NULL )
-            // {
-            //     auto _renderables = _graphicsComponent->getRenderables();
+            auto _simgraphicsComponent = _entity->getComponent< TSimCharacterGraphicsComponent >();
+            if ( _simgraphicsComponent != NULL )
+            {
+                auto _renderables = _simgraphicsComponent->getRenderables();
 
-            //     for ( auto _renderable : _renderables )
-            //     {
-            //         m_renderables[ _renderable->getType() ].push_back( _renderable );
-            //     }
+                for ( auto _renderable : _renderables )
+                {
+                    m_renderables[ _renderable->getType() ].push_back( _renderable );
+                }
 
-            // }
+            }
         }
     }
 
