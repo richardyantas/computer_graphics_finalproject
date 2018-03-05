@@ -23,12 +23,16 @@ namespace tysoc
 
         TCharacterNode* m_characterTree;
 
+        int m_numDof;
+
         void _buildNode( TCharacterNode* node, glm::mat4 cumTransform );
         void _buildFromTree();
 
 		void _setNodeTransform( TCharacterNode* node, 
-								glm::mat4 cumLocalTransform, 
-								const glm::mat4& baseWorldTransform );
+								glm::mat4 cumWorldTransform );
+
+		unordered_map< string, float > m_jointAngles;
+        vector< float > m_pose;
 
         public :
 
@@ -39,6 +43,7 @@ namespace tysoc
 
         void update( float dt ) override;
 
+        int getNumDof() { return m_numDof; }
         vector< engine::LMesh* > getRenderables();
     };
 

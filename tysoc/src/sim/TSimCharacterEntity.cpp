@@ -16,8 +16,14 @@ namespace tysoc
 
         TCharacterParser::parseCharacter( *m_characterTree, structureFile );
 
-        addComponent( new TSimCharacterGraphicsComponent( this, m_characterTree ) );
-        // addComponent( new TSimCharacterPhysicsComponent( this, m_characterTree ) );
+		auto _graphicsComponent = new TSimCharacterGraphicsComponent( this, m_characterTree );
+        m_numDof = _graphicsComponent->getNumDof();
+        m_pose = vector< float >( m_numDof, 0.0f );
+
+        auto _motionComponent = new TSimCharacterMotionComponent( this, "raptor_run.json" );
+
+        addComponent( _graphicsComponent );
+        addComponent( _motionComponent );
     }
 
     TSimCharacterEntity::~TSimCharacterEntity()
@@ -40,6 +46,34 @@ namespace tysoc
         }
 
         return m_bodiesTransforms[ id ];
+    }
+
+    void TSimCharacterEntity::setPose( const vector< float >& pose )
+    {
+        if ( pose.size() != m_numDof )
+        {
+            cout << "dof mismatch - ext. pose : " << pose.size() << " - this : " << m_numDof << endl;
+            return;
+        }
+
+        for ( int q = 0; q < m_numDof; q++ )
+        {
+            m_pose[q] = pose[q];
+        }
+    }
+
+    void TSimCharacterEntity::getPose( vector< float >& pose )
+    {
+        if ( pose.size() != m_numDof )
+        {
+            cout << "dof mismatch - ext. pose : " << pose.size() << " - this : " << m_numDof << endl;
+            return;
+        }
+        
+        for ( int q = 0; q < m_numDof; q++ )
+        {
+            pose[q] = m_pose[q];
+        }
     }
 
 }

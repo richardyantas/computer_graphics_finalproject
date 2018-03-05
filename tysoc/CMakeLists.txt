@@ -25,6 +25,9 @@ add_library( tysoc
              src/utils/TCharacterParser.cpp
              src/sim/TSimCharacterEntity.cpp
              src/sim/TSimCharacterGraphicsComponent.cpp
+             src/sim/TSimCharacterMotionComponent.cpp
+             src/sim/TSimCharacterPhysicsComponent.cpp
+             src/sim/TSimJoint.cpp
              src/TDebugUI.cpp
              src/TMasterRenderer.cpp
              src/TEntitiesRenderer.cpp

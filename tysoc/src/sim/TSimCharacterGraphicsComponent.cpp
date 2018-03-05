@@ -12,9 +12,13 @@ namespace tysoc
     TSimCharacterGraphicsComponent::TSimCharacterGraphicsComponent( TSimCharacterEntity* pParent, TCharacterNode* tree )
         : TGraphicsComponent( pParent )
     {
+		m_numDof = 0;
+
         m_characterTree = tree;
 		this->type = TSimCharacterGraphicsComponent::getStaticType();
         _buildFromTree();
+
+        m_pose = vector< float >( m_numDof, 0.0f );
     }
 
     TSimCharacterGraphicsComponent::~TSimCharacterGraphicsComponent()
@@ -29,9 +33,12 @@ namespace tysoc
 
     void TSimCharacterGraphicsComponent::_buildNode( TCharacterNode* node, glm::mat4 cumTransform )
     {
+        m_numDof++;
+
         auto& _nodeData = node->data;
         auto& _drawData = _nodeData.drawData;
 		auto& _jointData = _nodeData.jointData;
+		auto& _pdcData = _nodeData.pdcData;
 
         engine::LMesh* _mesh = NULL;
 
@@ -56,14 +63,17 @@ namespace tysoc
 			_mesh->getMaterial()->diffuse  = _drawData.color;
 			_mesh->getMaterial()->specular = _drawData.color;
 
-			cumTransform = _drawData.localTransform * cumTransform;
+			cumTransform = _jointData.localTransform * cumTransform;
 
-			glm::vec3 _pos = cumTransform[3];
-			glm::mat3 _rot = glm::mat3( cumTransform );
+            glm::mat4 _worldTransform = _drawData.localTransform * cumTransform;
+
+			glm::vec3 _pos = _worldTransform[3];
+			glm::mat3 _rot = glm::mat3( _worldTransform );
 			_mesh->pos = TVec3( _pos.x, _pos.y, _pos.z );
 			_mesh->rotation = glm::mat4( _rot );
 
 			m_bodyMeshes[node->name] = _mesh;
+			m_jointAngles[node->name] = _pdcData.targetAngle;
 		}
 
 
@@ -74,14 +84,20 @@ namespace tysoc
     }
 
 	void TSimCharacterGraphicsComponent::_setNodeTransform( TCharacterNode* node,
-														   glm::mat4 cumLocalTransform,
-														   const glm::mat4& baseWorldTransform )
+														   glm::mat4 cumWorldTransform )
 	{
 		auto _nodeMesh = m_bodyMeshes[node->name];
 
-		cumLocalTransform = node->data.drawData.localTransform * cumLocalTransform;
+        int _nodeIndx = node->id;
+        float _poseAngle = m_pose[ _nodeIndx ];
 
-		glm::mat4 _nodeWorldTransform = cumLocalTransform * baseWorldTransform;
+        // update by the current joint transformation
+		glm::mat4 _jointTransform = glm::translate( node->data.jointData.pivot ) *
+									glm::rotate( _poseAngle/*m_jointAngles[node->name]*/, node->data.jointData.axis );
+		cumWorldTransform = cumWorldTransform * _jointTransform;
+        // update by the local shape's transform
+        glm::mat4 _nodeWorldTransform = cumWorldTransform * node->data.drawData.localTransform;
+
 		glm::vec3 _nodePos = _nodeWorldTransform[3];
 		glm::mat4 _nodeRot = glm::mat4( glm::mat3( _nodeWorldTransform ) );
 
@@ -90,21 +106,27 @@ namespace tysoc
 
 		for ( int q = 0; q < node->children.size(); q++ )
 		{
-			_setNodeTransform( node->children[q], cumLocalTransform, baseWorldTransform );
+			_setNodeTransform( node->children[q], cumWorldTransform );
 		}
 	}
 
     void TSimCharacterGraphicsComponent::update( float dt )
     {
+		//for ( auto _keypair : m_jointAngles )
+		//{
+		//	m_jointAngles[_keypair.first] += 0.1 * dt;
+		//}
+
+        reinterpret_cast< TSimCharacterEntity* >( m_parent )->getPose( m_pose );
+
 		auto _rootNode = m_characterTree;
-		glm::mat4 _cumLocalTransform( 1.0f );
 		glm::mat4 _baseWorldTransform( 1.0f );
 		_baseWorldTransform = m_parent->rotation * _baseWorldTransform;
 		_baseWorldTransform = glm::translate( glm::vec3( m_parent->pos.x,
 														 m_parent->pos.y,
 														 m_parent->pos.z ) ) * _baseWorldTransform;
 
-		_setNodeTransform( _rootNode, _cumLocalTransform, _baseWorldTransform );
+		_setNodeTransform( _rootNode, _baseWorldTransform );
     }
 
     vector< engine::LMesh* > TSimCharacterGraphicsComponent::getRenderables()

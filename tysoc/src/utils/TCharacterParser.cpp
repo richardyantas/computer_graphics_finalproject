@@ -65,9 +65,9 @@ namespace tysoc
 
     bool TCharacterParser::_parseResources( vector< TCharacterNodeData >& dataResources, const json& root )
     {
-		cout << "foooo" << endl;
-		cout << root.dump( 4 ) << endl;
-		cout << "******" << endl;
+		// cout << "foooo" << endl;
+		// cout << root.dump( 4 ) << endl;
+		// cout << "******" << endl;
 
         // Parse Joints
         if ( root.find( "Skeleton" ) != root.end() )
@@ -175,12 +175,12 @@ namespace tysoc
             float _jLimLow        = rootJoints[ q ]["LimLow"];
             float _jLimHigh       = rootJoints[ q ]["LimHigh"];
 
-			if ( _jName == "right_hip" )
-			{
-				cout << "******" << endl;
-				cout << rootJoints.dump( 4 ) << endl;
-				cout << "******" << endl;
-			}
+			// if ( _jName == "right_hip" )
+			// {
+			// 	cout << "******" << endl;
+			// 	cout << rootJoints.dump( 4 ) << endl;
+			// 	cout << "******" << endl;
+			// }
 
             TCharacterNodeData _nodeData;
 
@@ -190,6 +190,7 @@ namespace tysoc
             _nodeData.jointData.name            = _jName;
             _nodeData.jointData.pivot           = glm::vec3( _jAttachX, _jAttachY, _jAttachZ );
             _nodeData.jointData.axis            = glm::vec3( 0, 0, 1 );
+            _nodeData.jointData.localTransform  = glm::translate( glm::vec3( _jAttachX, _jAttachY, _jAttachZ ) );
             _nodeData.jointData.jointType       = _jTypeId;
             _nodeData.jointData.parentId        = _jParentId;
             _nodeData.jointData.linkStiffness   = _jLinkStiffness;
@@ -220,12 +221,12 @@ namespace tysoc
             float _bAttachZ = rootShapes[ q ][ "AttachZ" ];
             float _bTheta   = rootShapes[ q ][ "Theta"];
 
-			if ( _bName == "right_hip" )
-			{
-				cout << "******" << endl;
-				cout << rootShapes.dump( 4 ) << endl;
-				cout << "******" << endl;
-			}
+			// if ( _bName == "right_hip" )
+			// {
+			// 	cout << "******" << endl;
+			// 	cout << rootShapes.dump( 4 ) << endl;
+			// 	cout << "******" << endl;
+			// }
 
             float _bParam0 = rootShapes[ q ][ "Param0" ];
             float _bParam1 = rootShapes[ q ][ "Param1" ];
@@ -278,12 +279,12 @@ namespace tysoc
             float _gAttachZ = rootGraphics[ q ][ "AttachZ" ];
             float _gTheta   = rootGraphics[ q ][ "Theta"];
 
-			if ( _gName == "right_hip" )
-			{
-				cout << "******" << endl;
-				cout << rootGraphics.dump( 4 ) << endl;
-				cout << "******" << endl;
-			}
+			// if ( _gName == "right_hip" )
+			// {
+			// 	cout << "******" << endl;
+			// 	cout << rootGraphics.dump( 4 ) << endl;
+			// 	cout << "******" << endl;
+			// }
 
             float _gParam0 = rootGraphics[ q ][ "Param0" ];
             float _gParam1 = rootGraphics[ q ][ "Param1" ];
@@ -408,6 +409,64 @@ namespace tysoc
         {
             _processNode( node->children[q], dataResources );
         }
+    }
+
+
+
+    bool TCharacterParser::parseMotion( vector< TMotionFrame >& motionFrames, const string& motionFilename )
+    {
+        string _fullMotionFileName;
+        _fullMotionFileName += TYSOC_RESOURCES_PATH;
+        _fullMotionFileName += TYSOC_RESOURCES_MOTIONS_SUB_PATH;
+        _fullMotionFileName += motionFilename;
+
+        ifstream _fStream;
+        _fStream.open( _fullMotionFileName.c_str(), std::ifstream::in );        
+
+        try
+        {
+            json _root;
+
+            _fStream >> _root;
+
+            _fStream.close();
+
+            // cout << "json****" << endl;
+            // cout << _root.dump( 4 ) << endl;
+            // cout << "********" << endl;
+
+            json _motionRoot = _root["Motion"];
+            json _framesRoot = _motionRoot["Frames"];
+
+            int _numFrames = _framesRoot.size();
+
+            cout << "parsing " << _numFrames << " frames" << endl;
+
+            for ( int q = 0; q < _numFrames; q++ )
+            {
+                json _frame = _framesRoot[q];
+
+                TMotionFrame _mFrame;
+                _mFrame.dof = _frame.size();
+                _mFrame.pose = vector< float >( _frame.size(), 0.0f );
+                _mFrame.duration = 0.5f;
+
+                for ( int s = 0; s < _frame.size(); s++ )
+                {
+                    _mFrame.pose[s] = _frame[s];
+                }
+
+                motionFrames.push_back( _mFrame );
+            }
+
+            return true;
+        }
+        catch ( const std::exception& )
+        {
+            cout << "TCharacterParser::parseCharacter> failed to parse the motion file: " << motionFilename << endl;
+        }
+
+        return false;        
     }
 
 }

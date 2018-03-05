@@ -20,6 +20,8 @@ namespace tysoc
         glm::vec3 pivot;
         glm::vec3 axis;
 
+        glm::mat4 localTransform;
+
         int jointType;
         int parentId;
 
@@ -90,6 +92,13 @@ namespace tysoc
         TCharacterNodeData data;
     };
 
+    struct TMotionFrame
+    {
+        int dof;
+        float duration;
+        vector< float > pose;
+    };
+
     class TCharacterParser
     {
 
@@ -108,7 +117,7 @@ namespace tysoc
         public :
 
         static bool parseCharacter( TCharacterNode& tree, const string& charFileName );
-
+        static bool parseMotion( vector< TMotionFrame >& motionFrames, const string& motionFilename );
 
     };
 

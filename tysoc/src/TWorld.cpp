@@ -6,6 +6,7 @@
 #include <TBasicPhysicsComponent.h>
 #include <TBasicGraphicsComponent.h>
 #include <TPrimitivePhysicsComponent.h>
+#include <sim/TSimCharacterPhysicsComponent.h>
 #include <TPrimitiveGraphicsComponent.h>
 
 
@@ -163,6 +164,12 @@ namespace tysoc
                 m_btWorld->addRigidBody( _primitivePhysicsComponent->getRigidBody() );
             }            
         }
+
+        //_physicsComponent = pEntity->getComponent< TSimCharacterPhysicsComponent >();
+        //if ( _physicsComponent != NULL )
+        //{
+        //    
+        //}
     }
 
     void TWorld::dumpInfo()

@@ -4,6 +4,7 @@
 #include "TCommon.h"
 #include "TEntity.h"
 #include "TTerrain1D.h"
+#include "sim/TSimJoint.h"
 
 #include <LICamera.h>
 #include <LMeshBuilder.h>
@@ -46,6 +47,7 @@ namespace tysoc
         btSequentialImpulseConstraintSolver* m_btSolver;
         btDiscreteDynamicsWorld* m_btWorld;
 
+        void _addJoint( TSimJoint* pJoint );
 
         public :
 
