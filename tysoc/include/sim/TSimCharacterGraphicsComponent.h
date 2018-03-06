@@ -37,9 +37,11 @@ namespace tysoc
 		unordered_map< string, float > m_jointAngles;
         vector< float > m_pose;
 
+        bool m_usesMotion;// Hard coded flag, for testing purposes
+
         public :
 
-        TSimCharacterGraphicsComponent( TSimCharacterEntity* pParent, TCharacterNode* tree );
+        TSimCharacterGraphicsComponent( TSimCharacterEntity* pParent, TCharacterNode* tree, bool useFramesMotion = false );
         ~TSimCharacterGraphicsComponent();
 
         static string getStaticType() { return string( "skeletal" ); }

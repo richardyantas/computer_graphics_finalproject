@@ -31,7 +31,7 @@ namespace tysoc
 
         public :
 
-        TSimCharacterEntity( const string& structureFile, const TVec3& initialPosition );
+        TSimCharacterEntity( const string& structureFile, const TVec3& initialPosition, bool useFramesMotion = false );
         ~TSimCharacterEntity();
 
         void setBodyComponentTransform( string id, const glm::mat4& transform );

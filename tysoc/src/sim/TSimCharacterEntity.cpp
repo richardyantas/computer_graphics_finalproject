@@ -9,23 +9,31 @@ namespace tysoc
 
 
     TSimCharacterEntity::TSimCharacterEntity( const string& structureFile,
-                                              const TVec3& initialPosition )
+                                              const TVec3& initialPosition,
+                                              bool useFramesMotion )
 		: TEntity( initialPosition )
     {
         m_characterTree = new TCharacterNode();
 
         TCharacterParser::parseCharacter( *m_characterTree, structureFile );
 
-		auto _graphicsComponent = new TSimCharacterGraphicsComponent( this, m_characterTree );
+		auto _graphicsComponent = new TSimCharacterGraphicsComponent( this, m_characterTree, useFramesMotion );
         m_numDof = _graphicsComponent->getNumDof();
         m_pose = vector< float >( m_numDof, 0.0f );
 
-        //auto _motionComponent = new TSimCharacterMotionComponent( this, "raptor_run.json" );
+        if ( useFramesMotion )
+        {
+            auto _motionComponent = new TSimCharacterMotionComponent( this, "raptor_run.json" );
 
-		auto _physicsComponent = new TSimCharacterPhysicsComponent( this, m_characterTree );
+            addComponent( _motionComponent );
+        }
+        else
+        {
+            auto _physicsComponent = new TSimCharacterPhysicsComponent( this, m_characterTree );
 
-		addComponent( _physicsComponent );
-		//addComponent( _motionComponent );
+            addComponent( _physicsComponent );
+        }
+
 		addComponent( _graphicsComponent );
         
 		

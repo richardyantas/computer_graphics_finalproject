@@ -30,7 +30,9 @@ namespace tysoc
 
         m_player = new TPlayerEntity( TVec3( 1, 3, 0 ) );
 
-        m_simCharacter = new TSimCharacterEntity( "raptor.json", TVec3( 2, 3, 0 ) );
+        auto _raptor1 = new TSimCharacterEntity( "raptor.json", TVec3( 2, 3, 0 ), true );
+
+        auto _raptor2 = new TSimCharacterEntity( "raptor.json", TVec3( 2, 3, 0 ), false );
 
         m_camMainDeltaFromPlayer = m_mainCamera->getPosition() - m_player->pos;
         m_camSideDeltaFromPlayer = m_sideCamera->getPosition() - m_player->pos;
@@ -41,7 +43,9 @@ namespace tysoc
         addCamera( m_freeCamera, "freeCamera" );
         addLight( m_mainLight );
         addEntity( m_player );
-		addEntity( m_simCharacter );
+		// addEntity( m_simCharacter );
+        addEntity( _raptor1 );
+        addEntity( _raptor2 );
 
 
         TPrimitiveGraphicsParams _gSphere;

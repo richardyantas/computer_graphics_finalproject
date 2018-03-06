@@ -9,10 +9,13 @@ namespace tysoc
 {
 
 
-    TSimCharacterGraphicsComponent::TSimCharacterGraphicsComponent( TSimCharacterEntity* pParent, TCharacterNode* tree )
+    TSimCharacterGraphicsComponent::TSimCharacterGraphicsComponent( TSimCharacterEntity* pParent, TCharacterNode* tree,
+    																bool useFramesMotion )
         : TGraphicsComponent( pParent )
     {
 		m_numDof = 0;
+
+		m_usesMotion = useFramesMotion;
 
         m_characterTree = tree;
 		m_characterRef = pParent;
@@ -119,22 +122,29 @@ namespace tysoc
 		//	m_jointAngles[_keypair.first] += 0.1 * dt;
 		//}
 
-  //      reinterpret_cast< TSimCharacterEntity* >( m_parent )->getPose( m_pose );
 
-		//auto _rootNode = m_characterTree;
-		//glm::mat4 _baseWorldTransform( 1.0f );
-		//_baseWorldTransform = m_parent->rotation * _baseWorldTransform;
-		//_baseWorldTransform = glm::translate( glm::vec3( m_parent->pos.x,
-		//												 m_parent->pos.y,
-		//												 m_parent->pos.z ) ) * _baseWorldTransform;
+    	// For testing only - TODO: Separate this two types of behaviors
+    	if ( m_usesMotion )
+    	{
+	       	reinterpret_cast< TSimCharacterEntity* >( m_parent )->getPose( m_pose );
 
-		//_setNodeTransform( _rootNode, _baseWorldTransform );
+			auto _rootNode = m_characterTree;
+			glm::mat4 _baseWorldTransform( 1.0f );
+			_baseWorldTransform = m_parent->rotation * _baseWorldTransform;
+			_baseWorldTransform = glm::translate( glm::vec3( m_parent->pos.x,
+															 m_parent->pos.y,
+															 m_parent->pos.z ) ) * _baseWorldTransform;
 
-		for ( auto& _keypair : m_bodyMeshes )
-		{
-			_setSingleBodyTransform( _keypair.second, 
-									 m_characterRef->getBodyComponentTransform( _keypair.first ) );
-		}
+			_setNodeTransform( _rootNode, _baseWorldTransform );
+    	}
+    	else
+    	{
+			for ( auto& _keypair : m_bodyMeshes )
+			{
+				_setSingleBodyTransform( _keypair.second, 
+										 m_characterRef->getBodyComponentTransform( _keypair.first ) );
+			}
+    	}
     }
 
 	void TSimCharacterGraphicsComponent::_setSingleBodyTransform( engine::LMesh* pMesh, glm::mat4 pWorldTransform )
