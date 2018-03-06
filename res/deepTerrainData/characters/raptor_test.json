@@ -1,0 +1,397 @@
+{
+    "Skeleton": 
+    {
+        "Joints": 
+        [
+            {
+                "Name": "root",
+                "Type": 1,
+                "Parent": -1,
+                "AttachX": 0,
+                "AttachY": 0,
+                "AttachZ": 0,       
+                "LinkStiffness": 1,
+                "LimLow": 1,
+                "LimHigh": 0
+            },
+
+            {
+                "Name": "spine0",
+                "Type": 0,
+                "Parent": 0,
+                "AttachX": 0.1058,
+                "AttachY": 0.0777,
+                "AttachZ": 0,       
+                "LinkStiffness": 1,
+                "LimLow": -1.57,
+                "LimHigh": 1.57
+            },
+
+            {
+                "Name": "spine1",
+                "Type": 0,
+                "Parent": 1,
+                "AttachX": 0.1736,
+                "AttachY": 0,
+                "AttachZ": 0,       
+                "LinkStiffness": 1,
+                "LimLow": -1.57,
+                "LimHigh": 1.57
+            },
+
+            {
+                "Name": "spine2",
+                "Type": 0,
+                "Parent": 2,
+                "AttachX": 0.083,
+                "AttachY": 0,
+                "AttachZ": 0,       
+                "LinkStiffness": 1,
+                "LimLow": -1.57,
+                "LimHigh": 1.57
+            },
+
+            {
+                "Name": "spine3",
+                "Type": 0,
+                "Parent": 3,
+                "AttachX": 0.0788,
+                "AttachY": 0,
+                "AttachZ": 0,       
+                "LinkStiffness": 1,
+                "LimLow": -1.57,
+                "LimHigh": 1.57
+            },
+
+            {
+                "Name": "head",
+                "Type": 0,
+                "Parent": 4,
+                "AttachX": 0.0688,
+                "AttachY": 0,
+                "AttachZ": 0,       
+                "LinkStiffness": 1,
+                "LimLow": -1.57,
+                "LimHigh": 1.57
+            }
+        ]
+    },
+
+    "BodyDefs": 
+    [
+            {
+                "Name": "root",
+                "Shape": "box",
+                "Mass": 0.0,
+                "AttachX": 0,
+                "AttachY": 0,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.2556,
+                "Param1": 0.2294,
+                "Param2": 0.126,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine0",
+                "Shape": "box",
+                "Mass": 1.0,
+                "AttachX": 0.0868,
+                "AttachY": -0.05065,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.1736,
+                "Param1": 0.17,
+                "Param2": 0.1,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine1",
+                "Shape": "box",
+                "Mass": 0.5,
+                "AttachX": 0.042,
+                "AttachY": -0.03,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.083,
+                "Param1": 0.1257,
+                "Param2": 0.09,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine2",
+                "Shape": "box",
+                "Mass": 0.5,
+                "AttachX": 0.0319,
+                "AttachY": -0.017,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.0788,
+                "Param1": 0.0834,
+                "Param2": 0.08,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine3",
+                "Shape": "box",
+                "Mass": 0.5,
+                "AttachX": 0.0319,
+                "AttachY": -0.017,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.0788,
+                "Param1": 0.0834,
+                "Param2": 0.08,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "head",
+                "Shape": "box",
+                "Mass": 1.0,
+                "AttachX": 0.041,
+                "AttachY": -0.063,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.10,
+                "Param1": 0.2086,
+                "Param2": 0.095,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            }
+        ],
+
+        "DrawShapeDefs": 
+        [
+            {
+                "Name": "root",
+                "Shape": "box",
+                "ParentJoint": 0,
+                "AttachX": 0,
+                "AttachY": 0,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.2556,
+                "Param1": 0.2294,
+                "Param2": 0.126,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine0",
+                "Shape": "box",
+                "ParentJoint": 1,
+                "AttachX": 0.0868,
+                "AttachY": -0.05065,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.1736,
+                "Param1": 0.17,
+                "Param2": 0.1,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine1",
+                "Shape": "box",
+                "ParentJoint": 2,
+                "AttachX": 0.042,
+                "AttachY": -0.03,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.083,
+                "Param1": 0.1257,
+                "Param2": 0.09,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine2",
+                "Shape": "box",
+                "ParentJoint": 3,
+                "AttachX": 0.0319,
+                "AttachY": -0.017,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.0788,
+                "Param1": 0.0834,
+                "Param2": 0.08,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "spine3",
+                "Shape": "box",
+                "ParentJoint": 4,
+                "AttachX": 0.0319,
+                "AttachY": -0.017,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.0788,
+                "Param1": 0.0834,
+                "Param2": 0.08,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            },
+            {
+                "Name": "head",
+                "Shape": "box",
+                "ParentJoint": 5,
+                "AttachX": 0.041,
+                "AttachY": -0.063,
+                "AttachZ": 0,
+                "Theta": 0,
+                "Param0": 0.10,
+                "Param1": 0.2086,
+                "Param2": 0.095,
+                "ColorR": 0.4706,
+                "ColorG": 0.549,
+                "ColorB": 0.6863,
+                "ColorA": 1
+            }
+        ],
+
+        "PDControllers": 
+        [
+            {
+                "Name": "root",
+                "Kp": 0,
+                "Kd": 0,
+                "TorqueLim": 0,
+                "TargetTheta": 0,
+                "UseWorldCoord": 0
+            },
+            {
+                "Name": "spine0",
+                "Kp": 200,
+                "Kd": 20,
+                "TorqueLim": 300,
+                "TargetTheta": 0.16682,
+                "UseWorldCoord": 0
+            },
+            {
+                "Name": "spine1",
+                "Kp": 200,
+                "Kd": 20,
+                "TorqueLim": 300,
+                "TargetTheta": 0.03457,
+                "UseWorldCoord": 0
+            },
+            {
+                "Name": "spine2",
+                "Kp": 100,
+                "Kd": 10,
+                "TorqueLim": 200,
+                "TargetTheta": 0.11743,
+                "UseWorldCoord": 0
+            },
+            {
+                "Name": "spine3",
+                "Kp": 100,
+                "Kd": 10,
+                "TorqueLim": 200,
+                "TargetTheta": 0.11914,
+                "UseWorldCoord": 0
+            },
+            {
+                "Name": "head",
+                "Kp": 100,
+                "Kd": 10,
+                "TorqueLim": 200,
+                "TargetTheta": 0.75355,
+                "UseWorldCoord": 0
+            }
+        ],
+
+        "Controllers":
+        {
+            "Files":
+            [
+                "data/controllers/raptor/raptor1_run.txt",
+                "data/controllers/raptor/raptor1_jump.txt",
+                "data/controllers/raptor/raptor1_slow_run.txt"
+            ],
+
+            "Actions":
+            [
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 2,
+                    "Blend": 0,
+                    "Cyclic": true
+                },
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 2,
+                    "Blend": 0.33,
+                    "Cyclic": true
+                },
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 2,
+                    "Blend": 0.66,
+                    "Cyclic": true
+                },
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 2,
+                    "Blend": 1,
+                    "Cyclic": true
+                },
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 1,
+                    "Blend": 0.25,
+                    "Cyclic": false
+                },
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 1,
+                    "Blend": 0.5,
+                    "Cyclic": false
+                },
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 1,
+                    "Blend": 0.75,
+                    "Cyclic": false
+                },
+                {
+                    "ParamIdx0": 0,
+                    "ParamIdx1": 1,
+                    "Blend": 1,
+                    "Cyclic": false
+                }
+            ],
+
+            "DefaultAction": 0,
+            "EnableGravityCompensation": false,
+            "EnableVirtualForces": false
+        }
+}

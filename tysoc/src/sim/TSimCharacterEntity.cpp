@@ -20,10 +20,15 @@ namespace tysoc
         m_numDof = _graphicsComponent->getNumDof();
         m_pose = vector< float >( m_numDof, 0.0f );
 
-        auto _motionComponent = new TSimCharacterMotionComponent( this, "raptor_run.json" );
+        //auto _motionComponent = new TSimCharacterMotionComponent( this, "raptor_run.json" );
 
-        addComponent( _graphicsComponent );
-        addComponent( _motionComponent );
+		auto _physicsComponent = new TSimCharacterPhysicsComponent( this, m_characterTree );
+
+		addComponent( _physicsComponent );
+		//addComponent( _motionComponent );
+		addComponent( _graphicsComponent );
+        
+		
     }
 
     TSimCharacterEntity::~TSimCharacterEntity()

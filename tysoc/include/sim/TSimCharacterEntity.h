@@ -4,7 +4,7 @@
 #include <TEntity.h>
 #include <sim/TSimCharacterGraphicsComponent.h>
 #include <sim/TSimCharacterMotionComponent.h>
-// #include <TSimCharacterPhysicsComponent.h>
+#include <sim/TSimCharacterPhysicsComponent.h>
 #include <utils/TCharacterParser.h>
 
 using namespace std;
@@ -13,7 +13,7 @@ namespace tysoc
 {
 
     class TSimCharacterGraphicsComponent;
-    // class TSimCharacterPhysicsComponent;
+    class TSimCharacterPhysicsComponent;
 
     class TSimCharacterEntity : public TEntity
     {

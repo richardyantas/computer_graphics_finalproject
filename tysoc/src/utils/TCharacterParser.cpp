@@ -188,9 +188,9 @@ namespace tysoc
             _nodeData.resId = q;
 
             _nodeData.jointData.name            = _jName;
-            _nodeData.jointData.pivot           = glm::vec3( _jAttachX, _jAttachY, _jAttachZ );
+            _nodeData.jointData.pivot           = glm::vec3( WORLD_SCALE * _jAttachX, WORLD_SCALE * _jAttachY, WORLD_SCALE * _jAttachZ );
             _nodeData.jointData.axis            = glm::vec3( 0, 0, 1 );
-            _nodeData.jointData.localTransform  = glm::translate( glm::vec3( _jAttachX, _jAttachY, _jAttachZ ) );
+            _nodeData.jointData.localTransform  = glm::translate( glm::vec3( WORLD_SCALE * _jAttachX, WORLD_SCALE * _jAttachY, WORLD_SCALE * _jAttachZ ) );
             _nodeData.jointData.jointType       = _jTypeId;
             _nodeData.jointData.parentId        = _jParentId;
             _nodeData.jointData.linkStiffness   = _jLinkStiffness;
@@ -249,14 +249,14 @@ namespace tysoc
 
             glm::mat4 _localTransform( 1.0f );
             _localTransform = glm::rotate( _bTheta, glm::vec3( 0, 0, 1 ) ) * _localTransform;
-            _localTransform = glm::translate( glm::vec3( _bAttachX, _bAttachY, _bAttachZ ) ) * _localTransform;
+            _localTransform = glm::translate( glm::vec3( WORLD_SCALE * _bAttachX, WORLD_SCALE * _bAttachY, WORLD_SCALE * _bAttachZ ) ) * _localTransform;
             
             _nodeData.shapeData.localTransform = _localTransform;
 
             _nodeData.shapeData.mass = _bMass;
-            _nodeData.shapeData.param0 = _bParam0;
-            _nodeData.shapeData.param1 = _bParam1;
-            _nodeData.shapeData.param2 = _bParam2;
+            _nodeData.shapeData.param0 = WORLD_SCALE * _bParam0;
+            _nodeData.shapeData.param1 = WORLD_SCALE * _bParam1;
+            _nodeData.shapeData.param2 = WORLD_SCALE * _bParam2;
 
             _nodeData.shapeData.color = TVec3( _bColorR, _bColorG, _bColorB );
         }

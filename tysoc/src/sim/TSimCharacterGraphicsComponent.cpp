@@ -15,6 +15,7 @@ namespace tysoc
 		m_numDof = 0;
 
         m_characterTree = tree;
+		m_characterRef = pParent;
 		this->type = TSimCharacterGraphicsComponent::getStaticType();
         _buildFromTree();
 
@@ -24,6 +25,7 @@ namespace tysoc
     TSimCharacterGraphicsComponent::~TSimCharacterGraphicsComponent()
     {
         m_characterTree = NULL;
+		m_characterRef = NULL;
     }
 
     void TSimCharacterGraphicsComponent::_buildFromTree()
@@ -117,17 +119,32 @@ namespace tysoc
 		//	m_jointAngles[_keypair.first] += 0.1 * dt;
 		//}
 
-        reinterpret_cast< TSimCharacterEntity* >( m_parent )->getPose( m_pose );
+  //      reinterpret_cast< TSimCharacterEntity* >( m_parent )->getPose( m_pose );
 
-		auto _rootNode = m_characterTree;
-		glm::mat4 _baseWorldTransform( 1.0f );
-		_baseWorldTransform = m_parent->rotation * _baseWorldTransform;
-		_baseWorldTransform = glm::translate( glm::vec3( m_parent->pos.x,
-														 m_parent->pos.y,
-														 m_parent->pos.z ) ) * _baseWorldTransform;
+		//auto _rootNode = m_characterTree;
+		//glm::mat4 _baseWorldTransform( 1.0f );
+		//_baseWorldTransform = m_parent->rotation * _baseWorldTransform;
+		//_baseWorldTransform = glm::translate( glm::vec3( m_parent->pos.x,
+		//												 m_parent->pos.y,
+		//												 m_parent->pos.z ) ) * _baseWorldTransform;
 
-		_setNodeTransform( _rootNode, _baseWorldTransform );
+		//_setNodeTransform( _rootNode, _baseWorldTransform );
+
+		for ( auto& _keypair : m_bodyMeshes )
+		{
+			_setSingleBodyTransform( _keypair.second, 
+									 m_characterRef->getBodyComponentTransform( _keypair.first ) );
+		}
     }
+
+	void TSimCharacterGraphicsComponent::_setSingleBodyTransform( engine::LMesh* pMesh, glm::mat4 pWorldTransform )
+	{
+		glm::vec3 _pos = pWorldTransform[3];
+		glm::mat4 _rot = glm::mat4( glm::mat3( pWorldTransform ) );
+
+		pMesh->pos		= TVec3( _pos.x, _pos.y, _pos.z );
+		pMesh->rotation = _rot;
+	}
 
     vector< engine::LMesh* > TSimCharacterGraphicsComponent::getRenderables()
     {

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <TComponent.h>
+#include <TPhysicsComponent.h>
 #include <utils/TCharacterParser.h>
 #include <sim/TSimCharacterEntity.h>
 #include <sim/TSimJoint.h>
@@ -13,7 +13,7 @@ namespace tysoc
 
     class TSimCharacterEntity;
 
-    class TSimCharacterPhysicsComponent : public TComponent
+    class TSimCharacterPhysicsComponent : public TPhysicsComponent
     {
 
         private :
@@ -26,6 +26,8 @@ namespace tysoc
         TCharacterNode* m_characterTree;
 
 		int m_numDof;
+
+		TSimCharacterEntity* m_characterRef;
 
         void _buildBody( TCharacterNode* node, glm::mat4 cumTransform );
         void _buildBodiesFromTree();
@@ -40,8 +42,10 @@ namespace tysoc
 
         static string getStaticType() { return string( "ragdoll" ); }
 
+		void _updateBody( btRigidBody* body, string name );
         void update( float dt ) override;
 
+		unordered_map< string, btRigidBody* > getBodies() { return m_bodiesMap; }
 		vector< TSimJoint* > getJoints() { return m_joints; }
     };
 

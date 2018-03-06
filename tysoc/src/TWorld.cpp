@@ -165,12 +165,43 @@ namespace tysoc
             }            
         }
 
-        //_physicsComponent = pEntity->getComponent< TSimCharacterPhysicsComponent >();
-        //if ( _physicsComponent != NULL )
-        //{
-        //    
-        //}
+        _physicsComponent = pEntity->getComponent< TSimCharacterPhysicsComponent >();
+        if ( _physicsComponent != NULL )
+        {
+			auto _ragdollPhysicsComponent = reinterpret_cast< TSimCharacterPhysicsComponent* >( _physicsComponent );
+
+			auto _bodiesMap = _ragdollPhysicsComponent->getBodies();
+			for ( auto& _keypair : _bodiesMap )
+			{
+				m_btWorld->addRigidBody( _keypair.second );
+			}
+
+			auto _jointsVec = _ragdollPhysicsComponent->getJoints();
+
+			for ( int q = 0; q < _jointsVec.size(); q++ )
+			{
+				_addJoint( _jointsVec[q] );
+			}
+        }
     }
+
+	void TWorld::_addJoint( TSimJoint* pJoint )
+	{
+		btVector3 _pivotChild( -pJoint->pivot.x, -pJoint->pivot.y, -pJoint->pivot.z );
+		btVector3 _pivotParent( pJoint->pivot.x, pJoint->pivot.y, pJoint->pivot.z );
+		btVector3 _axisChild( pJoint->axis.x, pJoint->axis.y, pJoint->axis.z );
+		btVector3 _axisParent( pJoint->axis.x, pJoint->axis.y, pJoint->axis.z );
+
+		auto _constraint = new btHingeConstraint( *( pJoint->bBodyParent ),
+												  *( pJoint->bBodyChild ),
+												  0.5 * _pivotParent, 0.5 * _pivotChild,
+												  _axisParent, _axisChild );
+		_constraint->setLimit( -static_cast<btScalar>( pJoint->limitHigh), -static_cast<btScalar>( pJoint->limitLow ) );
+		m_btWorld->addConstraint( _constraint, true );
+
+		pJoint->bJoint = _constraint;
+	}
+
 
     void TWorld::dumpInfo()
     {

@@ -10,10 +10,12 @@ namespace tysoc
 
 
     TSimCharacterPhysicsComponent::TSimCharacterPhysicsComponent( TSimCharacterEntity* pParent, TCharacterNode* tree )
-        : TComponent( pParent )
+        : TPhysicsComponent( pParent )
     {
         m_characterTree = tree;
         this->type = TSimCharacterPhysicsComponent::getStaticType();
+
+		m_characterRef = pParent;
 
 		m_numDof = 0;
 		_buildBodiesFromTree();
@@ -23,6 +25,7 @@ namespace tysoc
     TSimCharacterPhysicsComponent::~TSimCharacterPhysicsComponent()
     {
 		m_characterTree = NULL;
+		m_characterRef = NULL; 
 		
 		for ( auto& keypair : m_bodiesMap )
 		{
@@ -34,7 +37,10 @@ namespace tysoc
 
 	void TSimCharacterPhysicsComponent::_buildBodiesFromTree()
 	{
-		_buildBody( m_characterTree, glm::mat4( 1.0f ) );
+		glm::mat4 _worldTransform = m_parent->rotation;
+		_worldTransform[3] = glm::vec4( m_parent->pos.x, m_parent->pos.y, m_parent->pos.z, 1.0f );
+
+		_buildBody( m_characterTree, _worldTransform );
 	}
 
     void TSimCharacterPhysicsComponent::_buildBody( TCharacterNode* node, glm::mat4 cumTransform )
@@ -51,9 +57,9 @@ namespace tysoc
 		{
 			case COLLISION_BOX :
 
-				_rbShape = new btBoxShape( btVector3( _bodyData.param0 / 2,
-												      _bodyData.param1 / 2,
-												      _bodyData.param2 / 2 ) );
+				_rbShape = new btBoxShape( btVector3( WORLD_SCALE * _bodyData.param0 / 2,
+													  WORLD_SCALE * _bodyData.param1 / 2,
+													  WORLD_SCALE * _bodyData.param2 / 2 ) );
 
 				break;
 
@@ -86,7 +92,10 @@ namespace tysoc
 			btScalar _rbMass = _bodyData.mass;
 
 			btVector3 _rbInertia( 0, 0, 0 );
-			_rbShape->calculateLocalInertia( _rbMass, _rbInertia );
+			if ( _rbMass != 0.0f )
+			{
+				_rbShape->calculateLocalInertia( _rbMass, _rbInertia );
+			}
 
 			btRigidBody::btRigidBodyConstructionInfo _rbConstructionInfo( _rbMass,
 																		  _rbMotionState,
@@ -129,7 +138,9 @@ namespace tysoc
 				auto _childBody = m_bodiesMap[_childName];
 
 				auto _simJoint = new TSimJoint( _parentBody, _parentName,
-												_childBody, _childName );
+												_childBody, _childName,
+												_jointData.pivot, _jointData.axis,
+											    _jointData.loLimit, _jointData.hiLimit );
 				m_joints.push_back( _simJoint );
 			}
 		}
@@ -142,12 +153,33 @@ namespace tysoc
 
     void TSimCharacterPhysicsComponent::update( float dt )
     {
-		auto _simParentEntity = reinterpret_cast< TSimCharacterEntity* >( m_parent );
+		for ( auto& _keypair : m_bodiesMap )
+		{
+			_updateBody( _keypair.second, _keypair.first );
+		}
 
-        vector< float > _poseEntity( _simParentEntity->numDof(), 0.0f );
+		//auto _simParentEntity = reinterpret_cast< TSimCharacterEntity* >( m_parent );
 
-        _simParentEntity->setPose( _poseEntity );
+  //      vector< float > _poseEntity( _simParentEntity->numDof(), 0.0f );
+
+  //      _simParentEntity->setPose( _poseEntity );
     }
 
+	void TSimCharacterPhysicsComponent::_updateBody( btRigidBody* body, string name )
+	{
+		btTransform _transform;
+		body->getMotionState()->getWorldTransform( _transform );
 
+		btVector3 _position = _transform.getOrigin();
+		btQuaternion _rotation = _transform.getRotation();
+
+		glm::vec3 _pos( _position.x(), _position.y(), _position.z() );
+		glm::quat _rotQuat( _rotation.w(), _rotation.x(), _rotation.y(), _rotation.z() );
+		glm::mat4 _rotMat = glm::mat4_cast( _rotQuat );
+
+		glm::mat4 _bTransform = _rotMat;
+		_bTransform[3] = glm::vec4( _pos, 1.0f );
+
+		m_characterRef->setBodyComponentTransform( name, _bTransform );
+	}
 }

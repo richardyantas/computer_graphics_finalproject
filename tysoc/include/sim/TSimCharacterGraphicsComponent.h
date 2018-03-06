@@ -22,6 +22,7 @@ namespace tysoc
         unordered_map< string, engine::LMesh* > m_bodyMeshes;
 
         TCharacterNode* m_characterTree;
+		TSimCharacterEntity* m_characterRef;
 
         int m_numDof;
 
@@ -30,6 +31,8 @@ namespace tysoc
 
 		void _setNodeTransform( TCharacterNode* node, 
 								glm::mat4 cumWorldTransform );
+
+		void _setSingleBodyTransform( engine::LMesh* pMesh, glm::mat4 pWorldTransform );
 
 		unordered_map< string, float > m_jointAngles;
         vector< float > m_pose;

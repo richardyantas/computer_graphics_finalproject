@@ -23,6 +23,8 @@
 #include <cassert>
 #include <unordered_map>
 
+#define WORLD_SCALE 1
+
 #define MAX_DELTA 0.05
 
 #define _RAND_FLOAT_RANGE( a, b ) ( a + ( b - a ) * ( rand() / ( float )RAND_MAX ) )
