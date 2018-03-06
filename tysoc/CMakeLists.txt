@@ -2,7 +2,7 @@
 message( "Configuring tysoc engine ..." )
 
 include_directories( ${TYSOC_INCLUDE_DIRECTORIES} )
-#link_directories( ${TYSOC_LIBRARY_DIRECTORIES} )
+link_directories( ${TYSOC_LIBRARY_DIRECTORIES} )
 
 add_library( tysoc
              src/TApp.cpp
@@ -34,11 +34,23 @@ add_library( tysoc
              src/TTerrainRenderer.cpp
              src/TTerrain1DPatchedRenderer.cpp )
 
+if ( BULLET_FOUND )
+
+target_link_libraries( tysoc
+                       gengine
+                       ${BULLET_LIBRARIES}
+					   cat1UI )
+
+else()
+
 target_link_libraries( tysoc
                        gengine
                        BulletCollision
                        BulletDynamics
                        LinearMath
-					   cat1UI )
+                       cat1UI )
+
+endif()
+
 
 message( "Configuring tysoc engine - done" )

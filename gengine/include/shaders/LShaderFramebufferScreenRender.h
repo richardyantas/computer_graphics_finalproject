@@ -25,7 +25,7 @@ namespace engine
             unbind();
         }
 
-        void LShaderFramebufferScreenRender::setTextureSamplingChannel( int channel )
+        void setTextureSamplingChannel( int channel )
         {
             _setInt( m_uTextureChannel, channel );
         }

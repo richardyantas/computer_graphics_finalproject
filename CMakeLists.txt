@@ -79,11 +79,19 @@ elseif( UNIX AND NOT APPLE )
         message( "bullet libraries: ${BULLET_LIBRARIES}" )
         message( "bullet includes: ${BULLET_INCLUDE_DIRS}" )
 
-    else()
+    elseif( LIBRARIES_BULLET_USE_PREBUILT )
         message( "Bullet3 library not found, give specific path to library" )
         # Try to find it somewhere else
         set( BULLET_DIR "/home/" ) # set the BULLET_DIR variable to find the bullet directory
 
+    else()
+        # using from submodule
+        message( "CONFIGURING Bullet3 from submodule" )
+
+        add_subdirectory( ext/bullet3 )
+
+        set( BULLET_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/ext/bullet3/src/" )
+        set( BULLET_LIBRARY_DIRS "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}/" )
 
     endif()
 
