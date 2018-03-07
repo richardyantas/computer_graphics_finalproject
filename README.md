@@ -25,6 +25,16 @@ Make sure you uncheck the USE_MSVC_RUNTIME_DLL flag ( to build the dependencies 
 
 In the windows case, there is no external dependency to be installed. All the required packages are submodules of the project, and are included if you cloned the project with the --recursive option.
 
+**Compilation flags**
+
+Below, you can find the flags that should be set in order to successfully compile the project using cmake-gui and visual studio.
+
+![Img_cmake_flags_1](./_img/img_cmake_flags_1.png)
+
+![Img_cmake_flags_2](./_img/img_cmake_flags_2.png)
+
+![Img_cmake_flags_3](./_img/img_cmake_flags_3.png)
+
 ### Linux
 
 I've tested the project in Ubuntu 16.04, using g++ and makefiles. I've been having trouble making bullet a submodule and compiling it alongside the project, so the best way is to install bullet separately. The default configuration tries to search if Bullet was installed. If not, it falls back to the submodule. Unfortunately, I still can't find the issue with the build when using as a submodule, but will in a future release.
