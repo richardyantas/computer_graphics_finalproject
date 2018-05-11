@@ -36,30 +36,30 @@ namespace tysoc
         m_btWorld->setGravity( btVector3( 0, -10, 0 ) );
 
         {
-            // TODO: Fix this ugly leaky initialization
+            // // TODO: Fix this ugly leaky initialization
 
-            auto _planeShape = new btStaticPlaneShape( btVector3( 0, 1, 0 ), 0 );
-            auto _planeMotionState = new btDefaultMotionState( btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 0, 0 ) ) );
-            btRigidBody::btRigidBodyConstructionInfo _planeRigidBodyCI( 0, _planeMotionState, _planeShape, btVector3( 0, 0, 0 ) );
+            // auto _planeShape = new btStaticPlaneShape( btVector3( 0, 1, 0 ), 0 );
+            // auto _planeMotionState = new btDefaultMotionState( btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 0, 0 ) ) );
+            // btRigidBody::btRigidBodyConstructionInfo _planeRigidBodyCI( 0, _planeMotionState, _planeShape, btVector3( 0, 0, 0 ) );
 
-            auto _planeBody = new btRigidBody( _planeRigidBodyCI );
-            _planeBody->setRestitution( 0.95 );
-            _planeBody->setFriction( 1.0 );
+            // auto _planeBody = new btRigidBody( _planeRigidBodyCI );
+            // _planeBody->setRestitution( 0.95 );
+            // _planeBody->setFriction( 1.0 );
 
-            auto _planeMesh = engine::LMeshBuilder::createPlane( 30, 30 );
+            // auto _planeMesh = engine::LMeshBuilder::createPlane( 30, 30 );
 
-            _planeMesh->getMaterial()->ambient  = engine::LVec3( 0, 0, 1 );
-            _planeMesh->getMaterial()->diffuse  = engine::LVec3( 0, 0, 1 );
-            _planeMesh->getMaterial()->specular = engine::LVec3( 0, 0, 1 );
+            // _planeMesh->getMaterial()->ambient  = engine::LVec3( 0.701f, 0.706f, 0.658f );
+            // _planeMesh->getMaterial()->diffuse  = engine::LVec3( 0.701f, 0.706f, 0.658f );
+            // _planeMesh->getMaterial()->specular = engine::LVec3( 0.701f, 0.706f, 0.658f );
 
-            auto _planeEntity = new TEntity();
-            auto _planeGComponent = new TBasicGraphicsComponent( _planeEntity, _planeMesh );
-            auto _planePComponent = new TBasicPhysicsComponent( _planeEntity, _planeBody );
-            _planeEntity->addComponent( _planeGComponent );
-            _planeEntity->addComponent( _planePComponent );
+            // auto _planeEntity = new TEntity();
+            // auto _planeGComponent = new TBasicGraphicsComponent( _planeEntity, _planeMesh );
+            // auto _planePComponent = new TBasicPhysicsComponent( _planeEntity, _planeBody );
+            // _planeEntity->addComponent( _planeGComponent );
+            // _planeEntity->addComponent( _planePComponent );
 
-            //addEntity( _planeEntity );
-            m_btWorld->addRigidBody( _planeBody );
+            // // addEntity( _planeEntity );
+            // m_btWorld->addRigidBody( _planeBody );
         }
     }
 

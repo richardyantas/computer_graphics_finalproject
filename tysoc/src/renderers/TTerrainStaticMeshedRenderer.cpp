@@ -1,22 +1,21 @@
 
-#include <TTerrain1DPatchedRenderer.h>
+#include <renderers/TTerrainStaticMeshedRenderer.h>
 
 using namespace std;
 
 namespace tysoc
 {
 
-    TTerrain1DPatchedRenderer::TTerrain1DPatchedRenderer()
+    TTerrainStaticMeshedRenderer::TTerrainStaticMeshedRenderer()
     {
-        m_worldRef = NULL;
         m_cameraRef = NULL;
+        m_worldRef = NULL;
         m_lightRef = NULL;
         m_useShadowMapping = false;
         m_shadowMapRef = NULL;
     }
 
-
-    TTerrain1DPatchedRenderer::~TTerrain1DPatchedRenderer()
+    TTerrainStaticMeshedRenderer::~TTerrainStaticMeshedRenderer()
     {
         m_worldRef = NULL;
         m_cameraRef = NULL;
@@ -25,8 +24,7 @@ namespace tysoc
         m_renderables.clear();
     }
 
-
-    void TTerrain1DPatchedRenderer::prepare( TWorld* pWorld, bool useShadowMapping, engine::LShadowMap* pShadowMapRef )
+    void TTerrainStaticMeshedRenderer::prepare( TWorld* pWorld, bool useShadowMapping, engine::LShadowMap* pShadowMapRef )
     {
         m_worldRef = pWorld;
         m_cameraRef = pWorld->getCurrentCamera();
@@ -45,24 +43,15 @@ namespace tysoc
             return;
         }
 
-        if ( pWorld->getTerrain()->type == TTerrain1DPatched::getStaticType() )
+        if ( pWorld->getTerrain()->type() == TTerrainStaticMeshed::getStaticType() )
         {
-            auto _terrain1DPatched = reinterpret_cast< TTerrain1DPatched* >( pWorld->getTerrain() );
-            auto _patches = _terrain1DPatched->getPatches();
+            auto _terrainStaticMeshed = reinterpret_cast< TTerrainStaticMeshed* >( pWorld->getTerrain() );
 
-            for ( auto _patch : _patches )
-            {
-                vector< engine::LMesh* > _meshes = _patch->getVoxelsGraphics();
-                for ( auto _mesh : _meshes )
-                {
-                    m_renderables.push_back( _mesh );
-                }
-            }
+            m_renderables.push_back( _terrainStaticMeshed->getMesh() );
         }
     }
 
-
-    void TTerrain1DPatchedRenderer::render( bool drawToShadowMap )
+    void TTerrainStaticMeshedRenderer::render( bool drawToShadowMap )
     {
         if ( m_useShadowMapping )
         {
@@ -89,10 +78,9 @@ namespace tysoc
             {
                 // second render pass
 
-                auto _shader = ( engine::LShaderTerrain1DVoxelsLightingShadows* ) engine::LShaderManager::INSTANCE->programObjs[ "terrain1DVoxels_lighting_shadows" ];
+                auto _shader = ( engine::LShaderEntitiesLightingShadows* ) engine::LShaderManager::INSTANCE->programObjs[ "lighting_entities_shadows" ];
 
                 _shader->bind();
-
                 glBindTexture( GL_TEXTURE_2D, m_shadowMapRef->getDepthTexture() );
 
                 _shader->setLightDirectional( m_lightRef );
@@ -112,26 +100,26 @@ namespace tysoc
                     _mesh->render();
                 }
 
-                glBindTexture( GL_TEXTURE_2D, 0 );
-
                 _shader->unbind();
             }
         }
         else
         {
-            auto _shader = ( engine::LShaderTerrain1DVoxelsLighting* ) engine::LShaderManager::INSTANCE->programObjs[ "terrain1DVoxels_lighting" ];
+            auto _shader = ( engine::LShaderEntitiesLighting* ) engine::LShaderManager::INSTANCE->programObjs["lighting_entities"];
             _shader->bind();
 
             _shader->setProjectionMatrix( m_cameraRef->getProjectionMatrix() );
             _shader->setViewMatrix( m_cameraRef->getViewMatrix() );
-            _shader->setLightDirectional( m_lightRef );
             _shader->setGlobalAmbientLight( m_worldRef->getGlobalAmbientLight() );
+            _shader->setLightDirectional( m_lightRef );
             _shader->setViewPosition( m_cameraRef->getPosition() );
 
             for ( auto _mesh : m_renderables )
             {
                 _shader->setModelMatrix( _mesh->getModelMatrix() );
                 _shader->setMaterial( _mesh->getMaterial() );
+
+                // cout << "_mesh.pos: " << _mesh->pos.toString() << endl;
 
                 _mesh->render();
             }
@@ -140,8 +128,7 @@ namespace tysoc
         }
     }
 
-
-    void TTerrain1DPatchedRenderer::clean()
+    void TTerrainStaticMeshedRenderer::clean()
     {
         m_worldRef = NULL;
         m_cameraRef = NULL;
@@ -150,5 +137,8 @@ namespace tysoc
         m_shadowMapRef = NULL;
         m_renderables.clear();
     }
+
+
+
 
 }

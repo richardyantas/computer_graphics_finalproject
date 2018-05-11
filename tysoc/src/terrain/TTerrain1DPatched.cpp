@@ -1,5 +1,5 @@
 
-#include <TTerrain1DPatched.h>
+#include <terrain/TTerrain1DPatched.h>
 
 
 
@@ -13,7 +13,7 @@ namespace tysoc
                                           engine::LVec3 up )
         : TTerrain1D( pWorld, start, direction, up )
     {
-        this->type = TTerrain1DPatched::getStaticType();
+        m_type = TTerrain1DPatched::getStaticType();
 
         m_fcameras = m_world->getCamerasByType< engine::LFixedCamera3d >();
 

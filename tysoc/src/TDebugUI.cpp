@@ -268,20 +268,23 @@ namespace tysoc
 
             engine::DebugSystem::drawTrailPoints( _trail, engine::LVec3( 0, 1, 1 ) );
 
-            auto _terrain = m_scenario->getTerrain();
-            TAABB _cameraRangesWorld    = _terrain->getCameraRangeWorldAxes();
-            TAABB _cameraRangesMovement = _terrain->getCameraRangeMovementAxes();
+            // auto _terrain = m_scenario->getTerrain();
+            // if ( _terrain )
+            // {
+            //     TAABB _cameraRangesWorld    = _terrain->getCameraRangeWorldAxes();
+            //     TAABB _cameraRangesMovement = _terrain->getCameraRangeMovementAxes();
 
-            for ( int q = 0; q < 4; q++ )
-            {
-                float _x = _cameraRangesWorld.p[ q ].x;
-                float _z = _cameraRangesWorld.p[ q ].y;
+            //     for ( int q = 0; q < 4; q++ )
+            //     {
+            //         float _x = _cameraRangesWorld.p[ q ].x;
+            //         float _z = _cameraRangesWorld.p[ q ].y;
 
-                float _xn = _cameraRangesWorld.p[ ( q + 1 ) % 4 ].x;
-                float _zn = _cameraRangesWorld.p[ ( q + 1 ) % 4 ].y;
+            //         float _xn = _cameraRangesWorld.p[ ( q + 1 ) % 4 ].x;
+            //         float _zn = _cameraRangesWorld.p[ ( q + 1 ) % 4 ].y;
 
-                engine::DebugSystem::drawLine( engine::LVec3( _x, 0, _z ), engine::LVec3( _xn, 0, _zn ), engine::LVec3( 1, 0, 0 ) );
-            }
+            //         engine::DebugSystem::drawLine( engine::LVec3( _x, 0, _z ), engine::LVec3( _xn, 0, _zn ), engine::LVec3( 1, 0, 0 ) );
+            //     }
+            // }
 
             engine::DebugSystem::setupMatrices( _currentCamera->getViewMatrix(), _currentCamera->getProjectionMatrix() );
             engine::DebugSystem::render();

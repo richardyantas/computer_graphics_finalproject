@@ -30,9 +30,9 @@ namespace tysoc
 
         m_player = new TPlayerEntity( TVec3( 1, 3, 0 ) );
 
-        auto _raptor1 = new TSimCharacterEntity( "raptor.json", TVec3( 2, 3, 0 ), true );
+        auto _raptor1 = new TSimCharacterEntity( "raptor.json", TVec3( 2, 3, -1 ), true );
 
-        auto _raptor2 = new TSimCharacterEntity( "raptor.json", TVec3( 2, 3, 0 ), false );
+        auto _raptor2 = new TSimCharacterEntity( "raptor.json", TVec3( 2, 3, 1 ), false );
 
         m_camMainDeltaFromPlayer = m_mainCamera->getPosition() - m_player->pos;
         m_camSideDeltaFromPlayer = m_sideCamera->getPosition() - m_player->pos;
@@ -115,7 +115,8 @@ namespace tysoc
 
     void TBaseScenario::initTerrain()
     {
-        setTerrain( new TTerrain1DPatched( this ) );
+        // setTerrain( new TTerrain1DPatched( this ) );
+        setTerrain( new TTerrainStaticMeshed( this ) );
     }
 
     void TBaseScenario::update( float dt )

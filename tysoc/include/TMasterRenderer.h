@@ -1,9 +1,8 @@
 
 #pragma once
 
-#include "TWorld.h"
-#include "TTerrainRenderer.h"
-#include "TEntitiesRenderer.h"
+#include <renderers/TTerrainRenderer.h>
+#include <renderers/TEntitiesRenderer.h>
 
 #include <LShadowMap.h>
 #include <LLightDirectional.h>

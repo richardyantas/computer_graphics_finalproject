@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "TWorld.h"
-#include <string>
+
+#include <terrain/TTerrain.h>
 #include <LFixedCamera3d.h>
 
 using namespace std;
@@ -13,19 +13,12 @@ using namespace std;
 
 namespace tysoc
 {
-
     class TWorld;
 
-    /**
-    * @brief : terrain created along a ...
-    *          single direction. Useful for runners :D
-    */
-    class TTerrain1D
+    class TTerrain1D : public TTerrain
     {
 
         protected :
-
-        TWorld* m_world;
         
         float m_current1DPos;
 
@@ -41,8 +34,6 @@ namespace tysoc
 
         public :
 
-        string type;
-
         TTerrain1D( TWorld* pWorld,
                     engine::LVec3 start       = TERRAIN1D_DEFAULT_START,
                     engine::LVec3 direction   = TERRAIN1D_DEFAULT_DIRECTION,
@@ -50,18 +41,18 @@ namespace tysoc
 
         ~TTerrain1D();
 
-        static string getStaticType() { return string( "base" ); }
+        static string getStaticType() { return string( "base1d" ); }
 
         void computeBoxRangeFromCameras( const vector< engine::LFixedCamera3d* >& vCameras );
 
         TAABB getCameraRangeWorldAxes() { return m_cameraRangeWorldAxes; }
         TAABB getCameraRangeMovementAxes() { return m_cameraRangeMovementAxes; }
 
-        virtual void update( float dt );
-        virtual void setMaterial( const engine::LVec3& ambient,
-                                  const engine::LVec3& diffuse,
-                                  const engine::LVec3& specular,
-                                  float shininess );
+        void update( float dt ) override;
+        void setMaterial( const engine::LVec3& ambient,
+                          const engine::LVec3& diffuse,
+                          const engine::LVec3& specular,
+                          float shininess ) override;
     };
 
 

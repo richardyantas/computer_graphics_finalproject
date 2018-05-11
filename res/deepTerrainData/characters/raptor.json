@@ -238,7 +238,7 @@
 			{
 				"Name": "root",
 				"Shape": "box",
-				"Mass": 15.0,
+				"Mass": 0.0,
 				"AttachX": 0,
 				"AttachY": 0,
 				"AttachZ": 0,

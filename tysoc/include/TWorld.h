@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "TCommon.h"
-#include "TEntity.h"
-#include "TTerrain1D.h"
-#include "sim/TSimJoint.h"
+#include <TCommon.h>
+#include <TEntity.h>
+#include <terrain/TTerrain.h>
+#include <sim/TSimJoint.h>
 
 #include <LICamera.h>
 #include <LMeshBuilder.h>
@@ -24,8 +24,10 @@ using namespace std;
 namespace tysoc
 {
 
+    class TTerrain;
     class TTerrain1D;
     class TTerrain1DPatched;
+    class TTerrainStaticMeshed;
 
     class TWorld
     {
@@ -36,7 +38,7 @@ namespace tysoc
         vector< engine::LILight* > m_lights;
 
         vector< TEntity* > m_entities;
-        TTerrain1D* m_terrain;
+        TTerrain* m_terrain;
 
         engine::LICamera* m_currentCamera;
         unordered_map< string, engine::LICamera* > m_cameras;
@@ -110,7 +112,7 @@ namespace tysoc
         void changeToCamera( string cameraStrId );
         engine::LICamera* getCurrentCamera() { return m_currentCamera; }
 
-        void setTerrain( TTerrain1D* pTerrain ) 
+        void setTerrain( TTerrain* pTerrain ) 
         { 
             if ( m_terrain != NULL )
             {
@@ -122,7 +124,7 @@ namespace tysoc
 
         btDiscreteDynamicsWorld* getBulletWorld() { return m_btWorld; }
 
-        TTerrain1D* getTerrain() { return m_terrain; }
+        TTerrain* getTerrain() { return m_terrain; }
 
         virtual void dumpInfo();
 

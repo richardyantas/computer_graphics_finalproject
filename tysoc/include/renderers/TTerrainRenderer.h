@@ -4,7 +4,8 @@
 
 #include "TCommon.h"
 #include "TWorld.h"
-#include "TTerrain1DPatchedRenderer.h"
+#include <renderers/TTerrainStaticMeshedRenderer.h>
+#include <renderers/TTerrain1DPatchedRenderer.h>
 #include <LShadowMap.h>
 
 
@@ -19,7 +20,9 @@ namespace tysoc
 
         bool m_useShadowMapping;
         engine::LShadowMap* m_shadowMapRef;
-        TTerrain1DPatchedRenderer* m_terrain1DPatchedRenderer;
+
+        TTerrain1DPatchedRenderer* m_patched1dRenderer;
+        TTerrainStaticMeshedRenderer* m_staticMeshedRenderer;
 
         public :
 

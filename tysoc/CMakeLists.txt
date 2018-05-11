@@ -17,9 +17,11 @@ add_library( tysoc
              src/TPlayerEntity.cpp
              src/controllers/TKeyboardController.cpp
              src/TPrimitiveEntity.cpp
-             src/TTerrain1D.cpp
-             src/TTerrain1DPatched.cpp
-             src/TTerrain1DPatchVoxels.cpp
+             src/terrain/TTerrain.cpp
+             src/terrain/TTerrain1D.cpp
+             src/terrain/TTerrain1DPatched.cpp
+             src/terrain/TTerrain1DPatchVoxels.cpp
+             src/terrain/TTerrainStaticMeshed.cpp
              src/TWorld.cpp
              src/scenarios/TBaseScenario.cpp
              src/utils/TCharacterParser.cpp
@@ -30,9 +32,10 @@ add_library( tysoc
              src/sim/TSimJoint.cpp
              src/TDebugUI.cpp
              src/TMasterRenderer.cpp
-             src/TEntitiesRenderer.cpp
-             src/TTerrainRenderer.cpp
-             src/TTerrain1DPatchedRenderer.cpp )
+             src/renderers/TEntitiesRenderer.cpp
+             src/renderers/TTerrainRenderer.cpp
+             src/renderers/TTerrainStaticMeshedRenderer.cpp
+             src/renderers/TTerrain1DPatchedRenderer.cpp )
 
 if ( BULLET_FOUND )
 

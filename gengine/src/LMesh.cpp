@@ -10,6 +10,38 @@ namespace engine
 
 
     LMesh::LMesh( const vector<LVec3>& vertices, 
+                  const vector<LVec3>& normals )
+    {
+        m_usesIndices = false;
+
+        m_type = RENDERABLE_TYPE_MESH;
+
+        m_vertices = vertices;
+        m_normals = normals;
+
+        m_vBuffer = new LVertexBuffer();
+        m_vBuffer->setData( sizeof( LVec3 ) * vertices.size(),
+                            3, (GLfloat*) vertices.data() );
+
+        m_nBuffer = new LVertexBuffer();
+        m_nBuffer->setData( sizeof( LVec3 ) * normals.size(),
+                            3, (GLfloat*) normals.data() );
+
+        m_tBuffer = NULL;
+        m_indexBuffer = NULL;
+
+        m_vertexArray = new LVertexArray();
+        m_vertexArray->addBuffer( m_vBuffer, 0 );
+        m_vertexArray->addBuffer( m_nBuffer, 1 );
+
+        // Create a default material
+        m_material = new LMaterial();
+
+        scale = LVec3( 1.0f, 1.0f, 1.0f );
+        rotation = glm::mat4( 1.0f );
+    }
+
+    LMesh::LMesh( const vector<LVec3>& vertices, 
                   const vector<LVec3>& normals,
                   const vector<LVec2>& texCoords )
     {

@@ -80,7 +80,10 @@ namespace tysoc
         btScalar _rbMass = dynParams.mass;
         btVector3 _rbInertia( 0, 0, 0 );
 
-        _rbShape->calculateLocalInertia( _rbMass, _rbInertia );
+        if ( dynParams.mass != 0.0f )
+        {
+            _rbShape->calculateLocalInertia( _rbMass, _rbInertia );
+        }
 
         btRigidBody::btRigidBodyConstructionInfo _rbConstructionInfo( _rbMass, 
                                                                       _rbMotionState, 

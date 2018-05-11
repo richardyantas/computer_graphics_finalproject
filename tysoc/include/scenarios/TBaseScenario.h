@@ -6,8 +6,9 @@
 #include <LFixedCamera3d.h>
 #include <LFpsCamera.h>
 #include <TPlayerEntity.h>
-#include <TTerrain1DPatched.h>
 #include <TPrimitiveEntity.h>
+#include <terrain/TTerrain1DPatched.h>
+#include <terrain/TTerrainStaticMeshed.h>
 #include <sim/TSimCharacterEntity.h>
 
 #define OBSTACLE_SPHERE 0

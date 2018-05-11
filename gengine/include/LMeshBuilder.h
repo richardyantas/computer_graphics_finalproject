@@ -75,6 +75,8 @@ namespace engine
         static LMesh* createPlane( GLfloat width, GLfloat depth );
         static LMesh* createFromFile( const char* filename );
         static LMesh* createFromObj( const char* filename );
+
+        static LMesh* createPerlinPatch( GLfloat width, GLfloat depth, int cellDivision );
     };
 
 

@@ -1,5 +1,5 @@
 
-#include <TTerrainRenderer.h>
+#include <renderers/TTerrainRenderer.h>
 
 #include <iostream>
 
@@ -12,33 +12,41 @@ namespace tysoc
 
     TTerrainRenderer::TTerrainRenderer()
     {
-        m_terrain1DPatchedRenderer = new TTerrain1DPatchedRenderer();
         m_useShadowMapping = false;
         m_shadowMapRef = NULL;
+
+        m_patched1dRenderer = new TTerrain1DPatchedRenderer();
+        m_staticMeshedRenderer = new TTerrainStaticMeshedRenderer();
     }
 
     TTerrainRenderer::~TTerrainRenderer()
     {
         m_shadowMapRef = NULL;
-        delete m_terrain1DPatchedRenderer;
+
+        delete m_patched1dRenderer;
+        delete m_staticMeshedRenderer;
     }
 
     void TTerrainRenderer::prepare( TWorld* pWorld, bool useShadowMapping, engine::LShadowMap* pShadowMapRef )
     {
         m_useShadowMapping = useShadowMapping;
         m_shadowMapRef = pShadowMapRef;
-        m_terrain1DPatchedRenderer->prepare( pWorld, useShadowMapping, pShadowMapRef );
+
+        m_patched1dRenderer->prepare( pWorld, useShadowMapping, pShadowMapRef );
+        m_staticMeshedRenderer->prepare( pWorld, useShadowMapping, pShadowMapRef );
     }
 
     void TTerrainRenderer::render( bool drawToShadowMap )
     {
         if ( m_useShadowMapping )
         {
-            m_terrain1DPatchedRenderer->render( drawToShadowMap );
+            m_patched1dRenderer->render( drawToShadowMap );
+            m_staticMeshedRenderer->render( drawToShadowMap );
         }
         else
         {
-            m_terrain1DPatchedRenderer->render( false );
+            m_patched1dRenderer->render( false );
+            m_staticMeshedRenderer->render( false );
         }
     }
 
@@ -46,7 +54,9 @@ namespace tysoc
     {
         m_useShadowMapping = false;
         m_shadowMapRef = NULL;
-        m_terrain1DPatchedRenderer->clean();
+
+        m_patched1dRenderer->clean();
+        m_staticMeshedRenderer->clean();
     }
 
 }

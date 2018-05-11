@@ -1,5 +1,5 @@
 
-#include <TTerrain1D.h>
+#include <terrain/TTerrain1D.h>
 
 
 using namespace std;
@@ -11,10 +11,10 @@ namespace tysoc
                             engine::LVec3 start,
                             engine::LVec3 direction,
                             engine::LVec3 up )
+        : TTerrain( pWorld )
     {
-        this->type = TTerrain1D::getStaticType();
+        m_type = TTerrain1D::getStaticType();
 
-        m_world = pWorld;
         m_start = start;
         m_direction = direction;
         m_up = up;

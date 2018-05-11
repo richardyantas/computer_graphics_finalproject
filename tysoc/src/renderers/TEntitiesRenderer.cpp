@@ -1,5 +1,5 @@
 
-#include "TEntitiesRenderer.h"
+#include <renderers/TEntitiesRenderer.h>
 
 #include <TGraphicsComponent.h>
 #include <TBasicGraphicsComponent.h>

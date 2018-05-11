@@ -37,6 +37,9 @@ namespace engine
 
         bool drawAsWireframe;
 
+        LMesh( const vector<LVec3>& vertices,
+               const vector<LVec3>& normals );
+
         LMesh( const vector<LVec3>& vertices, 
                const vector<LVec3>& normals,
                const vector<LInd3>& indices );
@@ -51,6 +54,9 @@ namespace engine
 
         LVertexArray* getVertexArray() const { return m_vertexArray; }
         LIndexBuffer* getIndexBuffer() const { return m_indexBuffer; }
+
+        vector< LVec3 >& vertices() { return m_vertices; }
+        vector< LInd3 >& indices() { return m_indices; }
 
         void render() override;
     };

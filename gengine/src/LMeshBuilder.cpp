@@ -1,5 +1,6 @@
 
 #include "LMeshBuilder.h"
+#include "LHeightmapGenerator.h"
 
 #include <map>
 
@@ -637,6 +638,132 @@ namespace engine
         cout << "tl: " << obj.texCoords.size() << endl;
 
         cout << "done geometry" << endl;
+    }
+
+    LMesh* LMeshBuilder::createPerlinPatch( GLfloat width, GLfloat depth, int cellDivision )
+    {
+        vector<LVec3> _vertices;
+        vector<LVec3> _normals;
+        vector<LInd3> _indices;
+
+        LHeightmapGenerator _hmapGenerator;
+
+        float _dw = width / cellDivision;
+        float _dd = depth / cellDivision;
+
+        float _x0 = -( cellDivision / 2.0f ) * _dw;
+        float _z0 = -( cellDivision / 2.0f ) * _dd;
+
+        cout << "x0: " << _x0 << endl;
+        cout << "z0: " << _z0 << endl;
+        cout << "dw: " << _dw << endl;
+        cout << "dd: " << _dd << endl;
+
+        for ( int i = 0; i < cellDivision; i++ )
+        {
+            for ( int j = 0; j < cellDivision; j++ )
+            {
+                LVec3 _p0( _x0 + j * _dw, 
+                           2.0f + 2.0f * _hmapGenerator.getHeight( _x0 + j * _dw, _z0 + i * _dd ),
+                           _z0 + i * _dd );
+
+                LVec3 _p1( _x0 + j * _dw,
+                           2.0f + 2.0f * _hmapGenerator.getHeight( _x0 + j * _dw, _z0 + ( i + 1 ) * _dd ),
+                           _z0 + ( i + 1 ) * _dd );
+
+                LVec3 _p2( _x0 + ( j + 1 ) * _dw,
+                           2.0f + 2.0f * _hmapGenerator.getHeight( _x0 + ( j + 1 ) * _dw, _z0 + ( i + 1 ) * _dd ),
+                           _z0 + ( i + 1 ) * _dd );
+
+                LVec3 _p3( _x0 + ( j + 1 ) * _dw,
+                           2.0f + 2.0f * _hmapGenerator.getHeight( _x0 + ( j + 1 ) * _dw, _z0 + i * _dd ),
+                           _z0 + i * _dd );
+
+                // TODO: For now just make dummy indices for the rigid bodies :/
+                _indices.push_back( LInd3( _vertices.size() + 0,
+                                           _vertices.size() + 1,
+                                           _vertices.size() + 2 ) );
+
+                _indices.push_back( LInd3( _vertices.size() + 3,
+                                           _vertices.size() + 4,
+                                           _vertices.size() + 5 ) );
+
+                _vertices.push_back( _p0 );
+                _vertices.push_back( _p1 );
+                _vertices.push_back( _p2 );
+
+                _vertices.push_back( _p0 );
+                _vertices.push_back( _p2 );
+                _vertices.push_back( _p3 );
+
+                LVec3 _nt1 = LVec3::cross( _p1 - _p0, _p2 - _p1 );
+                LVec3 _nt2 = LVec3::cross( _p2 - _p0, _p3 - _p2 );
+
+                _normals.push_back( _nt1 );
+                _normals.push_back( _nt1 );
+                _normals.push_back( _nt1 );
+
+                _normals.push_back( _nt2 );
+                _normals.push_back( _nt2 );
+                _normals.push_back( _nt2 );
+            }
+        }
+
+        // Smooth the normals
+        for ( int q = 0; q < _vertices.size(); q++ )
+        {
+            // calculate the necessary neighbouring points
+            /*
+            *   1---2---3
+            *   |   |   |
+            *   4---v---6
+            *   |   |   |
+            *   7---8---9
+            */
+
+            LVec3 _pv = _vertices[q];
+            LVec3 _p1( _pv.x - _dw, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x - _dw, _pv.z - _dd ),
+                       _pv.z - _dd );
+            LVec3 _p2( _pv.x, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x, _pv.z - _dd ),
+                       _pv.z - _dd );
+            LVec3 _p3( _pv.x + _dw, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x + _dw, _pv.z - _dd ),
+                       _pv.z - _dd );
+            LVec3 _p4( _pv.x - _dw, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x - _dw, _pv.z ),
+                       _pv.z );
+            LVec3 _p6( _pv.x + _dw, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x + _dw, _pv.z ),
+                       _pv.z );
+            LVec3 _p7( _pv.x - _dw, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x - _dw, _pv.z + _dd ),
+                       _pv.z + _dd );
+            LVec3 _p8( _pv.x, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x, _pv.z + _dd ),
+                       _pv.z + _dd );
+            LVec3 _p9( _pv.x + _dw, 
+                       2.0f + 2.0f * _hmapGenerator.getHeight( _pv.x + _dw, _pv.z + _dd ),
+                       _pv.z + _dd );
+
+            LVec3 _n;
+
+            _n = _n + LVec3::cross( _p4 - _p1, _pv - _p4 );
+            _n = _n + LVec3::cross( _pv - _p1, _p2 - _pv );
+
+            _n = _n + LVec3::cross( _pv - _p2, _p6 - _pv );
+            _n = _n + LVec3::cross( _p8 - _p4, _pv - _p8 );
+
+            _n = _n + LVec3::cross( _p8 - _pv, _p9 - _p8 );
+            _n = _n + LVec3::cross( _p9 - _pv, _p6 - _p9 );
+
+            _n.normalize();
+
+            _normals[q] = _n;
+        }
+
+        return new LMesh( _vertices, _normals, _indices );
     }
 
 }

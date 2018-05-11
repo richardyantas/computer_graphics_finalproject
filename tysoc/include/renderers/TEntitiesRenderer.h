@@ -1,31 +1,36 @@
 
 #pragma once
 
-#include "TWorld.h"
-#include "TTerrain1DPatched.h"
-#include <LICamera.h>
-#include <LLightDirectional.h>
 #include <LMesh.h>
 #include <LShadowMap.h>
+#include <LLightDirectional.h>
 #include <shaders/LShaderManager.h>
 #include <shaders/LShaderBasic3d.h>
 #include <shaders/LShaderShadowMap.h>
-#include <shaders/LShaderTerrain1DVoxelsLighting.h>
-#include <shaders/LShaderTerrain1DVoxelsLightingShadows.h>
+#include <shaders/LShaderEntitiesLighting.h>
+#include <shaders/LShaderEntitiesLightingShadows.h>
+
+#include <TWorld.h>
+#include <TEntity.h>
+
+#include <vector>
+
+using namespace std;
 
 namespace tysoc
 {
 
 
 
-    class TTerrain1DPatchedRenderer
+    class TEntitiesRenderer
     {
 
         private :
 
+
         bool m_useShadowMapping;
         engine::LShadowMap* m_shadowMapRef;
-        vector< engine::LMesh* > m_renderables;
+        vector< engine::LIRenderable* > m_renderables[ RENDERABLE_MAX_TYPE ];
 
         TWorld* m_worldRef;
         engine::LICamera* m_cameraRef;
@@ -33,8 +38,8 @@ namespace tysoc
 
         public :
 
-        TTerrain1DPatchedRenderer();
-        ~TTerrain1DPatchedRenderer();
+        TEntitiesRenderer();
+        ~TEntitiesRenderer();
 
         void prepare( TWorld* pWorld, bool useShadowMapping, engine::LShadowMap* pShadowMapRef );
         void render( bool drawToShadowMap = false );
@@ -42,8 +47,6 @@ namespace tysoc
 
 
     };
-
-
 
 
 

@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "TTerrain1D.h"
-#include "TTerrain1DPatchVoxels.h"
-#include <vector>
+#include <terrain/TTerrain1D.h>
+#include <terrain/TTerrain1DPatchVoxels.h>
+#include <LFixedCamera3d.h>
 
 using namespace std;
 
@@ -30,7 +30,7 @@ namespace tysoc
                            engine::LVec3 up          = TERRAIN1D_DEFAULT_UP );
         ~TTerrain1DPatched();
 
-        static string getStaticType() { return string( "patched" ); }
+        static string getStaticType() { return string( "patched1d" ); }
 
         void update( float dt ) override;
 

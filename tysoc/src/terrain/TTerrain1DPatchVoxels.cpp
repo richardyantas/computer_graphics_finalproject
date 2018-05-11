@@ -1,5 +1,5 @@
 
-#include "TTerrain1DPatchVoxels.h"
+#include <terrain/TTerrain1DPatchVoxels.h>
 
 namespace tysoc
 {

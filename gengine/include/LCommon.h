@@ -158,14 +158,14 @@ namespace engine
 
     struct LTri
     {
-        GLuint i1;
-        GLuint i2;
-        GLuint i3;
+        GLint i1;
+        GLint i2;
+        GLint i3;
     };
 
     union LInd3
     {
-        GLuint buff[3];
+        GLint buff[3];
         LTri tri;
 
         LInd3()
@@ -175,7 +175,7 @@ namespace engine
             buff[2] = 0;
         }
 
-        LInd3( GLuint v1, GLuint v2, GLuint v3 )
+        LInd3( GLint v1, GLint v2, GLint v3 )
         {
             buff[0] = v1;
             buff[1] = v2;
