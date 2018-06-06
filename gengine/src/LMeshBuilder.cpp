@@ -645,6 +645,7 @@ namespace engine
         vector<LVec3> _vertices;
         vector<LVec3> _normals;
         vector<LInd3> _indices;
+        vector<LVec2> _texCoord;
 
         LHeightmapGenerator _hmapGenerator;
 
@@ -687,6 +688,18 @@ namespace engine
                 _indices.push_back( LInd3( _vertices.size() + 3,
                                            _vertices.size() + 4,
                                            _vertices.size() + 5 ) );
+
+                LVec2 _t0( 0, 0 );
+                LVec2 _t1( 0, 1 );
+                LVec2 _t2( 1, 1 );
+                LVec2 _t3( 1, 0 );
+
+                _texCoord.push_back( _t0 );
+                _texCoord.push_back( _t1 );
+                _texCoord.push_back( _t2 );
+                _texCoord.push_back( _t0 );
+                _texCoord.push_back( _t2 );
+                _texCoord.push_back( _t3 );
 
                 _vertices.push_back( _p0 );
                 _vertices.push_back( _p1 );
@@ -763,7 +776,7 @@ namespace engine
             _normals[q] = _n;
         }
 
-        return new LMesh( _vertices, _normals, _indices );
+        return new LMesh( _vertices, _normals, _indices, _texCoord );
     }
 
 }

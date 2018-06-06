@@ -44,6 +44,11 @@ namespace engine
                const vector<LVec3>& normals,
                const vector<LInd3>& indices );
 
+        LMesh( const vector<LVec3>& vertices, 
+               const vector<LVec3>& normals,
+               const vector<LInd3>& indices,
+               const vector<LVec2>& texCoords );
+
         LMesh( const vector<LVec3>& vertices,
                const vector<LVec3>& normals,
                const vector<LVec2>& texCoords );

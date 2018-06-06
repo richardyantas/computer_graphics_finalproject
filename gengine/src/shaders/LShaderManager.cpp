@@ -14,6 +14,7 @@
 #include <shaders/LShaderEntitiesLightingShadows.h>
 #include <shaders/LShaderTerrain1DVoxelsLighting.h>
 #include <shaders/LShaderTerrain1DVoxelsLightingShadows.h>
+#include <shaders/LShaderTerrainLighting.h>
 
 using namespace std;
 
