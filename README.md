@@ -1,6 +1,16 @@
 # computer_graphics_finalproject
 Final project of the computer graphics course @ ucsp
 
+---
+
+**As to last change, way back in June.**
+
+![Img_current_state](./_img/img_meshed_terrain.png)
+
+**The report I made for the last presentation is [here](https://wpumacay.github.io/projects/cg/)**
+
+---
+
 ## Cloning the project
 
 The project depends on some libraries, which are added as submodules. Make sure you clone the project with the --recursive option, in order to get the dependencies from other repositories.
